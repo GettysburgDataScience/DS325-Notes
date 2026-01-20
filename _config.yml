@@ -1,0 +1,35 @@
+# Book settings
+# Learn more at https://jupyterbook.org/customize/config.html
+
+title: DS325 Applied Data Science
+author: Eatai Roth, Gettysburg College
+logo: _ds325_sticker.png
+only_build_toc_files: true
+
+# Force re-execution of notebooks on each build.
+# See https://jupyterbook.org/content/execute.html
+execute:
+  execute_notebooks: force
+  allow_errors: true
+  stderr_output: remove
+
+# Define the name of the latex output file for PDF builds
+latex:
+  latex_documents:
+    targetname: ds325-notes.tex
+
+# Information about where the book exists on the web
+repository:
+  url: https://github.com/GettysburgDataScience/DS325-Notes  # Online location of your book
+  branch: main  # Which branch of the repository should be used when creating links (optional)
+
+# Add GitHub buttons to your book
+# See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
+html:
+  use_issues_button: false
+  use_multitoc_numbering: false
+  use_repository_button: false
+
+launch_buttons:
+  notebook_interfaces: "classic"
+  colab_url: "https://colab.research.google.com/drive/Colab Notebooks"
