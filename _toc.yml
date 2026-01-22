@@ -5,110 +5,25 @@ format: jb-book
 root: intro
 parts:
   - caption: Setting Up and Resources
-    numbered: True
+    numbered: false
     chapters:
-    - file: 00_Resources/setup
+      - file: setup
+      - file: 00_pandas_refresher
+  # - caption: Regression
+  #   numbered: True
+  #   chapters:
+  #     - file: 01_LinearRegression/00_what_is_a_model
 
-format: jb-book
-root: intro
-parts:
-  - caption: Setting Up and Resources
-    numbered: True
-    chapters:
-    - file: 00_Resources/setup
-    # - file: 00_Resources/genai_policy
-    # - file: 01_LinearRegression/00_reviewtopics
-    # - file: 00_Resources/exam2_review
+  # # - caption: Classification
+  #   numbered: True
+  #   # chapters:
+
+  # - caption: Neural Networks
+  #   numbered: True
+  #   # chapters:
+
+  # - caption: Assignments
+  #   # chapters:
     
-  - caption: Regression
-    numbered: True
-    chapters:
-      - file: 01_LinearRegression/00_what_is_a_model
-      # - file: 01_LinearRegression/01_linear_regression
-      # - file: 01_LinearRegression/02_linear_regression
-      # - file: 01_LinearRegression/03_regularization
-      # - file: 01_LinearRegression/03_regularization_housing
-      # - file: 01_LinearRegression/04_polynomial_regression
-  - caption: Classification
-    numbered: True
-    # chapters:
-    #   - file: 02_Classification/01_classification_intro
-    #   - file: 02_Classification/02_logistic_regression
-    #   - file: 02_Classification/03_trees_encoding
-    #   - file: 02_Classification/04_trees_gridcv
-    #   - file: 02_Classification/05_forests_boosted
-    #   - file: 02_Classification/06_pca
-    #   - file: 02_Classification/06b_pca_examples
-    #   - file: 02_Classification/07_knn
-    #   - file: 02_Classification/08_kmeans
-    #   - file: 02_Classification/09_datastorytelling
-  - caption: Neural Networks
-    numbered: True
-    # chapters:
-    #   - file: 03_NN/01_intro_intuition
-    #   - file: 03_NN/02_NN_example
-
-
-  # - caption: Classification
-  #   chapters:
-  #     - file: blank.md
-  # - caption: Neural Networks
-  #   numbered: True
-  #   chapters:
-  #     - file: blank.md
-  # - caption: Special Topics
-  #   numbered: True
-  #   chapters:
-  #     - file: blank.md
-  - caption: Assignments
-    # chapters:
-    # - file: 00_Assignments/submitting
-    # - file: 00_Assignments/ps00
-    # - file: 00_Assignments/ps00_Roth
-    # - file: 00_Assignments/ps01
-    # - file: 00_Assignments/ps02
-    # - file: 00_Assignments/mp01
-    # - file: 00_Assignments/ps03
-    # - file: 00_Assignments/02_crackthecode
-    # - file: 00_Assignments/ps04
-    # - file: 00_Assignments/extra_credit
-    # - file: 00_Assignments/final_project
-
-
-  # - caption: Linear Regression
-  #   numbered: True
-  #   chapters:
-  #   - file: 01_LinearRegression/01_linear_regression_01
-  #   - file: 01_LinearRegression/02_linear_regression_02
-  #   - file: 01_LinearRegression/03_regularization
-  #   - file: 01_LinearRegression/04_polynomial_regression
-  #   - file: 01_LinearRegression/05_reading_review
-  #   - file: 01_LinearRegression/06_exam_review
-  # - caption: Classification
-  #   numbered: True
-  #   chapters:
-  #   - file: 02_Classification/01_classification_intro
-  #   - file: 02_Classification/02_logistic_regression
-  #   - file: 02_Classification/03_trees_encoding
-  #   - file: 02_Classification/04_trees_gridcv
-  #   - file: 02_Classification/05_knn_pca
-  #   - file: 02_Classification/05b_pca_examples
-  #   - file: 02_Classification/06_kmeans
-  #   - file: 02_Classification/07_classification_exercises
-  #   - file: 02_Classification/08_review_topics
-  #   - file: 02_Classification/09_modeling_process
-  # - caption: Neural Networks
-  #   numbered: True
-  #   chapters:
-  #   - file: 03_NN/01_intro_intuition
-  #   - file: 03_NN/02_NN_example
-  #   - file: 03_NN/03_NN_example2
-
-
-
-
-
-
-
 
 
