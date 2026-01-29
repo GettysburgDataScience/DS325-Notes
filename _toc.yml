@@ -7,12 +7,13 @@ parts:
   - caption: Setting Up and Resources
     numbered: false
     chapters:
-      - file: setup
-      - file: 00_pandas_refresher
-  # - caption: Regression
-  #   numbered: True
-  #   chapters:
-  #     - file: 01_LinearRegression/00_what_is_a_model
+      - file: 00_Resources/setup
+      - file: 00_Resources/pandas_refresher
+  - caption: Regression
+    numbered: true
+    chapters:
+      - file: 01_LinearRegression/00_what_is_a_model
+      - file: 01_LinearRegression/01_linear_regression
 
   # # - caption: Classification
   #   numbered: True
@@ -22,8 +23,10 @@ parts:
   #   numbered: True
   #   # chapters:
 
-  # - caption: Assignments
-  #   # chapters:
+  - caption: Assignments
+    numbered: false
+    chapters:
+     - file: ps01
     
 
 

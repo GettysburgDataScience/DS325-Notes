@@ -27,9 +27,9 @@ repository:
 # See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
 html:
   use_issues_button: false
-  use_multitoc_numbering: false
+  use_multitoc_numbering: true
   use_repository_button: false
 
 launch_buttons:
   notebook_interfaces: "classic"
-  colab_url: "https://colab.research.google.com/drive/Colab Notebooks"
+  colab_url: "https://colab.research.google.com "
