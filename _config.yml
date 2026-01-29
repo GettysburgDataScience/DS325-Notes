@@ -34,7 +34,7 @@ html:
 
 launch_buttons:
   notebook_interfaces: "classic"
-  colab_url: "https://colab.research.google.com/ "
+  colab_url: "https://colab.research.google.com/"
 
 sphinx: 
   extra_extensions:

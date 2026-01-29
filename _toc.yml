@@ -14,6 +14,8 @@ parts:
     chapters:
       - file: 01_Regression/00_what_is_a_model
       - file: 01_Regression/01_linear_regression
+        sections:
+          - file: 01_Regression/01_housing_example
   - caption: Assignments
     numbered: false
     chapters:
