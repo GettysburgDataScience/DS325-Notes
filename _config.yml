@@ -29,7 +29,13 @@ html:
   use_issues_button: false
   use_multitoc_numbering: true
   use_repository_button: false
+  use_download_button: true
+
 
 launch_buttons:
   notebook_interfaces: "classic"
-  colab_url: "https://colab.research.google.com "
+  colab_url: "https://colab.research.google.com/ "
+
+sphinx: 
+  extra_extensions:
+    - jupyterbook_patches
