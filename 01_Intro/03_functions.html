@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Setting Up &#8212; DS256 Data Science Programming</title>
+    <title>3. Functions &#8212; DS256 Data Science Programming</title>
   
   
   
@@ -70,11 +70,11 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '00_Resources/setup';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '01_Intro/03_functions';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="1. Intro to Notebooks and Python First Steps" href="../01_Intro/01_jupyter.html" />
-    <link rel="prev" title="Welcome to DS256 Data Science Programming" href="../intro.html" />
+    <link rel="next" title="PS01" href="../00_Assignments/ps01.html" />
+    <link rel="prev" title="2. Variables" href="02_variables.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -193,14 +193,14 @@
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Setting Up</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../00_Resources/setup.html">Setting Up</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python Basics</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../01_Intro/01_jupyter.html">1. Intro to Notebooks and Python First Steps</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../01_Intro/02_variables.html">2. Variables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../01_Intro/03_functions.html">3. Functions</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_jupyter.html">1. Intro to Notebooks and Python First Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_variables.html">2. Variables</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">3. Functions</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Assignments</span></p>
 <ul class="nav bd-sidenav">
@@ -251,6 +251,37 @@
 
 
 
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/GettysburgDataScience/DS256-Notes/blob/main/01_Intro/03_functions.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
 <div class="dropdown dropdown-download-buttons">
   <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
     <i class="fas fa-download"></i>
@@ -259,7 +290,7 @@
       
       
       
-      <li><a href="../_sources/00_Resources/setup.md" target="_blank"
+      <li><a href="../_sources/01_Intro/03_functions.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -269,7 +300,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
 </li>
       
@@ -343,7 +374,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Setting Up</h1>
+    <h1>Functions</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -353,12 +384,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-your-computer-for-data-science">Setting Up Your Computer for Data Science</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anaconda">Anaconda</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyterlab">JupyterLab</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#onedrive-recommended">OneDrive (recommended)</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anatomy-of-a-function">3.1. Anatomy of a function</a></li>
 </ul>
             </nav>
         </div>
@@ -370,98 +396,41 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="setting-up">
-<h1>Setting Up<a class="headerlink" href="#setting-up" title="Link to this heading">#</a></h1>
-<p>The following walks you through setting up Python and the programming environment for this course. You will be installing the following on your personal computer:</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="functions">
+<h1><span class="section-number">3. </span>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h1>
+<p>Functions are our verbs in coding…kinda. You should think of a function as a machine that does things.</p>
+<p><strong>Note about thinking programmatically</strong>
+Consider what a washing machine does when you run it.</p>
 <ul class="simple">
-<li><p><strong>Anaconda</strong> - a distribution of Python targeted to a scientific (and data scientific) user base. Anaconda installs with most of the scientific packages you should need for this course. Those that do not come prepackaged, we can add using conda (Anaconda’s package management utility).</p></li>
-<li><p><strong>JupyterLab</strong> -  IPython Notebooks (.ipynb) are Python files that interleave code, code outputs, and written documentation. They are one of the most popular file formats for data analysis. JupyterLab (<strong>Ju</strong>lia <strong>Py</strong>thon <strong>R</strong> Lab) is an environment for writing and running IPython Notebooks.</p></li>
+<li><p>Locks the door.</p></li>
+<li><p>Spins to judge the amount and balance of the clothing inside.</p></li>
+<li><p>Adds water, a mix of cold and hot based on selected settings.</p></li>
+<li><p>Empties the detergent tray into the water.</p></li>
+<li><p>Agitates the clothes back and forth for some fixed time.</p></li>
+<li><p>Drains the dirty water.</p></li>
+<li><p>Adds fresh water to rinse.</p></li>
+<li><p>Agitates the clothes again.</p></li>
+<li><p>Drains the dirty water again.</p></li>
+<li><p>Spins the clothes to remove excess water.</p></li>
+<li><p>Unlocks the door.</p></li>
+<li><p>Plays a tune to alert the user the load is done.</p></li>
 </ul>
-<p>If you already have a different Python installation and/or IDE set up on your computer, you do <em>not</em> need to additionally install the Anaconda package and VS Code. These are my recommendations for students starting out with these tools.</p>
-<ul class="simple">
-<li><p><strong>OneDrive</strong> - A cloud-based file-hosting service maintained by Microsoft. As a Gettysburg student, you get a 1TB OneDrive account. OneDrive allows you to sync files between computers and access your files from any web interface. Your classwork should be stored in a OneDrive directory, safeguarding your work against any mishaps that might befall your personal computer.</p></li>
-</ul>
-<div class="tip dropdown admonition">
-<p class="admonition-title">An Aside on File Systems</p>
-<p>I recently came to realize a disconnect between how I grew up using (and understanding) computers versus how your generation uses and understands computers (<a class="reference external" href="https://www.theverge.com/22684730/students-file-folder-directory-structure-education-gen-z">an interesting article about it</a>). For the entirety of your lives, computers have been searchable; files might reside anywhere on your computer and when you want a particular file or app, you ask for it.</p>
-<p>As we move towards data science projects, it will become increasingly important to understand the computer’s file structure: how are files and folders organized on your computer, how do we describe/prescribe the path/location of a file or folder, and what are best practices to organizing files and folders for data science?</p>
-<p><strong>Folder structures are heirarchical</strong></p>
-<p>Your computer is organized as a tree of <em>directories</em> (aka folders) which contain files and other <em>subdirectories</em> (which in turn contain files and subdirectories). At the top of this tree is the <em>root</em> directory.</p>
-<figure class="margin align-left" id="id1">
-<a class="reference internal image-reference" href="../_images/filestructure.png"><img alt="filestructure" src="../_images/filestructure.png" style="width: 350px;" /></a>
-<figcaption>
-<p><span class="caption-number">Fig. 1 </span><span class="caption-text">An example folder heirarchy for MacOS. credit: Daniel J. Barrett</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
-</figcaption>
-</figure>
-<p>The next layer of the tree comprises folders that store files related to how your computer works (files relating to your operating system, hardware, applications, network connectivity, installed fonts, etc.) You won’t need to go into these folders often, if ever.</p>
-<p>The <em>Users</em> directory contains subdirectories for each user account on the machine and these user accounts have many of the folders you will likely interact with: Desktop, Downloads, Documents, Photos, Music, OneDrive etc.</p>
-<p>The names of these folders suggest their intended uses. The Downloads folder is where downloaded files go. The Desktop is for your most frequently used folder, what you would keep out on your desk. Documents for documents, photos for photos, Music for music.</p>
-<p><strong>File Paths</strong></p>
-<p>For any file or folder, we can describe its location by tracing out the path we traverse on the tree. For example, in the image above, the file <em>manual.pdf</em> is in the <em>Desktop</em> folder in the <em>smith</em> folder in the <em>Users</em> folder in the root folder. We indicate the path taken through the folder heirarchy using ‘/’ (for MacOs and Linux) or ‘’ (for Windows). This path which describes the location of a file or folder is called…the <em>path</em>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">smith</span><span class="o">/</span><span class="n">Desktop</span><span class="o">/</span><span class="n">manual</span><span class="o">.</span><span class="n">pdf</span>
+<p>That’s a lot of steps when you break it down. If we were writing this in code and we had to do multiple loads of laundry, that would be a lot of copy-and-pasting.</p>
+<p>Instead, we can bundle all the instructions into a function, say ‘run_load’. That way, with one line of code, we can re-use all of the instructions above. Also, if we decide to change the instructions in any way, we just change the function and those changes propogate to every use of ‘run_load’.</p>
+<section id="anatomy-of-a-function">
+<h2><span class="section-number">3.1. </span>Anatomy of a function<a class="headerlink" href="#anatomy-of-a-function" title="Link to this heading">#</a></h2>
+<p>Python uses keywords and indentations to signify different tools and structures. This is called the <em>syntax</em>.</p>
+<p>The syntax for a function is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">function_name</span><span class="p">(</span><span class="n">input1</span> <span class="o">=</span> <span class="n">default1</span><span class="p">,</span> <span class="n">input2</span><span class="o">=</span><span class="n">default2</span><span class="p">):</span>
+    <span class="n">commands</span>
+    <span class="n">more</span> <span class="n">commands</span>
+    <span class="k">return</span> <span class="n">output1</span><span class="p">,</span> <span class="n">output2</span>
 </pre></div>
 </div>
-<p>(on Mac or Linux)</p>
-<p>When you open/create/work on a file, it’s as if you are at the location of the file. When I open that pdf, that program will treat you as if it is working out of that location. That is the <em>current working directory</em>.</p>
-<h3 class="rubric" id="absolute-and-relative-file-paths">Absolute and relative file paths</h3>
-<p>When the path starts at the root directory (or the drive directory on Windows), we call this an <em>absolute</em> path. But most of the time, we want to describe the location of a file with respect to the current working directory. We call those <em>relative</em> paths. For example, if I were in the ‘smith’ directory, the relative path of the manual.pdf file would be:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Desktop</span><span class="o">/</span><span class="n">manual</span><span class="o">.</span><span class="n">pdf</span>
-</pre></div>
-</div>
-<p>There are some important file symbols that are important to know for relative paths:</p>
-<ul class="simple">
-<li><p>. - the current path</p></li>
-<li><p>.. - one folder up</p></li>
-<li><p>../.. - two folders up</p></li>
-<li><p>../../.. - three folders up, etc</p></li>
-</ul>
-<p>Suppose I’m working from my Desktop and want to direct my code to find a file in the Documents folder. That relative path would be:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">..</span>\<span class="n">Documents</span>\<span class="n">file_name</span><span class="o">.</span><span class="n">ext</span>
-</pre></div>
-</div>
-<p>Desktop and Documents are on the same level, so I had to take a step back out of the Desktop (to ‘smith’) and then back down into Documents.</p>
-<p><strong>Folder organization for Data Science</strong></p>
-<p>When you work on a project, you should contain it in a folder (preferably not your Downloads folder). In that project folder, you may want subfolders for Code, Data, Images, etc. In your code, you’ll often need to reference a path; for example when you need to save a figure or load data you tell your code where to save or where to look. You’ll want to use relative path naming. That way, when you share that project, another user can put that project folder where it makes sense to them and all the relative paths stay the same (even though the absolute path changes).</p>
-<p>When you work on your project, I recommend you have a separate folder to store the figures and documents you create, separate from your code.</p>
-</div>
-<section id="setting-up-your-computer-for-data-science">
-<h2>Setting Up Your Computer for Data Science<a class="headerlink" href="#setting-up-your-computer-for-data-science" title="Link to this heading">#</a></h2>
-<p>If you have any of the following already, you should skip those steps. These instructions should get you up and running from a blank slate.</p>
-<section id="anaconda">
-<h3>Anaconda<a class="headerlink" href="#anaconda" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p><a class="reference external" href="https://www.anaconda.com/download">Download Anaconda</a></p></li>
-</ul>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>For Mac Users
-If you are downloading Anaconda for Mac, be sure to select the <em>GRAPHICAL</em> installer that matches your CPU (Intel or Apple Silicon). If you don’t know which CPU your computer has, you can click the Apple icon in the upper left corner of your screen and select “About this Mac”; Intel Macbooks will say “Intel _____<em>” and Apple Silicon Macbooks will say “Apple M</em>”.</p>
-</div>
-<ul class="simple">
-<li><p>Run the Anaconda Installer.</p></li>
-<li><p>Install for <strong>all users</strong> of your computer (unless you share the computer).</p></li>
-</ul>
-</section>
-<section id="jupyterlab">
-<h3>JupyterLab<a class="headerlink" href="#jupyterlab" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jupyterlab/jupyterlab-desktop">Download JupyterLab</a></p></li>
-<li><p>Run the installer.</p></li>
-</ul>
-</section>
-<section id="onedrive-recommended">
-<h3>OneDrive (recommended)<a class="headerlink" href="#onedrive-recommended" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p><a class="reference external" href="https://www.microsoft.com/en-us/microsoft-365/onedrive/download">Download OneDrive</a></p></li>
-<li><p>Run the OneDrive installer. OneDrive creates a local folder on your machine, the contents of which are synced to your OneDrive on the Cloud. The installer asks where you want this folder to be; if you don’t know or don’t care, the default is fine. Once the OneDrive directory is created, you should not move or rename the folder.</p></li>
-<li><p>Find the OneDrive folder on your computer and create a new folder for this course, name it…say…’DS325’ or something similar. Avoid spaces in folder names (not a strict no-no but can cause headaches when coding).</p></li>
-<li><p>Visit <a class="reference external" href="http://OneDrive.com">OneDrive.com</a> and sign in with your Gettysburg College email. You should see the folder you created. Now your work is backed up on the cloud.</p></li>
-</ul>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>You <strong>MAY NOT</strong> work on any file that is in your Downloads folder. If Prof Roth sees you doing this, he will not help you and may further publicly shame you.</p>
-</div>
-</section>
+<p><em>Every</em> function definition starts with the keyword <code class="docutils literal notranslate"><span class="pre">def</span></code> followed by the function name, parantheses, and a colon.</p>
+<p>Everything else is optional. Functions need not have inputs or outputs. Functions need not have commands. But most useful functions have some of these.</p>
+<p>Notice that everything under that first line of the function definition is indented. That is called the <em>scope</em> of the function, all the code that belongs to that function.</p>
+<p><strong>Let’s write some functions!</strong></p>
 </section>
 </section>
 
@@ -478,7 +447,7 @@ If you are downloading Anaconda for Mac, be sure to select the <em>GRAPHICAL</em
         },
         kernelOptions: {
             name: "python3",
-            path: "./00_Resources"
+            path: "./01_Intro"
         },
         predefinedOutput: true
     }
@@ -496,20 +465,20 @@ If you are downloading Anaconda for Mac, be sure to select the <em>GRAPHICAL</em
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../intro.html"
+       href="02_variables.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Welcome to DS256 Data Science Programming</p>
+        <p class="prev-next-title"><span class="section-number">2. </span>Variables</p>
       </div>
     </a>
     <a class="right-next"
-       href="../01_Intro/01_jupyter.html"
+       href="../00_Assignments/ps01.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">1. </span>Intro to Notebooks and Python First Steps</p>
+        <p class="prev-next-title">PS01</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -529,12 +498,7 @@ If you are downloading Anaconda for Mac, be sure to select the <em>GRAPHICAL</em
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-your-computer-for-data-science">Setting Up Your Computer for Data Science</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anaconda">Anaconda</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyterlab">JupyterLab</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#onedrive-recommended">OneDrive (recommended)</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anatomy-of-a-function">3.1. Anatomy of a function</a></li>
 </ul>
   </nav></div>
 

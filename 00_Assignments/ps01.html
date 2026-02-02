@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>PS01 - Simple Linear Regression &#8212; DS325 Applied Data Science</title>
+    <title>PS01 &#8212; DS256 Data Science Programming</title>
   
   
   
@@ -70,12 +70,10 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"loader": {"load": ["ui/lazy"]}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="../_static/mathjax_patch.js?v=c73a562d"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '00_Assignments/ps01';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="2.3. Example: Simple Linear Regression with the King County Housing Dataset" href="../01_Regression/01_housing_example.html" />
+    <link rel="prev" title="3. Functions" href="../01_Intro/03_functions.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -167,8 +165,8 @@
       
     
     
-    <img src="../_static/_ds325_sticker.png" class="logo__image only-light" alt="DS325 Applied Data Science - Home"/>
-    <script>document.write(`<img src="../_static/_ds325_sticker.png" class="logo__image only-dark" alt="DS325 Applied Data Science - Home"/>`);</script>
+    <img src="../_static/_ds256_sticker.png" class="logo__image only-light" alt="DS256 Data Science Programming - Home"/>
+    <script>document.write(`<img src="../_static/_ds256_sticker.png" class="logo__image only-dark" alt="DS256 Data Science Programming - Home"/>`);</script>
   
   
 </a></div>
@@ -189,27 +187,23 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../intro.html">
-                    Welcome to DS325 Applied Data Science
+                    Welcome to DS256 Data Science Programming
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting Up and Resources</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../00_Resources/setup.html">Setting Up</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../00_Resources/pandas_refresher.html">Pandas Refresher</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Regression</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python Basics</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../01_Regression/00_what_is_a_model.html">1. What is a model?</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../01_Regression/01_linear_regression.html">2. Linear Regression (Part 1)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../01_Regression/01_housing_example.html">2.3. Example: Simple Linear Regression with the King County Housing Dataset</a></li>
-</ul>
-</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Intro/01_jupyter.html">1. Intro to Notebooks and Python First Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Intro/02_variables.html">2. Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Intro/03_functions.html">3. Functions</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Assignments</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">PS01 - Simple Linear Regression</a></li>
-
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">PS01</a></li>
 </ul>
 
     </div>
@@ -264,7 +258,7 @@
       
       
       
-      <li><a href="https://colab.research.google.com/github/GettysburgDataScience/DS325-Notes/blob/main/00_Assignments/ps01.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/GettysburgDataScience/DS256-Notes/blob/main/00_Assignments/ps01.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -379,7 +373,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>PS01 - Simple Linear Regression</h1>
+    <h1>PS01</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -389,32 +383,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">PS01 - Simple Linear Regression</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#important-instructions">IMPORTANT INSTRUCTIONS:</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1">Problem 1</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-data-inspection-and-cleaning">a. Data inspection and cleaning</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-modeling">b. Modeling</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-questions">c. Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
 </ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2">Problem 2</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-and-inspecting-the-data">Importing and inspecting the data</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-dates-into-integer-day-counts">Converting dates into integer day counts</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing">Visualizing</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a">a.</a></li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"></a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b">b.</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c">c.</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -425,460 +395,274 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="ps01-simple-linear-regression">
-<h1>PS01 - Simple Linear Regression<a class="headerlink" href="#ps01-simple-linear-regression" title="Link to this heading">#</a></h1>
-<p><em>(not so simple)</em></p>
-<p>Your Name: YOUR NAME<br />
+  <section class="tex2jax_ignore mathjax_ignore" id="ps01">
+<h1>PS01<a class="headerlink" href="#ps01" title="Link to this heading">#</a></h1>
+<p>Name: <YOUR NAME HERE><br />
 Collaborators:</p>
 <ul class="simple">
-<li><p>collaborator 1</p></li>
-<li><p>collaborator 2</p></li>
+<li><p>&lt;Collaborator 1&gt;</p></li>
+<li><p>&lt;Collaborator 2&gt;</p></li>
 </ul>
-<p>DS325, Gettysburg College<br />
-Prof Eatai Roth</p>
-<p><strong>Submit on Moodle</strong><br />
-<strong>Due before Monday Feb 9, 2026 at 9a</strong> <em>(ps02 will be assigned on Feb 5, 2026)</em>.</p>
-<p>Total pts: 20</p>
-<section id="important-instructions">
-<h2>IMPORTANT INSTRUCTIONS:<a class="headerlink" href="#important-instructions" title="Link to this heading">#</a></h2>
+<p>DS256, Gettysburg College<br />
+Prof Eatai Roth<br />
+<strong>Due: Wed, Feb 4, 2026 at 1:10p</strong></p>
+<section id="instructions">
+<h2>Instructions<a class="headerlink" href="#instructions" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>When you submit your code, make sure that every cell runs without returning an error.</p></li>
-<li><p>Once you have the results you need, edit out any extraneous code and outputs.</p></li>
-<li><p>Do not rewrite code if it doesn’t need to be rewritten. For example, in the sample analysis, I write all the import statements you should need. I also perform data cleaning and scaling. Do not redo those in your analysis.</p></li>
+<li><p>Write your code in the cells labeled ‘’’your code here’’’.</p></li>
+<li><p>The questions are in no particular order in terms of difficulty, so if you feel stuck, skip the question and come back to it.</p></li>
 </ul>
-<section id="problem-1">
-<h3>Problem 1<a class="headerlink" href="#problem-1" title="Link to this heading">#</a></h3>
-<p>We’ll be looking at U.S. public health data at a county level. The data file we’ll use comes from the County Health Rankings, a study by the Roberts Wood Johnson Foundation and the University of Wisconsin Population Health Institute. The data are extensive, but we’ll be looking specifically at the relationship between the percentage of children eligible for subsidized/free school lunches and the prevalence of diabetes.</p>
-<p>This pdf explains all the data in this file (you may have interest for future use): <a class="reference external" href="https://github.com/GettysburgDataScience/datasets/blob/main/countyHealth_DataDictionary_2025.pdf">County Health Data Dictionary</a></p>
-<p>Below, I’ve loaded selected columns from the data set and renamed them for your convenience. See below for parts a-d.</p>
+<p><strong>1.</strong> Write a function named <code class="docutils literal notranslate"><span class="pre">hi_there</span></code> that prints the phrase “Hi there!”. This function takes no inputs and has no outputs.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">health_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/GettysburgDataScience/datasets/refs/heads/main/countyHealth_2025.csv&#39;</span><span class="p">,</span>
-                        <span class="n">skiprows</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
-                        <span class="n">header</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-                        <span class="n">usecols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;county&#39;</span><span class="p">,</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;v065_rawvalue&#39;</span><span class="p">,</span><span class="s1">&#39;v060_rawvalue&#39;</span><span class="p">]</span>
-<span class="p">)</span>
-
-<span class="n">health_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;v065_rawvalue&#39;</span><span class="p">:</span><span class="s1">&#39;lunch&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;v060_rawvalue&#39;</span><span class="p">:</span><span class="s1">&#39;diabetes&#39;</span><span class="p">},</span>
-                 <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-
-<span class="n">health_df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>                    
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;your code here&#39;&#39;&#39;</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-RangeIndex: 3203 entries, 0 to 3202
-Data columns (total 5 columns):
- #   Column    Non-Null Count  Dtype  
----  ------    --------------  -----  
- 0   state     3203 non-null   object 
- 1   county    3203 non-null   object 
- 2   year      3203 non-null   int64  
- 3   diabetes  3195 non-null   float64
- 4   lunch     2955 non-null   float64
-dtypes: float64(2), int64(1), object(2)
-memory usage: 125.2+ KB
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;your code here&#39;
 </pre></div>
 </div>
 </div>
 </div>
-</section>
-<section id="a-data-inspection-and-cleaning">
-<h3>a. Data inspection and cleaning<a class="headerlink" href="#a-data-inspection-and-cleaning" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p>Drop any rows with missing data in either the diabetes or lunch columns. Use <code class="docutils literal notranslate"><span class="pre">dropna</span></code> with the argument <code class="docutils literal notranslate"><span class="pre">subset</span></code> (check the documentation for <code class="docutils literal notranslate"><span class="pre">dropna</span></code> for more help).</p></li>
-</ul>
-<p><em>For plots, be sure to have axis labels and titles where appropriate.</em></p>
-<ul class="simple">
-<li><p>Plot separate histograms for the ‘lunch’ and ‘diabetes’ data. Use 100 bins.</p></li>
-<li><p>Plot a scatter plot of ‘lunch’ vs ‘diabetes’. There’s a lot of data, so use a small point size (s=5) and transparency (alpha = 0.3)</p></li>
-</ul>
-<p><em>Are there any other data you think should be removed from the dataset before fitting a model?</em></p>
-<ul class="simple">
-<li><p>Remove data you feel might be problematic; do you have a good justification for removing these data?</p></li>
-</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;your code here. Add code cells as needed.&#39;&#39;&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># If you see the friendly message below this cell, you&#39;ve done it correctly.</span>
+<span class="n">hi_there</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;your code here. Add code cells as needed.&#39;
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># If you see the friendly message below this cell, you&#39;ve done it correctly.</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">hi_there</span><span class="p">()</span>
+
+<span class="ne">NameError</span>: name &#39;hi_there&#39; is not defined
 </pre></div>
 </div>
 </div>
 </div>
-</section>
-<section id="b-modeling">
-<h3>b. Modeling<a class="headerlink" href="#b-modeling" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p>Fit a linear regression to the remaining data following the steps from class:</p>
-<ul>
-<li><p>select the feature and target data</p></li>
-<li><p>train-test split</p></li>
-<li><p>fit the model</p></li>
-<li><p>predict the target value for the test set</p></li>
-<li><p>calculate <span class="math notranslate nohighlight">\(R^2\)</span> and MSE based on the test set</p></li>
-</ul>
-</li>
-<li><p>Plot the data with a trend line super-imposed. Add the <span class="math notranslate nohighlight">\(R^2\)</span> and MSE values to the figure as text.</p></li>
-<li><p>Plot a histogram of the residuals.</p></li>
-</ul>
+<p><strong>2.</strong> Write a function called <code class="docutils literal notranslate"><span class="pre">last_name_first</span></code>. The function should take two inputs named ‘first_name’, and ‘last_name’ and <strong>return</strong> a string that is ‘last_name, first_name’. If either first or last name is missing, substitute a question mark (?) for the missing name.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;your code here. Add code cells as needed.&#39;&#39;&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;your code here&#39;&#39;&#39;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">last_name_first</span><span class="p">(</span> <span class="p">):</span>
+
+    
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;your code here. Add code cells as needed.&#39;
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>  <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
+    
+    <span class="o">^</span>
+<span class="ne">_IncompleteInputError</span>: incomplete input
 </pre></div>
 </div>
 </div>
 </div>
-</section>
-<section id="c-questions">
-<h3>c. Questions<a class="headerlink" href="#c-questions" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p>If you removed any additional data, how do you justify your decision?</p>
-<ul>
-<li><p><em>your responses here</em></p></li>
-</ul>
-</li>
-<li><p>Does this trend suggest that school lunches are unhealthy and prime a population for diabetes? Why or why not.</p>
-<ul>
-<li><p><em>your responses here</em></p></li>
-</ul>
-</li>
-</ul>
-</section>
-</section>
-<section id="problem-2">
-<h2>Problem 2<a class="headerlink" href="#problem-2" title="Link to this heading">#</a></h2>
-<p>The Standard &amp; Poor 500 (S&amp;P 500) is a stock market index that uses the performance of 500 of the biggest publicly traded companies to summarize the overall performance of the market. In this problem, we’ll look at records of the S&amp;P 500 from the past 50+ years. We will use an exponential regression to model the trend of the S&amp;P 500 and predict future values of the index.</p>
-<p>In the first section, I do some prep work for you, since working with dates in pandas can be a bit of a pain; though you should inspect this code for your own learning. Your tasks begin at the section labeled “YOUR TASKS BEGIN HERE”.</p>
-<section id="importing-and-inspecting-the-data">
-<h3>Importing and inspecting the data<a class="headerlink" href="#importing-and-inspecting-the-data" title="Link to this heading">#</a></h3>
+<p>Next, I provide a few tests to check if your code is doing what it should. In the (very near) future, you will be writing these tests yourself.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">dt</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp500_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/GettysburgDataScience/datasets/refs/heads/main/sp500_1950_2025_weekly.csv&#39;</span><span class="p">,</span> 
-                    <span class="n">parse_dates</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">],</span> <span class="n">thousands</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">usecols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="s1">&#39;Price&#39;</span><span class="p">])</span>
-
-<span class="n">display</span><span class="p">(</span><span class="n">sp500_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
-<span class="n">display</span><span class="p">(</span><span class="n">sp500_df</span><span class="o">.</span><span class="n">tail</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">last_name_first</span><span class="p">(</span><span class="s1">&#39;Eatai&#39;</span><span class="p">,</span> <span class="s1">&#39;Roth&#39;</span><span class="p">)</span> <span class="c1"># should print &#39;Roth, Eatai&#39;</span>
+<span class="n">last_name_first</span><span class="p">(</span><span class="n">last</span> <span class="o">=</span> <span class="s1">&#39;Roth&#39;</span><span class="p">)</span> <span class="c1"># should print &#39;Roth, ?&#39;</span>
+<span class="n">last_name_first</span><span class="p">()</span> <span class="c1"># should print &#39;?, ?&#39;</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">last_name_first</span><span class="p">(</span><span class="s1">&#39;Eatai&#39;</span><span class="p">,</span> <span class="s1">&#39;Roth&#39;</span><span class="p">)</span> <span class="c1"># should print &#39;Roth, Eatai&#39;</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">last_name_first</span><span class="p">(</span><span class="n">last</span> <span class="o">=</span> <span class="s1">&#39;Roth&#39;</span><span class="p">)</span> <span class="c1"># should print &#39;Roth, ?&#39;</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">last_name_first</span><span class="p">()</span> <span class="c1"># should print &#39;?, ?&#39;</span>
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Date</th>
-      <th>Price</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>2025-08-31</td>
-      <td>6437.47</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2025-08-24</td>
-      <td>6460.26</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>2025-08-17</td>
-      <td>6466.91</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>2025-08-10</td>
-      <td>6449.80</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>2025-08-03</td>
-      <td>6389.45</td>
-    </tr>
-  </tbody>
-</table>
-</div></div><div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Date</th>
-      <th>Price</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>2900</th>
-      <td>1970-02-01</td>
-      <td>86.3</td>
-    </tr>
-    <tr>
-      <th>2901</th>
-      <td>1970-01-25</td>
-      <td>85.0</td>
-    </tr>
-    <tr>
-      <th>2902</th>
-      <td>1970-01-18</td>
-      <td>89.1</td>
-    </tr>
-    <tr>
-      <th>2903</th>
-      <td>1970-01-11</td>
-      <td>90.9</td>
-    </tr>
-    <tr>
-      <th>2904</th>
-      <td>1970-01-04</td>
-      <td>92.4</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
+<span class="ne">NameError</span>: name &#39;last_name_first&#39; is not defined
+</pre></div>
 </div>
-</section>
-<section id="converting-dates-into-integer-day-counts">
-<h3>Converting dates into integer day counts<a class="headerlink" href="#converting-dates-into-integer-day-counts" title="Link to this heading">#</a></h3>
-<p>For the regression, we’d like to represent dates as something more user-friendly than a timestamp, preferably a float. The next block of code will convert each date into a fractional year. For example, July 2 is the 183rd day of the year (the middle of the year) and its year fraction would be 0.5; the date July 2, 2025 would be converted to 2025.5.</p>
-<p>From a timestamp, we can extract the day, month, year, day of the year by appending ‘’’.dt.day’’’, ‘’’.dt.month’’’, ‘’’.dt.year’’’, or ‘’’.dt.dayofyear’’’ to the timestamp variable.<a class="reference external" href="https://www.geeksforgeeks.org/pandas/date-and-time-operations-in-pandas-series/"> Here’s a good summary of date/time functions in Pandas</a></p>
+</div>
+</div>
+<p><strong>3.</strong> Write the function <code class="docutils literal notranslate"><span class="pre">echo</span></code> that takes as inputs ‘shout’ (a string) and ‘repeats’ (an integer). The function should <strong>return</strong> a string that repeats ‘shout’ the specified number of times. Between each repeat, there should be as many spaces as there are repeats; that is the more repeats, the more spaced out the words will be. There should be no trailing spaces; the output should end with the last instance of the shout word. If repeats is 0 or negative, the function should still return the original shout word.</p>
+<p>The function will not print the output, just return the string value.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp500_df</span><span class="p">[</span><span class="s1">&#39;DateNum&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sp500_df</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span> <span class="o">+</span> <span class="n">sp500_df</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">dayofyear</span><span class="o">/</span><span class="mf">365.</span> <span class="c1"># ignoring leap years, whatever</span>
-<span class="n">sp500_df</span><span class="p">[[</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="s1">&#39;DateNum&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;your code here&#39;&#39;&#39;</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;your code here&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">echo</span><span class="p">(</span><span class="s1">&#39;bye&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">print</span><span class="p">(</span><span class="n">echo</span><span class="p">(</span><span class="s1">&#39;bye&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
+<span class="ne">NameError</span>: name &#39;echo&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<p>Another way to test your code is with <code class="docutils literal notranslate"><span class="pre">assert</span></code> statements. If the statement after <code class="docutils literal notranslate"><span class="pre">assert</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, nothing happens and the code progresses; if the statement is <code class="docutils literal notranslate"><span class="pre">False</span></code>, you will get an “assertion error”.</p>
+<p>Assertions serve as an alarm that something has gone wrong. Developers use assertions in code in order to protect a desired behavior from being destroyed by future changes to the code.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">echo</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;hello    hello    hello    hello&#39;</span>
+<span class="k">assert</span> <span class="n">echo</span><span class="p">(</span><span class="s1">&#39;bye&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;bye&#39;</span>
+<span class="k">assert</span> <span class="n">echo</span><span class="p">(</span><span class="s1">&#39;bye&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;bye&#39;</span>
 
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Date</th>
-      <th>DateNum</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>2025-08-31</td>
-      <td>2025.665753</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2025-08-24</td>
-      <td>2025.646575</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>2025-08-17</td>
-      <td>2025.627397</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>2025-08-10</td>
-      <td>2025.608219</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>2025-08-03</td>
-      <td>2025.589041</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>2025-07-27</td>
-      <td>2025.569863</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>2025-07-20</td>
-      <td>2025.550685</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>2025-07-13</td>
-      <td>2025.531507</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>2025-07-06</td>
-      <td>2025.512329</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>2025-06-29</td>
-      <td>2025.493151</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-</section>
-<section id="visualizing">
-<h3>Visualizing<a class="headerlink" href="#visualizing" title="Link to this heading">#</a></h3>
-<p>We can still plot using timestamp data, and this makes the resulting graph more readable. So later, we’ll want to keep a copy of dates as ‘DateNum’ (integers) for modeling and another copy as ‘Date’ (timestamps) for plotting.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sp500_df</span><span class="p">[</span><span class="s1">&#39;DateNum&#39;</span><span class="p">],</span> <span class="n">sp500_df</span><span class="p">[</span><span class="s1">&#39;Price&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Year&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Price&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;S&amp;P 500 index vs time&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Yay! If this message is displayed, it means all of the above tests have passed!&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f7ecfad95bd07847a45eca05814c9b4b2d8678849f2d893dae10521e3cdec7bc.png" src="../_images/f7ecfad95bd07847a45eca05814c9b4b2d8678849f2d893dae10521e3cdec7bc.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="k">assert</span> <span class="n">echo</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;hello    hello    hello    hello&#39;</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="k">assert</span> <span class="n">echo</span><span class="p">(</span><span class="s1">&#39;bye&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;bye&#39;</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="k">assert</span> <span class="n">echo</span><span class="p">(</span><span class="s1">&#39;bye&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;bye&#39;</span>
+
+<span class="ne">NameError</span>: name &#39;echo&#39; is not defined
+</pre></div>
 </div>
 </div>
-<p><strong>YOUR TASKS BEGIN HERE</strong></p>
-<p>You will use the Price (Adj Closing value) as the target (y) and DateNum as the feature (x) to fit a linear regression.</p>
-<p>BUT THESE DATA SURE DON’T LOOK LINEAR!?</p>
-<p>No, they aren’t. The market grows exponentially. So in order to fit a linear regression, we will first transform the target data using a log. We’ll then fit the regression on the tranformed data and subsequently re-exponentiate the outputs.</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\hat{y} = e^{\theta_1 \cdot x + \theta_0}\\
-ln(\hat{y}) = \theta_1 \cdot x + \theta_0
-\end{split}\]</div>
-</section>
-</section>
-<section id="a">
-<h2>a.<a class="headerlink" href="#a" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Fit an exponential model to the entire data by transforming the target using <code class="docutils literal notranslate"><span class="pre">np.log</span></code>.</p></li>
-<li><p>Plot the date vs log(y) and verify the data look mostly linear.</p></li>
-<li><p>Fit a linear regression to the log-transformed data.</p></li>
-<li><p>Once you have a linear regression fit, you can make predictions of the actual price by exponentiating the output from the linear regression: <code class="docutils literal notranslate"><span class="pre">np.exp(ln_y_pred)</span></code></p></li>
-<li><p>Plot the data and the model-predicted trend.</p></li>
-<li><p>Use the model to predict the value of the S&amp;P 500 on Jan 1 of 2025, 2030, and 2070 (about the time you all might be retiring).</p></li>
-</ul>
+</div>
+<p><strong>4.</strong> Write the function <code class="docutils literal notranslate"><span class="pre">banana</span></code> that takes as an argument ‘nanum’ and returns the word <code class="docutils literal notranslate"><span class="pre">banana</span></code> with the number of na’s specified. If the function is called with no input, return the word ‘banana’ spelled as normal.</p>
+<p>For example, <code class="docutils literal notranslate"><span class="pre">banana(1)</span></code> returns ‘bana’.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;your code here. Add code cells as needed.&#39;&#39;&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;your code here&#39;&#39;&#39;</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;your code here. Add code cells as needed.&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;your code here&#39;
 </pre></div>
 </div>
 </div>
 </div>
-</section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="id1">
-<h1><a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
-<p>Input your S&amp;P 500 predictions for:</p>
-<ul class="simple">
-<li><p>2025: <em>your value</em></p></li>
-<li><p>2030: <em>your value</em></p></li>
-<li><p>2070: <em>your value</em></p></li>
-</ul>
-<section id="b">
-<h2>b.<a class="headerlink" href="#b" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Filter the data to only dates before 1995.</p></li>
-<li><p>Fit an exponential model to this data set.</p></li>
-<li><p>Use this model to predict the S&amp;P 500 for 1995-2015; use 10 increments per year (e.g. 2015.1, 2015.2, etc.).</p></li>
-<li><p>Plot the data, and the model-predicted trend.</p></li>
-</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;your code here. Add code cells as needed.&#39;&#39;&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tests</span>
+
+<span class="k">assert</span> <span class="n">banana</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;ba&#39;</span>
+<span class="k">assert</span> <span class="n">banana</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;bana&#39;</span>
+<span class="k">assert</span> <span class="n">banana</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;ba&#39;</span>
+<span class="k">assert</span> <span class="n">banana</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;bananana&#39;</span>
+<span class="k">assert</span> <span class="n">banana</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;bananananana&#39;</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;your code here. Add code cells as needed.&#39;
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Tests</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="k">assert</span> <span class="n">banana</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;ba&#39;</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="k">assert</span> <span class="n">banana</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;bana&#39;</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="k">assert</span> <span class="n">banana</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;ba&#39;</span>
+
+<span class="ne">NameError</span>: name &#39;banana&#39; is not defined
 </pre></div>
 </div>
 </div>
 </div>
-<section id="c">
-<h3>c.<a class="headerlink" href="#c" title="Link to this heading">#</a></h3>
-<p>Answer the following questions (you may want to write some more code to get these answers).</p>
-<ul class="simple">
-<li><p>You’ll notice two humps in the data between 1995 and 2010. They represent the dot-com and housing bubbles that burst in 2000 and 2008 respectively. For each bubble, at its peak, by how much did the index exceed the pre-1995 projections.</p>
-<ul>
-<li><p>2000: <em>your answer</em></p></li>
-<li><p>2008: <em>your answer</em></p></li>
-</ul>
-</li>
-<li><p>After the bursts, did the S&amp;P 500 return to the trend established before the bubbles?</p>
-<ul>
-<li><p><em>your answer</em></p></li>
-</ul>
-</li>
-</ul>
-</section>
+<p><strong>From here on out, you will write your own tests!</strong></p>
+<p><strong>5.</strong> Write the function <code class="docutils literal notranslate"><span class="pre">four_letter_word</span></code> that takes as an input ‘word’. If the word is four letters long, return True, otherwise False. The function len() returns the length of a string (e.g. len(‘hello’) –&gt; 5).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;your code here&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;your code here&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>6.</strong> Write the function <code class="docutils literal notranslate"><span class="pre">pos_neg</span></code> that takes as an argument a number and returns the string ‘positive’ if the number is positive, ‘negative’ if the number is negative, and ‘zero’ if the number is exactly zero.</p>
+<p><em>Hint:</em> When used in an equation along with numbers or strings, booleans are interpreted as the integers 1 (True) and 0 (False).</p>
+<p>For those who have programmed before, DO NOT USE CONDITIONAL (‘if’ or ‘match-case’) STATEMENTS.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;your code here&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;your code here&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>7.</strong> Write the function <code class="docutils literal notranslate"><span class="pre">greater</span></code> that takes as input two numbers and returns the greater of the two. If the two numbers are equal, just return that number.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;your code here&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;your code here&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>8.</strong> Write the function <code class="docutils literal notranslate"><span class="pre">how_many_can_i_buy</span></code> that takes two numbers as inputs, <code class="docutils literal notranslate"><span class="pre">cost_per_item</span></code> and <code class="docutils literal notranslate"><span class="pre">wallet</span></code>. The function should return how many of the item you could buy and how much change you would get, in that order.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;your code here&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;your code here&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>9.</strong> Write the function <code class="docutils literal notranslate"><span class="pre">area_perim</span></code> that takes as input the height and width of a rectangle and returns the area and perimeter of the rectangle (in that order).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;your code here&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;your code here&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>10.</strong> Write the function <code class="docutils literal notranslate"><span class="pre">make_negative</span></code> that takes a number as an input and returns the number as negative. If the number is already negative, just leave it as is.</p>
+<p>Again, for those who have learned about conditional statements, try this question without.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;your code here&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;your code here&#39;
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 
@@ -913,12 +697,12 @@ ln(\hat{y}) = \theta_1 \cdot x + \theta_0
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../01_Regression/01_housing_example.html"
+       href="../01_Intro/03_functions.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">2.3. </span>Example: Simple Linear Regression with the King County Housing Dataset</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Functions</p>
       </div>
     </a>
 </div>
@@ -937,32 +721,8 @@ ln(\hat{y}) = \theta_1 \cdot x + \theta_0
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">PS01 - Simple Linear Regression</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#important-instructions">IMPORTANT INSTRUCTIONS:</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1">Problem 1</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-data-inspection-and-cleaning">a. Data inspection and cleaning</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-modeling">b. Modeling</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-questions">c. Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructions">Instructions</a></li>
 </ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2">Problem 2</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-and-inspecting-the-data">Importing and inspecting the data</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-dates-into-integer-day-counts">Converting dates into integer day counts</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing">Visualizing</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a">a.</a></li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"></a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b">b.</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c">c.</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
   </nav></div>
 
 </div></div>
@@ -986,7 +746,7 @@ By Eatai Roth, Gettysburg College
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright Eatai Roth   2024.
       <br/>
     
   </p>
