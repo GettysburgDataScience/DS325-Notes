@@ -30,10 +30,10 @@ html:
   use_multitoc_numbering: true
   use_repository_button: false
   use_download_button: true
-
+  theme: "furo"
 
 launch_buttons:
-  notebook_interfaces: "classic"
+  notebook_interfaces: "jupyterlab"
   colab_url: "https://colab.research.google.com/"
 
 sphinx: 
