@@ -16,6 +16,8 @@ parts:
       - file: 01_Regression/01_linear_regression
         sections:
           - file: 01_Regression/01_housing_example
+          - file: 01_Regression/01_auto_mpg_example
+
   - caption: Assignments
     numbered: false
     chapters:
