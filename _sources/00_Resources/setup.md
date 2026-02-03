@@ -2,15 +2,14 @@
 
 The following walks you through setting up Python and the programming environment for this course. You will be installing the following on your personal computer:
 
- - **Anaconda** - a distribution of Python targeted to a scientific (and data scientific) user base. Anaconda installs with most of the scientific packages you should need for this course. Those that do not come prepackaged, we can add using conda (Anaconda's package management utility).
-
- - **JupyterLab** -  IPython Notebooks (.ipynb) are Python files that interleave code, code outputs, and written documentation. They are one of the most popular file formats for data analysis. JupyterLab (**Ju**lia **Py**thon **R** Lab) is an environment for writing and running IPython Notebooks.
-
-If you already have a different Python installation and/or IDE set up on your computer, you do *not* need to additionally install the Anaconda package and VS Code. These are my recommendations for students starting out with these tools.
-
  - **OneDrive** - A cloud-based file-hosting service maintained by Microsoft. As a Gettysburg student, you get a 1TB OneDrive account. OneDrive allows you to sync files between computers and access your files from any web interface. Your classwork should be stored in a OneDrive directory, safeguarding your work against any mishaps that might befall your personal computer.
 
+ - **Anaconda** - a distribution of Python targeted to a scientific (and data scientific) user base. Anaconda installs with most of the scientific packages you should need for this course. Those that do not come prepackaged, we can add using conda (Anaconda's package management utility).
 
+ - **VS Code** - VS (Visual Studio) Code is a Microsoft IDE (Integrated Development Environment) that supports numerous programming languages. IDEs provide added functionality to improve your coding quality and productivity. VS Code is one of many available IDEs and my personal preference.
+
+
+If you already have a different Python installation and/or IDE set up on your computer, you do *not* need to additionally install the Anaconda package and VS Code. These are my recommendations for students starting out with these tools.
 
 
 ``````{admonition} An Aside on File Systems
@@ -93,14 +92,8 @@ If you have any of the following already, you should skip those steps. These ins
     If you are downloading Anaconda for Mac, be sure to select the *GRAPHICAL* installer that matches your CPU (Intel or Apple Silicon). If you don't know which CPU your computer has, you can click the Apple icon in the upper left corner of your screen and select "About this Mac"; Intel Macbooks will say "Intel ______" and Apple Silicon Macbooks will say "Apple M_".
 ```
  - Run the Anaconda Installer.
- - Install for **all users** of your computer (unless you share the computer).
 
-### JupyterLab
-
-- [Download JupyterLab](https://github.com/jupyterlab/jupyterlab-desktop)
-- Run the installer.
-
-### OneDrive (recommended)
+### OneDrive
 
  - [Download OneDrive](https://www.microsoft.com/en-us/microsoft-365/onedrive/download)
  - Run the OneDrive installer. OneDrive creates a local folder on your machine, the contents of which are synced to your OneDrive on the Cloud. The installer asks where you want this folder to be; if you don't know or don't care, the default is fine. Once the OneDrive directory is created, you should not move or rename the folder.
@@ -110,3 +103,58 @@ If you have any of the following already, you should skip those steps. These ins
  ```{warning}
  You **MAY NOT** work on any file that is in your Downloads folder. If Prof Roth sees you doing this, he will not help you and may further publicly shame you. 
  ```
+
+### VSCode
+
+ - [Download VSCode](https://code.visualstudio.com/download)
+ Select a .zip installer unless you are comfortable with working in a terminal using command line interface (CLI).
+
+ ```{warning} For Mac Users
+    See the warning above under "Anaconda".
+```
+ - Install VSCode.
+
+ #### Setting up VSCode for class
+
+ VSCode is pretty nice right out of the box, but it has some useful (and necessary) extensions and settings you'll want/need for this class.
+
+  - First, we'll change a setting so that VSCode opens in your Data Science folder by default. Open settings, (<kbd>Ctrl</kbd>+<kbd>,</kbd> on PC, <kbd>Cmd</kbd>+<kbd>,</kbd> on Mac) or through the top menu bar Code > Settings > Settings.
+  - At the top of Settings is a search bar. Type "dialog default path". You should see this:
+  
+```{figure} ../images/VSCodeDefaultFolder.png
+:alt: vscodefolder
+:width: 700px
+:align: center
+```
+
+  - Enter (copy and paste) the path for your DS325 directory (in your OneDrive!) into the text field. To get the path for that directory:
+    - On PC, right-click on the folder you created and click "Copy as path".
+    - On Mac, right-click on the folder you created, and select "Get info". This opens a pop-up with information about the file/folder you've selected. Near the top, there is a field named "Where". Right-click this field and select "Copy Pathname".
+  - Hover your cursor to the left of the top-left corner and you should see a gear icon. Click the icon and select "Apply to all profiles".
+
+
+Next, we'll install a few useful extensions. On the left-hand side of VSCode, you should see a stack of icons. Select the extensions tab (looks like stacking blocks). You'll search for and install the following extensions:
+
+```{figure} ../images/VSCodeExtensions.png
+:alt: vscodeextensions
+:width: 400px
+:align: left
+```
+
+ - Python
+ - PyLance - it may install with Python above, if so it will show as already installed.
+ - Python Indent
+ - Jupyter
+ - Data Wrangler - a colorful viewer for .csvs and other data table formats.
+ - GitHub Repositories - will allow you to clone, commit, and push repositories from VSCode
+ - GitHub Copilot - an LLM for coding (or another you may have)...but be responsible
+
+
+
+
+
+
+
+
+
+

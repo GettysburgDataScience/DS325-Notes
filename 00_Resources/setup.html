@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Setting Up &#8212; DS256 Data Science Programming</title>
+    <title>Setting Up &#8212; DS325 Applied Data Science</title>
   
   
   
@@ -73,8 +73,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '00_Resources/setup';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="1. Intro to Notebooks and Python First Steps" href="../01_Intro/01_jupyter.html" />
-    <link rel="prev" title="Welcome to DS256 Data Science Programming" href="../intro.html" />
+    <link rel="next" title="Pandas Refresher" href="pandas_refresher.html" />
+    <link rel="prev" title="Welcome to DS325 Applied Data Science" href="../intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -166,8 +166,8 @@
       
     
     
-    <img src="../_static/_ds256_sticker.png" class="logo__image only-light" alt="DS256 Data Science Programming - Home"/>
-    <script>document.write(`<img src="../_static/_ds256_sticker.png" class="logo__image only-dark" alt="DS256 Data Science Programming - Home"/>`);</script>
+    <img src="../_static/_ds325_sticker.png" class="logo__image only-light" alt="DS325 Applied Data Science - Home"/>
+    <script>document.write(`<img src="../_static/_ds325_sticker.png" class="logo__image only-dark" alt="DS325 Applied Data Science - Home"/>`);</script>
   
   
 </a></div>
@@ -188,23 +188,27 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../intro.html">
-                    Welcome to DS256 Data Science Programming
+                    Welcome to DS325 Applied Data Science
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting Up and Resources</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Setting Up</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pandas_refresher.html">Pandas Refresher</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python Basics</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Regression</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../01_Intro/01_jupyter.html">1. Intro to Notebooks and Python First Steps</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../01_Intro/02_variables.html">2. Variables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../01_Intro/03_functions.html">3. Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Regression/00_what_is_a_model.html">1. What is a model?</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../01_Regression/01_linear_regression.html">2. Linear Regression (Part 1)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../01_Regression/01_housing_example.html">2.3. Example: Simple Linear Regression with the King County Housing Dataset</a></li>
+</ul>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Assignments</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../00_Assignments/ps01.html">PS01</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00_Assignments/ps01.html">PS01 - Simple Linear Regression</a></li>
+
 </ul>
 
     </div>
@@ -355,8 +359,11 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-your-computer-for-data-science">Setting Up Your Computer for Data Science</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anaconda">Anaconda</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyterlab">JupyterLab</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#onedrive-recommended">OneDrive (recommended)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#onedrive">OneDrive</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vscode">VSCode</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-vscode-for-class">Setting up VSCode for class</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -374,13 +381,11 @@ document.write(`
 <h1>Setting Up<a class="headerlink" href="#setting-up" title="Link to this heading">#</a></h1>
 <p>The following walks you through setting up Python and the programming environment for this course. You will be installing the following on your personal computer:</p>
 <ul class="simple">
+<li><p><strong>OneDrive</strong> - A cloud-based file-hosting service maintained by Microsoft. As a Gettysburg student, you get a 1TB OneDrive account. OneDrive allows you to sync files between computers and access your files from any web interface. Your classwork should be stored in a OneDrive directory, safeguarding your work against any mishaps that might befall your personal computer.</p></li>
 <li><p><strong>Anaconda</strong> - a distribution of Python targeted to a scientific (and data scientific) user base. Anaconda installs with most of the scientific packages you should need for this course. Those that do not come prepackaged, we can add using conda (Anaconda’s package management utility).</p></li>
-<li><p><strong>JupyterLab</strong> -  IPython Notebooks (.ipynb) are Python files that interleave code, code outputs, and written documentation. They are one of the most popular file formats for data analysis. JupyterLab (<strong>Ju</strong>lia <strong>Py</strong>thon <strong>R</strong> Lab) is an environment for writing and running IPython Notebooks.</p></li>
+<li><p><strong>VS Code</strong> - VS (Visual Studio) Code is a Microsoft IDE (Integrated Development Environment) that supports numerous programming languages. IDEs provide added functionality to improve your coding quality and productivity. VS Code is one of many available IDEs and my personal preference.</p></li>
 </ul>
 <p>If you already have a different Python installation and/or IDE set up on your computer, you do <em>not</em> need to additionally install the Anaconda package and VS Code. These are my recommendations for students starting out with these tools.</p>
-<ul class="simple">
-<li><p><strong>OneDrive</strong> - A cloud-based file-hosting service maintained by Microsoft. As a Gettysburg student, you get a 1TB OneDrive account. OneDrive allows you to sync files between computers and access your files from any web interface. Your classwork should be stored in a OneDrive directory, safeguarding your work against any mishaps that might befall your personal computer.</p></li>
-</ul>
 <div class="tip dropdown admonition">
 <p class="admonition-title">An Aside on File Systems</p>
 <p>I recently came to realize a disconnect between how I grew up using (and understanding) computers versus how your generation uses and understands computers (<a class="reference external" href="https://www.theverge.com/22684730/students-file-folder-directory-structure-education-gen-z">an interesting article about it</a>). For the entirety of your lives, computers have been searchable; files might reside anywhere on your computer and when you want a particular file or app, you ask for it.</p>
@@ -439,18 +444,10 @@ If you are downloading Anaconda for Mac, be sure to select the <em>GRAPHICAL</em
 </div>
 <ul class="simple">
 <li><p>Run the Anaconda Installer.</p></li>
-<li><p>Install for <strong>all users</strong> of your computer (unless you share the computer).</p></li>
 </ul>
 </section>
-<section id="jupyterlab">
-<h3>JupyterLab<a class="headerlink" href="#jupyterlab" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/jupyterlab/jupyterlab-desktop">Download JupyterLab</a></p></li>
-<li><p>Run the installer.</p></li>
-</ul>
-</section>
-<section id="onedrive-recommended">
-<h3>OneDrive (recommended)<a class="headerlink" href="#onedrive-recommended" title="Link to this heading">#</a></h3>
+<section id="onedrive">
+<h3>OneDrive<a class="headerlink" href="#onedrive" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.microsoft.com/en-us/microsoft-365/onedrive/download">Download OneDrive</a></p></li>
 <li><p>Run the OneDrive installer. OneDrive creates a local folder on your machine, the contents of which are synced to your OneDrive on the Cloud. The installer asks where you want this folder to be; if you don’t know or don’t care, the default is fine. Once the OneDrive directory is created, you should not move or rename the folder.</p></li>
@@ -461,6 +458,54 @@ If you are downloading Anaconda for Mac, be sure to select the <em>GRAPHICAL</em
 <p class="admonition-title">Warning</p>
 <p>You <strong>MAY NOT</strong> work on any file that is in your Downloads folder. If Prof Roth sees you doing this, he will not help you and may further publicly shame you.</p>
 </div>
+</section>
+<section id="vscode">
+<h3>VSCode<a class="headerlink" href="#vscode" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://code.visualstudio.com/download">Download VSCode</a>
+Select a .zip installer unless you are comfortable with working in a terminal using command line interface (CLI).</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>For Mac Users
+See the warning above under “Anaconda”.</p>
+</div>
+<ul class="simple">
+<li><p>Install VSCode.</p></li>
+</ul>
+<section id="setting-up-vscode-for-class">
+<h4>Setting up VSCode for class<a class="headerlink" href="#setting-up-vscode-for-class" title="Link to this heading">#</a></h4>
+<p>VSCode is pretty nice right out of the box, but it has some useful (and necessary) extensions and settings you’ll want/need for this class.</p>
+<ul class="simple">
+<li><p>First, we’ll change a setting so that VSCode opens in your Data Science folder by default. Open settings, (<kbd>Ctrl</kbd>+<kbd>,</kbd> on PC, <kbd>Cmd</kbd>+<kbd>,</kbd> on Mac) or through the top menu bar Code &gt; Settings &gt; Settings.</p></li>
+<li><p>At the top of Settings is a search bar. Type “dialog default path”. You should see this:</p></li>
+</ul>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/VSCodeDefaultFolder.png"><img alt="vscodefolder" src="../_images/VSCodeDefaultFolder.png" style="width: 700px;" /></a>
+</figure>
+<ul class="simple">
+<li><p>Enter (copy and paste) the path for your DS325 directory (in your OneDrive!) into the text field. To get the path for that directory:</p>
+<ul>
+<li><p>On PC, right-click on the folder you created and click “Copy as path”.</p></li>
+<li><p>On Mac, right-click on the folder you created, and select “Get info”. This opens a pop-up with information about the file/folder you’ve selected. Near the top, there is a field named “Where”. Right-click this field and select “Copy Pathname”.</p></li>
+</ul>
+</li>
+<li><p>Hover your cursor to the left of the top-left corner and you should see a gear icon. Click the icon and select “Apply to all profiles”.</p></li>
+</ul>
+<p>Next, we’ll install a few useful extensions. On the left-hand side of VSCode, you should see a stack of icons. Select the extensions tab (looks like stacking blocks). You’ll search for and install the following extensions:</p>
+<figure class="align-left">
+<a class="reference internal image-reference" href="../_images/VSCodeExtensions.png"><img alt="vscodeextensions" src="../_images/VSCodeExtensions.png" style="width: 400px;" /></a>
+</figure>
+<ul class="simple">
+<li><p>Python</p></li>
+<li><p>PyLance - it may install with Python above, if so it will show as already installed.</p></li>
+<li><p>Python Indent</p></li>
+<li><p>Jupyter</p></li>
+<li><p>Data Wrangler - a colorful viewer for .csvs and other data table formats.</p></li>
+<li><p>GitHub Repositories - will allow you to clone, commit, and push repositories from VSCode</p></li>
+<li><p>GitHub Copilot - an LLM for coding (or another you may have)…but be responsible</p></li>
+</ul>
+</section>
 </section>
 </section>
 </section>
@@ -501,15 +546,15 @@ If you are downloading Anaconda for Mac, be sure to select the <em>GRAPHICAL</em
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Welcome to DS256 Data Science Programming</p>
+        <p class="prev-next-title">Welcome to DS325 Applied Data Science</p>
       </div>
     </a>
     <a class="right-next"
-       href="../01_Intro/01_jupyter.html"
+       href="pandas_refresher.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">1. </span>Intro to Notebooks and Python First Steps</p>
+        <p class="prev-next-title">Pandas Refresher</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -531,8 +576,11 @@ If you are downloading Anaconda for Mac, be sure to select the <em>GRAPHICAL</em
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-your-computer-for-data-science">Setting Up Your Computer for Data Science</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anaconda">Anaconda</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyterlab">JupyterLab</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#onedrive-recommended">OneDrive (recommended)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#onedrive">OneDrive</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vscode">VSCode</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-vscode-for-class">Setting up VSCode for class</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -559,7 +607,7 @@ By Eatai Roth, Gettysburg College
 
   <p class="copyright">
     
-      © Copyright Eatai Roth   2024.
+      © Copyright 2023.
       <br/>
     
   </p>
