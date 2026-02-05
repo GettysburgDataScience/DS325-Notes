@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>1. What is a model? &#8212; DS325 Applied Data Science</title>
+    <title>3. Regularization &#8212; DS325 Applied Data Science</title>
   
   
   
@@ -70,11 +70,13 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '01_Regression/00_what_is_a_model';</script>
+    <script>window.MathJax = {"loader": {"load": ["ui/lazy"]}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="../_static/mathjax_patch.js?v=c73a562d"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '01_Regression/02_regularization';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="2. Linear Regression (Part 1)" href="01_linear_regression.html" />
-    <link rel="prev" title="Pandas Refresher" href="../00_Resources/pandas_refresher.html" />
+    <link rel="next" title="PS01 - Simple Linear Regression" href="../00_Assignments/ps01.html" />
+    <link rel="prev" title="2.4. Example: Multiple Linear Regression Estimating Fuel Efficiency" href="01_auto_mpg_example.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -199,13 +201,13 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Regression</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">1. What is a model?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="00_what_is_a_model.html">1. What is a model?</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="01_linear_regression.html">2. Linear Regression (Part 1)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="01_housing_example.html">2.3. Example: Simple Linear Regression with the King County Housing Dataset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="01_auto_mpg_example.html">2.4. Example: Multiple Linear Regression Estimating Fuel Efficiency</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="02_regularization.html">3. Regularization</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">3. Regularization</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Assignments</span></p>
 <ul class="nav bd-sidenav">
@@ -265,7 +267,7 @@
       
       
       
-      <li><a href="https://colab.research.google.com/github/GettysburgDataScience/DS325-Notes/blob/main/01_Regression/00_what_is_a_model.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/GettysburgDataScience/DS325-Notes/blob/main/01_Regression/02_regularization.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -296,7 +298,7 @@
       
       
       
-      <li><a href="../_sources/01_Regression/00_what_is_a_model.ipynb" target="_blank"
+      <li><a href="../_sources/01_Regression/02_regularization.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -367,7 +369,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -378,11 +382,20 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>What is a model?</h1>
+    <h1>Regularization</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-when-to-use-regularization">3.1. Why/when to use regularization?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-baseball-salary-prediction-1986">3.2. Example: Baseball Salary Prediction (1986)</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -392,48 +405,76 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="what-is-a-model">
-<h1><span class="section-number">1. </span>What is a model?<a class="headerlink" href="#what-is-a-model" title="Link to this heading">#</a></h1>
-<p><em>“All models are wrong…but some models are useful.”</em>
-– George Box (maybe)</p>
-<p><em>What are some types of models you’ve ? (let’s aim for a diverse list)</em></p>
+  <section class="tex2jax_ignore mathjax_ignore" id="regularization">
+<h1><span class="section-number">3. </span>Regularization<a class="headerlink" href="#regularization" title="Link to this heading">#</a></h1>
+<p>When we explored Multiple Linear Regression, we tried to select features by inspecting correlations between a feature and the target as well as between features. But how did we know if we were using the right features and the right number of features? We didn’t.</p>
+<p><em>Regularization</em> is a tool for automatically emphasizing the features that are informative as you fit the model. Recall, in fitting linear regression models, we are minimizing the mean-squared error between our predictions and the true values. The cost function has the form:</p>
+<div class="math notranslate nohighlight">
+\[
+J(\Theta) = \frac{1}{m}\sum_{i=0}^m(y_i - \hat{y}_i)^2
+\]</div>
+<p>Regularization adds a term to the cost function that penalizes large feature weights (<span class="math notranslate nohighlight">\(\theta_i\)</span>). Three common regularization algorithms for linear regression are:</p>
 <ul class="simple">
-<li><p>Role model</p></li>
-<li><p>Linear regression model</p></li>
-<li><p>classification model</p></li>
-<li><p>arma model (time-series model)</p></li>
-<li><p>logistic regression model</p></li>
-<li><p>super model</p></li>
-<li><p>model organism</p></li>
-<li><p>clustering model</p></li>
-<li><p>large language model</p></li>
-<li><p>template</p></li>
-<li><p>lego model</p></li>
-<li><p>architectural model</p></li>
-<li><p>model train</p></li>
+<li><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Ridge.html">Ridge regression</a>:</p></li>
 </ul>
-<p><em>Okay, then what is a model?</em></p>
+<div class="math notranslate nohighlight">
+\[
+J_{\text{ridge}}(\Theta) = \underbrace{\frac{1}{n}\sum_{i=0}^n(y_i - \hat{y}_i)^2}_{MSE(\Theta)} + \frac{\alpha}{n} \cdot \underbrace{\sum_{i=0}^p \theta_i^2}_{\text{L2 norm}}
+\]</div>
 <ul class="simple">
-<li><p>input, output</p></li>
-<li><p>framework to follow</p></li>
-<li><p>function</p></li>
-<li><p>mold</p></li>
-<li><p>simplifications/abstractions of real phenomena</p></li>
+<li><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html">Lasso regression</a> (Least Absolute Shrinkage and Selection Operator):</p></li>
 </ul>
-<p><em>How are models useful? What are their limitations?</em></p>
+<div class="math notranslate nohighlight">
+\[
+J_{\text{lasso}}(\Theta) = \underbrace{\frac{1}{n}\sum_{i=0}^n(y_i - \hat{y}_i)^2}_{MSE(\Theta)} + 2\alpha \cdot \underbrace{\sum_{i=0}^p |\theta_i|}_{\text{L1 norm}}
+\]</div>
+<ul class="simple">
+<li><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html">Elastic Net</a> (combines Ridge and Lasso)</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+J_{\text{elastic net}}(\Theta) = \underbrace{\frac{1}{n}\sum_{i=0}^n(y_i - \hat{y}_i)^2}_{MSE(\Theta)} + r\cdot\underbrace{\frac{\alpha}{n} \cdot \frac{1}{2}\sum_{i=0}^p \theta_i^2}_{\text{Ridge}} + (1-r)\underbrace{\cdot2\alpha \cdot \sum_{i=0}^p |\theta_i|}_{\text{Lasso}}
+\]</div>
+<p>Where</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\alpha\)</span> is a hyper-parameter that balances how much you want to balance model simplification and model fit.</p></li>
+<li><p>L2 norm is the sum of squared values of weights</p></li>
+<li><p>L1 norm is the sum of the absolute values of weights</p></li>
+<li><p><span class="math notranslate nohighlight">\(r\)</span> is a hyper-parameter in the range (0,1) that balances the amount of L2 (Ridge) and L1 (Lasso) penalty</p></li>
+</ul>
+<p>That Ridge uses the L2-norm and Lasso uses the L1-norm can be reduced to the following observation:</p>
+<ul class="simple">
+<li><p>Ridge regression will make some weights small, but not zero. This is useful if you believe many of the features contribute to the model.</p></li>
+<li><p>Lasso regression will drive some weights to zero. This is useful if you believe only a few weights contribute.</p></li>
+</ul>
+<p>However, we generally don’t know in advance how our features will contribute to the model, so best to try both and compare.</p>
+<section id="why-when-to-use-regularization">
+<h2><span class="section-number">3.1. </span>Why/when to use regularization?<a class="headerlink" href="#why-when-to-use-regularization" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><em>High-dimensional data.</em> When number of features (p) is larger than the number of samples (n), linear regression (Ordinary Least Squares) fails.</p></li>
+<li><p><em>Colinear features.</em> Linear regression yields unstable coefficient estimates because multiple best-fit solutions exist.</p></li>
+<li><p><em>Model over-fitting.</em> Even when p&lt;n, you may have too many parameters. That is, you’re using a model more complex than the data requires. (More about that next class!)</p></li>
+<li><p><em>Feature selection.</em> You want to build a model with fewer features.</p></li>
+</ul>
+</section>
+<section id="example-baseball-salary-prediction-1986">
+<h2><span class="section-number">3.2. </span>Example: Baseball Salary Prediction (1986)<a class="headerlink" href="#example-baseball-salary-prediction-1986" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.precision&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp500</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/GettysburgDataScience/datasets/refs/heads/main/sp500_1950_2025_weekly.csv&#39;</span><span class="p">,</span> 
-                    <span class="n">parse_dates</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">],</span> <span class="n">thousands</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="p">)</span>
-<span class="n">sp500</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/acakin/hitters/refs/heads/master/hitters.csv&#39;</span><span class="p">)</span>      
+<span class="n">data_df</span>
 </pre></div>
 </div>
 </div>
@@ -456,359 +497,288 @@ document.write(`
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Date</th>
-      <th>Price</th>
-      <th>Open</th>
-      <th>High</th>
-      <th>Low</th>
-      <th>Vol.</th>
-      <th>Change %</th>
+      <th>AtBat</th>
+      <th>Hits</th>
+      <th>HmRun</th>
+      <th>Runs</th>
+      <th>RBI</th>
+      <th>Walks</th>
+      <th>Years</th>
+      <th>CAtBat</th>
+      <th>CHits</th>
+      <th>CHmRun</th>
+      <th>CRuns</th>
+      <th>CRBI</th>
+      <th>CWalks</th>
+      <th>League</th>
+      <th>Division</th>
+      <th>PutOuts</th>
+      <th>Assists</th>
+      <th>Errors</th>
+      <th>Salary</th>
+      <th>NewLeague</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>2025-08-31</td>
-      <td>6437.47</td>
-      <td>6386.45</td>
-      <td>6445.17</td>
-      <td>6360.53</td>
+      <td>293</td>
+      <td>66</td>
+      <td>1</td>
+      <td>30</td>
+      <td>29</td>
+      <td>14</td>
+      <td>1</td>
+      <td>293</td>
+      <td>66</td>
+      <td>1</td>
+      <td>30</td>
+      <td>29</td>
+      <td>14</td>
+      <td>A</td>
+      <td>E</td>
+      <td>446</td>
+      <td>33</td>
+      <td>20</td>
       <td>NaN</td>
-      <td>-0.35%</td>
+      <td>A</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>2025-08-24</td>
-      <td>6460.26</td>
-      <td>6457.67</td>
-      <td>6508.23</td>
-      <td>6429.21</td>
-      <td>NaN</td>
-      <td>-0.10%</td>
+      <td>315</td>
+      <td>81</td>
+      <td>7</td>
+      <td>24</td>
+      <td>38</td>
+      <td>39</td>
+      <td>14</td>
+      <td>3449</td>
+      <td>835</td>
+      <td>69</td>
+      <td>321</td>
+      <td>414</td>
+      <td>375</td>
+      <td>N</td>
+      <td>W</td>
+      <td>632</td>
+      <td>43</td>
+      <td>10</td>
+      <td>475.0</td>
+      <td>N</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>2025-08-17</td>
-      <td>6466.91</td>
-      <td>6445.02</td>
-      <td>6478.89</td>
-      <td>6343.86</td>
-      <td>NaN</td>
-      <td>0.27%</td>
+      <td>479</td>
+      <td>130</td>
+      <td>18</td>
+      <td>66</td>
+      <td>72</td>
+      <td>76</td>
+      <td>3</td>
+      <td>1624</td>
+      <td>457</td>
+      <td>63</td>
+      <td>224</td>
+      <td>266</td>
+      <td>263</td>
+      <td>A</td>
+      <td>W</td>
+      <td>880</td>
+      <td>82</td>
+      <td>14</td>
+      <td>480.0</td>
+      <td>A</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>2025-08-10</td>
-      <td>6449.80</td>
-      <td>6389.67</td>
-      <td>6481.34</td>
-      <td>6364.06</td>
-      <td>NaN</td>
-      <td>0.94%</td>
+      <td>496</td>
+      <td>141</td>
+      <td>20</td>
+      <td>65</td>
+      <td>78</td>
+      <td>37</td>
+      <td>11</td>
+      <td>5628</td>
+      <td>1575</td>
+      <td>225</td>
+      <td>828</td>
+      <td>838</td>
+      <td>354</td>
+      <td>N</td>
+      <td>E</td>
+      <td>200</td>
+      <td>11</td>
+      <td>3</td>
+      <td>500.0</td>
+      <td>N</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>2025-08-03</td>
-      <td>6389.45</td>
-      <td>6271.71</td>
-      <td>6395.16</td>
-      <td>6271.71</td>
-      <td>NaN</td>
-      <td>2.43%</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">murders_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/GettysburgDataScience/datasets/refs/heads/main/cdc_murdermortality_2023.csv&#39;</span><span class="p">,</span>
-                         <span class="n">thousands</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="p">)</span>
-<span class="n">murders_df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>YEAR</th>
-      <th>RATE</th>
-      <th>DEATHS</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>count</th>
-      <td>502.000000</td>
-      <td>477.000000</td>
-      <td>502.000000</td>
+      <td>321</td>
+      <td>87</td>
+      <td>10</td>
+      <td>39</td>
+      <td>42</td>
+      <td>30</td>
+      <td>2</td>
+      <td>396</td>
+      <td>101</td>
+      <td>12</td>
+      <td>48</td>
+      <td>46</td>
+      <td>33</td>
+      <td>N</td>
+      <td>E</td>
+      <td>805</td>
+      <td>40</td>
+      <td>4</td>
+      <td>91.5</td>
+      <td>N</td>
     </tr>
     <tr>
-      <th>mean</th>
-      <td>2018.515936</td>
-      <td>6.598323</td>
-      <td>413.547809</td>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
     </tr>
     <tr>
-      <th>std</th>
-      <td>2.880651</td>
-      <td>3.969087</td>
-      <td>458.695970</td>
-    </tr>
-    <tr>
-      <th>min</th>
-      <td>2014.000000</td>
-      <td>0.000000</td>
-      <td>10.000000</td>
-    </tr>
-    <tr>
-      <th>25%</th>
-      <td>2016.000000</td>
-      <td>3.600000</td>
-      <td>72.250000</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>2019.000000</td>
-      <td>6.100000</td>
-      <td>262.000000</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>2021.000000</td>
-      <td>8.500000</td>
-      <td>603.500000</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>2023.000000</td>
-      <td>33.100000</td>
-      <td>2495.000000</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">murders_df</span><span class="p">[</span><span class="s1">&#39;POP&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">murders_df</span><span class="p">[</span><span class="s1">&#39;DEATHS&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">murders_df</span><span class="p">[</span><span class="s1">&#39;RATE&#39;</span><span class="p">]</span>
-<span class="n">murders_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>YEAR</th>
-      <th>STATE</th>
-      <th>RATE</th>
-      <th>DEATHS</th>
-      <th>URL</th>
-      <th>POP</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>2023</td>
-      <td>AL</td>
-      <td>14.8</td>
-      <td>717</td>
-      <td>/nchs/state-stats/states/al.html</td>
-      <td>48.445946</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2023</td>
-      <td>AK</td>
-      <td>8.5</td>
-      <td>61</td>
-      <td>/nchs/state-stats/states/ak.html</td>
-      <td>7.176471</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>2023</td>
-      <td>AZ</td>
-      <td>7.5</td>
-      <td>531</td>
-      <td>/nchs/state-stats/states/az.html</td>
-      <td>70.800000</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>2023</td>
-      <td>AR</td>
-      <td>11.3</td>
+      <th>317</th>
+      <td>497</td>
+      <td>127</td>
+      <td>7</td>
+      <td>65</td>
+      <td>48</td>
+      <td>37</td>
+      <td>5</td>
+      <td>2703</td>
+      <td>806</td>
+      <td>32</td>
+      <td>379</td>
+      <td>311</td>
+      <td>138</td>
+      <td>N</td>
+      <td>E</td>
       <td>325</td>
-      <td>/nchs/state-stats/states/ar.html</td>
-      <td>28.761062</td>
+      <td>9</td>
+      <td>3</td>
+      <td>700.0</td>
+      <td>N</td>
     </tr>
     <tr>
-      <th>4</th>
-      <td>2023</td>
-      <td>CA</td>
-      <td>5.1</td>
-      <td>1972</td>
-      <td>/nchs/state-stats/states/ca.html</td>
-      <td>386.666667</td>
+      <th>318</th>
+      <td>492</td>
+      <td>136</td>
+      <td>5</td>
+      <td>76</td>
+      <td>50</td>
+      <td>94</td>
+      <td>12</td>
+      <td>5511</td>
+      <td>1511</td>
+      <td>39</td>
+      <td>897</td>
+      <td>451</td>
+      <td>875</td>
+      <td>A</td>
+      <td>E</td>
+      <td>313</td>
+      <td>381</td>
+      <td>20</td>
+      <td>875.0</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>319</th>
+      <td>475</td>
+      <td>126</td>
+      <td>3</td>
+      <td>61</td>
+      <td>43</td>
+      <td>52</td>
+      <td>6</td>
+      <td>1700</td>
+      <td>433</td>
+      <td>7</td>
+      <td>217</td>
+      <td>93</td>
+      <td>146</td>
+      <td>A</td>
+      <td>W</td>
+      <td>37</td>
+      <td>113</td>
+      <td>7</td>
+      <td>385.0</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>320</th>
+      <td>573</td>
+      <td>144</td>
+      <td>9</td>
+      <td>85</td>
+      <td>60</td>
+      <td>78</td>
+      <td>8</td>
+      <td>3198</td>
+      <td>857</td>
+      <td>97</td>
+      <td>470</td>
+      <td>420</td>
+      <td>332</td>
+      <td>A</td>
+      <td>E</td>
+      <td>1314</td>
+      <td>131</td>
+      <td>12</td>
+      <td>960.0</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>321</th>
+      <td>631</td>
+      <td>170</td>
+      <td>9</td>
+      <td>77</td>
+      <td>44</td>
+      <td>31</td>
+      <td>11</td>
+      <td>4908</td>
+      <td>1457</td>
+      <td>30</td>
+      <td>775</td>
+      <td>357</td>
+      <td>249</td>
+      <td>A</td>
+      <td>W</td>
+      <td>408</td>
+      <td>4</td>
+      <td>3</td>
+      <td>1000.0</td>
+      <td>A</td>
     </tr>
   </tbody>
 </table>
+<p>322 rows × 20 columns</p>
 </div></div></div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hw_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/GettysburgDataScience/datasets/refs/heads/main/SOCR-HeightWeight.csv&#39;</span><span class="p">,</span>
-                    <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
-<span class="n">hw_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Height(Inches)</th>
-      <th>Weight(Pounds)</th>
-    </tr>
-    <tr>
-      <th>Index</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1</th>
-      <td>65.78331</td>
-      <td>112.9925</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>71.51521</td>
-      <td>136.4873</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>69.39874</td>
-      <td>153.0269</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>68.21660</td>
-      <td>142.3354</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>67.78781</td>
-      <td>144.2971</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-
-<span class="c1"># Height vs Weight</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">hw_df</span><span class="p">[</span><span class="s1">&#39;Height(Inches)&#39;</span><span class="p">],</span> <span class="n">hw_df</span><span class="p">[</span><span class="s1">&#39;Weight(Pounds)&#39;</span><span class="p">],</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;US Height vs Weight&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Height (in)&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Weight (lbs)&#39;</span><span class="p">)</span>
-
-<span class="c1"># Homocides</span>
-<span class="n">murders2023_df</span> <span class="o">=</span> <span class="n">murders_df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;YEAR==2023&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">murders2023_df</span><span class="p">[</span><span class="s1">&#39;POP&#39;</span><span class="p">],</span> <span class="n">murders2023_df</span><span class="p">[</span><span class="s1">&#39;DEATHS&#39;</span><span class="p">],</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">murders2023_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;STATE&#39;</span><span class="p">],</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;POP&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;DEATHS&#39;</span><span class="p">]),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span>
-
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;2023 Homocides by population for US states&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Population (100K residents)&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Homocides&#39;</span><span class="p">)</span>
-
-<span class="c1"># S&amp;P 500</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sp500</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">],</span> <span class="n">sp500</span><span class="p">[</span><span class="s1">&#39;Price&#39;</span><span class="p">])</span>
-
-<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;S&amp;P500 over time&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Price at end of week ($)&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/0d1750819a37d17fb8250f7a31932f5b3a0deac2fb95a8e9774ff0aaf19f7859.png" src="../_images/0d1750819a37d17fb8250f7a31932f5b3a0deac2fb95a8e9774ff0aaf19f7859.png" />
-</div>
-</div>
-<p>Answer the following questions based on the plots above.</p>
-<p><em>US Height vs Weight</em></p>
-<ul class="simple">
-<li><p>Given a room of 1000 Americans, what do you think the average height and weight would be?</p></li>
-<li><p>Suppose a 6’ American (72 in), how much would you predict them to weigh?</p></li>
-<li><p>What information might change your answers above?</p></li>
-</ul>
-<p><em>US Homocides</em></p>
-<ul class="simple">
-<li><p>Which states have a number of homocides above expectation?</p></li>
-<li><p>If there were a new state with 30M residents, how many homocides would you expect?</p></li>
-</ul>
-<p><em>S&amp;P 500</em></p>
-<ul class="simple">
-<li><p>When has the economy experienced there significant bubbles or recessions?</p></li>
-<li><p>What do you expect the SP500 price to be in 2030?</p></li>
-</ul>
-<p>How did you arrive at your answers for these questions?</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -842,20 +812,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../00_Resources/pandas_refresher.html"
+       href="01_auto_mpg_example.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Pandas Refresher</p>
+        <p class="prev-next-title"><span class="section-number">2.4. </span>Example: Multiple Linear Regression Estimating Fuel Efficiency</p>
       </div>
     </a>
     <a class="right-next"
-       href="01_linear_regression.html"
+       href="../00_Assignments/ps01.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">2. </span>Linear Regression (Part 1)</p>
+        <p class="prev-next-title">PS01 - Simple Linear Regression</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -865,6 +835,22 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-when-to-use-regularization">3.1. Why/when to use regularization?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-baseball-salary-prediction-1986">3.2. Example: Baseball Salary Prediction (1986)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
