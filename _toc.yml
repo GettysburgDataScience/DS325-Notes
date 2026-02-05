@@ -17,6 +17,7 @@ parts:
         sections:
           - file: 01_Regression/01_housing_example
           - file: 01_Regression/01_auto_mpg_example
+      - file: 01_Regression/02_regularization
 
   - caption: Assignments
     numbered: false
