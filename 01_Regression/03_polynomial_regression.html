@@ -430,7 +430,7 @@ document.write(`
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(y = x^2\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(y = 5 x^3 + 4.5 x - 3.6\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(y = x_1^2 + 3.7 x_1 x_2 +2.1 x_2^2\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(y = x_1^2 + 3.7 \underbrace{x_1 x_2}_{interaction} +2.1 x_2^2\)</span></p></li>
 </ul>
 <p>And Taylor’s theorem tells us that any smooth curve can be approximated within some range arbitrarily closely by some polynomial (if you took calculus, this is the foundation of the Taylor Series).</p>
 <div class="cell docutils container">
@@ -539,39 +539,37 @@ y = 5 + 3.1 v_1 + 2.6 v_2 - 4 v_3
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PolynomialFeatures</span>
 
 <span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;x1&#39;</span><span class="p">:[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;x2&#39;</span><span class="p">:[</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;x3&#39;</span><span class="p">:[</span><span class="mi">5</span><span class="p">]})</span>
-<span class="c1"># X = np.array([1,2,3]).reshape(-1,1)</span>
 
 <span class="n">poly</span> <span class="o">=</span> <span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">include_bias</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
 <span class="n">V</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 
 <span class="n">feature_names</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
-<span class="n">display</span><span class="p">(</span><span class="n">feature_names</span><span class="p">)</span>
-<span class="n">display</span><span class="p">(</span><span class="n">V</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">feature_names</span><span class="p">,</span> <span class="n">V</span><span class="o">.</span><span class="n">flatten</span><span class="p">())):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">k</span><span class="si">:</span><span class="s1">&gt;2</span><span class="si">}</span><span class="s1">. </span><span class="si">{</span><span class="n">fname</span><span class="si">:</span><span class="s1">&gt;10</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">val</span><span class="si">:</span><span class="s1">5g</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;x1&#39;, &#39;x2&#39;, &#39;x3&#39;, &#39;x1^2&#39;, &#39;x1 x2&#39;, &#39;x1 x3&#39;, &#39;x2^2&#39;, &#39;x2 x3&#39;,
-       &#39;x3^2&#39;, &#39;x1^3&#39;, &#39;x1^2 x2&#39;, &#39;x1^2 x3&#39;, &#39;x1 x2^2&#39;, &#39;x1 x2 x3&#39;,
-       &#39;x1 x3^2&#39;, &#39;x2^3&#39;, &#39;x2^2 x3&#39;, &#39;x2 x3^2&#39;, &#39;x3^3&#39;], dtype=object)
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[  2.,   3.,   5.,   4.,   6.,  10.,   9.,  15.,  25.,   8.,  12.,
-         20.,  18.,  30.,  50.,  27.,  45.,  75., 125.]])
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">feature_names</span><span class="p">,</span> <span class="n">V</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s1">&lt;20</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x1                  : [  2.   3.   5.   4.   6.  10.   9.  15.  25.   8.  12.  20.  18.  30.
-  50.  27.  45.  75. 125.]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 0.         x1:     2
+ 1.         x2:     3
+ 2.         x3:     5
+ 3.       x1^2:     4
+ 4.      x1 x2:     6
+ 5.      x1 x3:    10
+ 6.       x2^2:     9
+ 7.      x2 x3:    15
+ 8.       x3^2:    25
+ 9.       x1^3:     8
+10.    x1^2 x2:    12
+11.    x1^2 x3:    20
+12.    x1 x2^2:    18
+13.   x1 x2 x3:    30
+14.    x1 x3^2:    50
+15.       x2^3:    27
+16.    x2^2 x3:    45
+17.    x2 x3^2:    75
+18.       x3^3:   125
 </pre></div>
 </div>
 </div>
@@ -1236,27 +1234,6 @@ True model:
        176., 262., 135.,  84., 120., 155., 184., 175., 116.,  69.,  97.,
        152., 200.,  95., 142., 143., 207., 288.,  73.,  82.,  94.,  62.,
        112.,  92., 161., 156.,  85., 114., 162., 134.])
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">cars_df</span><span class="p">[[</span><span class="s1">&#39;horsepower&#39;</span><span class="p">]]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">cars_df</span><span class="p">[</span><span class="s1">&#39;city-mpg&#39;</span><span class="p">]</span>
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;fit models&#39;&#39;&#39;</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;fit models&#39;
 </pre></div>
 </div>
 </div>

@@ -596,7 +596,125 @@ memory usage: 3.5+ MB
 <p>Answer the questions below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">advert_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/sandeshajjampur/TV-Radio-Newspaper-Advertising/refs/heads/main/Advertising.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">advert_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/sandeshajjampur/TV-Radio-Newspaper-Advertising/refs/heads/main/Advertising.csv&#39;</span><span class="p">)</span>
+<span class="n">advert_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>TV</th>
+      <th>Radio</th>
+      <th>Newspaper</th>
+      <th>Sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>230.10</td>
+      <td>37.80</td>
+      <td>69.20</td>
+      <td>22.10</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>44.50</td>
+      <td>39.30</td>
+      <td>45.10</td>
+      <td>10.40</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>17.20</td>
+      <td>45.90</td>
+      <td>69.30</td>
+      <td>12.00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>151.50</td>
+      <td>41.30</td>
+      <td>58.50</td>
+      <td>16.50</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>180.80</td>
+      <td>10.80</td>
+      <td>58.40</td>
+      <td>17.90</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>195</th>
+      <td>38.20</td>
+      <td>3.70</td>
+      <td>13.80</td>
+      <td>7.60</td>
+    </tr>
+    <tr>
+      <th>196</th>
+      <td>94.20</td>
+      <td>4.90</td>
+      <td>8.10</td>
+      <td>14.00</td>
+    </tr>
+    <tr>
+      <th>197</th>
+      <td>177.00</td>
+      <td>9.30</td>
+      <td>6.40</td>
+      <td>14.80</td>
+    </tr>
+    <tr>
+      <th>198</th>
+      <td>283.60</td>
+      <td>42.00</td>
+      <td>66.20</td>
+      <td>25.50</td>
+    </tr>
+    <tr>
+      <th>199</th>
+      <td>232.10</td>
+      <td>8.60</td>
+      <td>8.70</td>
+      <td>18.40</td>
+    </tr>
+  </tbody>
+</table>
+<p>200 rows × 4 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">advert_df</span><span class="p">[[</span><span class="s1">&#39;TV&#39;</span><span class="p">,</span> <span class="s1">&#39;Radio&#39;</span><span class="p">,</span> <span class="s1">&#39;Newspaper&#39;</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">advert_df</span><span class="p">[</span><span class="s1">&#39;Sales&#39;</span><span class="p">]</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -647,6 +765,13 @@ memory usage: 3.5+ MB
 <ul class="simple">
 <li><p>your answer here</p></li>
 </ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PolynomialFeatures</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 </section>
