@@ -17,12 +17,15 @@ parts:
         sections:
           - file: 01_Regression/01_housing_example
           - file: 01_Regression/01_auto_mpg_example
-      - file: 01_Regression/02_regularization
+      - file: 01_Regression/02_regularization_solved
+      - file: 01_Regression/03_polynomial_regression
+
 
   - caption: Assignments
     numbered: false
     chapters:
      - file: 00_Assignments/ps01
+     - file: 00_Assignments/ps02
 
   # # - caption: Classification
   #   numbered: True
