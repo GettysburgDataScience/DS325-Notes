@@ -1,0 +1,2541 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3. Regularization &#8212; DS325 Applied Data Science</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/fix_admonition_style.css?v=8627ce31" />
+    <link rel="stylesheet" type="text/css" href="../_static/fix_dropdown_style.css?v=f3461767" />
+    <link rel="stylesheet" type="text/css" href="../_static/fix_code_header_style.css?v=7d542921" />
+    <link rel="stylesheet" type="text/css" href="../_static/fix_sidebar_scroll.css?v=b9929681" />
+    <link rel="stylesheet" type="text/css" href="../_static/fix_margin.css?v=4a1e31aa" />
+    <link rel="stylesheet" type="text/css" href="../_static/fix_align_text_captions.css?v=29546296" />
+    <link rel="stylesheet" type="text/css" href="../_static/fix_align_code.css?v=719ffd7f" />
+    <link rel="stylesheet" type="text/css" href="../_static/margin_patch.css?v=1aa379b9" />
+    <link rel="stylesheet" type="text/css" href="../_static/mathjax_patch.css?v=e1a8445e" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/download_patch.js?v=75631000"></script>
+    <script src="../_static/fix_hash_jump.js?v=2aad3019"></script>
+    <script src="../_static/mathjax_patch.js?v=c73a562d"></script>
+    <script src="../_static/preserve_dropdown_state.js?v=d724701d"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"loader": {"load": ["ui/lazy"]}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="../_static/mathjax_patch.js?v=c73a562d"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '01_Regression/02_regularization_solved';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4. Polynomial Regression" href="03_polynomial_regression.html" />
+    <link rel="prev" title="2.4. Example: Multiple Linear Regression Estimating Fuel Efficiency" href="01_auto_mpg_example.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/_ds325_sticker.png" class="logo__image only-light" alt="DS325 Applied Data Science - Home"/>
+    <script>document.write(`<img src="../_static/_ds325_sticker.png" class="logo__image only-dark" alt="DS325 Applied Data Science - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to DS325 Applied Data Science
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setting Up and Resources</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../00_Resources/setup.html">Setting Up</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00_Resources/pandas_refresher.html">Pandas Refresher</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Regression</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_what_is_a_model.html">1. What is a model?</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="01_linear_regression.html">2. Linear Regression (Part 1)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_housing_example.html">2.3. Example: Simple Linear Regression with the King County Housing Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01_auto_mpg_example.html">2.4. Example: Multiple Linear Regression Estimating Fuel Efficiency</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">3. Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_polynomial_regression.html">4. Polynomial Regression</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Assignments</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../00_Assignments/ps01.html">PS01 - Simple Linear Regression</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../00_Assignments/ps02.html">PS02 - Regularization</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/GettysburgDataScience/DS325-Notes/blob/main/01_Regression/02_regularization_solved.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/01_Regression/02_regularization_solved.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Regularization</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-when-to-use-regularization">3.1. Why/when to use regularization?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-baseball-salary-prediction-1986">3.2. Example: Baseball Salary Prediction (1986)</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="regularization">
+<h1><span class="section-number">3. </span>Regularization<a class="headerlink" href="#regularization" title="Link to this heading">#</a></h1>
+<p>When we explored Multiple Linear Regression, we tried to select features by inspecting correlations between a feature and the target as well as between features. But how did we know if we were using the right features and the right number of features? We didn’t.</p>
+<p><em>Regularization</em> is a tool for automatically emphasizing the features that are informative as you fit the model. Recall, in fitting linear regression models, we are minimizing the mean-squared error between our predictions and the true values. The cost function has the form:</p>
+<div class="math notranslate nohighlight">
+\[
+J(\Theta) = \frac{1}{m}\sum_{i=0}^m(y_i - \hat{y}_i)^2
+\]</div>
+<p>Regularization adds a term to the cost function that penalizes large feature weights (<span class="math notranslate nohighlight">\(\theta_i\)</span>). Three common regularization algorithms for linear regression are:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Ridge.html">Ridge regression</a>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+J_{\text{ridge}}(\Theta) = \underbrace{\frac{1}{n}\sum_{i=0}^n(y_i - \hat{y}_i)^2}_{MSE(\Theta)} + \frac{\alpha}{n} \cdot \underbrace{\sum_{i=0}^p \theta_i^2}_{\text{L2 norm}}
+\]</div>
+<ul class="simple">
+<li><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html">Lasso regression</a> (Least Absolute Shrinkage and Selection Operator):</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+J_{\text{lasso}}(\Theta) = \underbrace{\frac{1}{n}\sum_{i=0}^n(y_i - \hat{y}_i)^2}_{MSE(\Theta)} + 2\alpha \cdot \underbrace{\sum_{i=0}^p |\theta_i|}_{\text{L1 norm}}
+\]</div>
+<ul class="simple">
+<li><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html">Elastic Net</a> (combines Ridge and Lasso)</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+J_{\text{elastic net}}(\Theta) = \underbrace{\frac{1}{n}\sum_{i=0}^n(y_i - \hat{y}_i)^2}_{MSE(\Theta)} + r\cdot\underbrace{\frac{\alpha}{n} \cdot \frac{1}{2}\sum_{i=0}^p \theta_i^2}_{\text{Ridge}} + (1-r)\underbrace{\cdot2\alpha \cdot \sum_{i=0}^p |\theta_i|}_{\text{Lasso}}
+\]</div>
+<p>Where</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\alpha\)</span> is a hyper-parameter that balances how much you want to balance model simplification and model fit.</p></li>
+<li><p>L2 norm is the sum of squared values of weights</p></li>
+<li><p>L1 norm is the sum of the absolute values of weights</p></li>
+<li><p><span class="math notranslate nohighlight">\(r\)</span> is a hyper-parameter in the range (0,1) that balances the amount of L2 (Ridge) and L1 (Lasso) penalty</p></li>
+</ul>
+<p>That Ridge uses the L2-norm and Lasso uses the L1-norm can be reduced to the following observation:</p>
+<ul class="simple">
+<li><p>Ridge regression will make some weights small, but not zero. This is useful if you believe many of the features contribute to the model.</p></li>
+<li><p>Lasso regression will drive some weights to zero. This is useful if you believe only a few weights contribute.</p></li>
+</ul>
+<p>However, we generally don’t know in advance how our features will contribute to the model, so best to try both and compare.</p>
+<section id="why-when-to-use-regularization">
+<h2><span class="section-number">3.1. </span>Why/when to use regularization?<a class="headerlink" href="#why-when-to-use-regularization" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><em>High-dimensional data.</em> When number of features (p) is larger than the number of samples (n), linear regression (Ordinary Least Squares) fails.</p></li>
+<li><p><em>Colinear features.</em> Linear regression yields unstable coefficient estimates because multiple best-fit solutions exist.</p></li>
+<li><p><em>Model over-fitting.</em> Even when p&lt;n, you may have too many parameters. That is, you’re using a model more complex than the data requires. (More about that next class!)</p></li>
+<li><p><em>Feature selection.</em> You want to build a model with fewer features.</p></li>
+</ul>
+</section>
+<section id="example-baseball-salary-prediction-1986">
+<h2><span class="section-number">3.2. </span>Example: Baseball Salary Prediction (1986)<a class="headerlink" href="#example-baseball-salary-prediction-1986" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.precision&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/acakin/hitters/refs/heads/master/hitters.csv&#39;</span><span class="p">)</span>      
+<span class="n">data_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AtBat</th>
+      <th>Hits</th>
+      <th>HmRun</th>
+      <th>Runs</th>
+      <th>RBI</th>
+      <th>Walks</th>
+      <th>Years</th>
+      <th>CAtBat</th>
+      <th>CHits</th>
+      <th>CHmRun</th>
+      <th>CRuns</th>
+      <th>CRBI</th>
+      <th>CWalks</th>
+      <th>League</th>
+      <th>Division</th>
+      <th>PutOuts</th>
+      <th>Assists</th>
+      <th>Errors</th>
+      <th>Salary</th>
+      <th>NewLeague</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>293</td>
+      <td>66</td>
+      <td>1</td>
+      <td>30</td>
+      <td>29</td>
+      <td>14</td>
+      <td>1</td>
+      <td>293</td>
+      <td>66</td>
+      <td>1</td>
+      <td>30</td>
+      <td>29</td>
+      <td>14</td>
+      <td>A</td>
+      <td>E</td>
+      <td>446</td>
+      <td>33</td>
+      <td>20</td>
+      <td>NaN</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>315</td>
+      <td>81</td>
+      <td>7</td>
+      <td>24</td>
+      <td>38</td>
+      <td>39</td>
+      <td>14</td>
+      <td>3449</td>
+      <td>835</td>
+      <td>69</td>
+      <td>321</td>
+      <td>414</td>
+      <td>375</td>
+      <td>N</td>
+      <td>W</td>
+      <td>632</td>
+      <td>43</td>
+      <td>10</td>
+      <td>475.0</td>
+      <td>N</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>479</td>
+      <td>130</td>
+      <td>18</td>
+      <td>66</td>
+      <td>72</td>
+      <td>76</td>
+      <td>3</td>
+      <td>1624</td>
+      <td>457</td>
+      <td>63</td>
+      <td>224</td>
+      <td>266</td>
+      <td>263</td>
+      <td>A</td>
+      <td>W</td>
+      <td>880</td>
+      <td>82</td>
+      <td>14</td>
+      <td>480.0</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>496</td>
+      <td>141</td>
+      <td>20</td>
+      <td>65</td>
+      <td>78</td>
+      <td>37</td>
+      <td>11</td>
+      <td>5628</td>
+      <td>1575</td>
+      <td>225</td>
+      <td>828</td>
+      <td>838</td>
+      <td>354</td>
+      <td>N</td>
+      <td>E</td>
+      <td>200</td>
+      <td>11</td>
+      <td>3</td>
+      <td>500.0</td>
+      <td>N</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>321</td>
+      <td>87</td>
+      <td>10</td>
+      <td>39</td>
+      <td>42</td>
+      <td>30</td>
+      <td>2</td>
+      <td>396</td>
+      <td>101</td>
+      <td>12</td>
+      <td>48</td>
+      <td>46</td>
+      <td>33</td>
+      <td>N</td>
+      <td>E</td>
+      <td>805</td>
+      <td>40</td>
+      <td>4</td>
+      <td>91.5</td>
+      <td>N</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>317</th>
+      <td>497</td>
+      <td>127</td>
+      <td>7</td>
+      <td>65</td>
+      <td>48</td>
+      <td>37</td>
+      <td>5</td>
+      <td>2703</td>
+      <td>806</td>
+      <td>32</td>
+      <td>379</td>
+      <td>311</td>
+      <td>138</td>
+      <td>N</td>
+      <td>E</td>
+      <td>325</td>
+      <td>9</td>
+      <td>3</td>
+      <td>700.0</td>
+      <td>N</td>
+    </tr>
+    <tr>
+      <th>318</th>
+      <td>492</td>
+      <td>136</td>
+      <td>5</td>
+      <td>76</td>
+      <td>50</td>
+      <td>94</td>
+      <td>12</td>
+      <td>5511</td>
+      <td>1511</td>
+      <td>39</td>
+      <td>897</td>
+      <td>451</td>
+      <td>875</td>
+      <td>A</td>
+      <td>E</td>
+      <td>313</td>
+      <td>381</td>
+      <td>20</td>
+      <td>875.0</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>319</th>
+      <td>475</td>
+      <td>126</td>
+      <td>3</td>
+      <td>61</td>
+      <td>43</td>
+      <td>52</td>
+      <td>6</td>
+      <td>1700</td>
+      <td>433</td>
+      <td>7</td>
+      <td>217</td>
+      <td>93</td>
+      <td>146</td>
+      <td>A</td>
+      <td>W</td>
+      <td>37</td>
+      <td>113</td>
+      <td>7</td>
+      <td>385.0</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>320</th>
+      <td>573</td>
+      <td>144</td>
+      <td>9</td>
+      <td>85</td>
+      <td>60</td>
+      <td>78</td>
+      <td>8</td>
+      <td>3198</td>
+      <td>857</td>
+      <td>97</td>
+      <td>470</td>
+      <td>420</td>
+      <td>332</td>
+      <td>A</td>
+      <td>E</td>
+      <td>1314</td>
+      <td>131</td>
+      <td>12</td>
+      <td>960.0</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>321</th>
+      <td>631</td>
+      <td>170</td>
+      <td>9</td>
+      <td>77</td>
+      <td>44</td>
+      <td>31</td>
+      <td>11</td>
+      <td>4908</td>
+      <td>1457</td>
+      <td>30</td>
+      <td>775</td>
+      <td>357</td>
+      <td>249</td>
+      <td>A</td>
+      <td>W</td>
+      <td>408</td>
+      <td>4</td>
+      <td>3</td>
+      <td>1000.0</td>
+      <td>A</td>
+    </tr>
+  </tbody>
+</table>
+<p>322 rows × 20 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cat_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;League&#39;</span><span class="p">,</span> <span class="s1">&#39;Division&#39;</span><span class="p">,</span> <span class="s1">&#39;NewLeague&#39;</span><span class="p">]</span>
+<span class="n">league_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">data_df</span><span class="p">[</span><span class="n">cat_features</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">league_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>League_A</th>
+      <th>League_N</th>
+      <th>Division_E</th>
+      <th>Division_W</th>
+      <th>NewLeague_A</th>
+      <th>NewLeague_N</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>317</th>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>318</th>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>319</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>320</th>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>321</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>263 rows × 6 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hitters_df</span> <span class="o">=</span> <span class="n">data_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="n">cat_features</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">league_df</span><span class="p">)</span>
+<span class="n">hitters_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AtBat</th>
+      <th>Hits</th>
+      <th>HmRun</th>
+      <th>Runs</th>
+      <th>RBI</th>
+      <th>Walks</th>
+      <th>Years</th>
+      <th>CAtBat</th>
+      <th>CHits</th>
+      <th>CHmRun</th>
+      <th>...</th>
+      <th>PutOuts</th>
+      <th>Assists</th>
+      <th>Errors</th>
+      <th>Salary</th>
+      <th>League_A</th>
+      <th>League_N</th>
+      <th>Division_E</th>
+      <th>Division_W</th>
+      <th>NewLeague_A</th>
+      <th>NewLeague_N</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>315</td>
+      <td>81</td>
+      <td>7</td>
+      <td>24</td>
+      <td>38</td>
+      <td>39</td>
+      <td>14</td>
+      <td>3449</td>
+      <td>835</td>
+      <td>69</td>
+      <td>...</td>
+      <td>632</td>
+      <td>43</td>
+      <td>10</td>
+      <td>475.0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>479</td>
+      <td>130</td>
+      <td>18</td>
+      <td>66</td>
+      <td>72</td>
+      <td>76</td>
+      <td>3</td>
+      <td>1624</td>
+      <td>457</td>
+      <td>63</td>
+      <td>...</td>
+      <td>880</td>
+      <td>82</td>
+      <td>14</td>
+      <td>480.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>496</td>
+      <td>141</td>
+      <td>20</td>
+      <td>65</td>
+      <td>78</td>
+      <td>37</td>
+      <td>11</td>
+      <td>5628</td>
+      <td>1575</td>
+      <td>225</td>
+      <td>...</td>
+      <td>200</td>
+      <td>11</td>
+      <td>3</td>
+      <td>500.0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>321</td>
+      <td>87</td>
+      <td>10</td>
+      <td>39</td>
+      <td>42</td>
+      <td>30</td>
+      <td>2</td>
+      <td>396</td>
+      <td>101</td>
+      <td>12</td>
+      <td>...</td>
+      <td>805</td>
+      <td>40</td>
+      <td>4</td>
+      <td>91.5</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>594</td>
+      <td>169</td>
+      <td>4</td>
+      <td>74</td>
+      <td>51</td>
+      <td>35</td>
+      <td>11</td>
+      <td>4408</td>
+      <td>1133</td>
+      <td>19</td>
+      <td>...</td>
+      <td>282</td>
+      <td>421</td>
+      <td>25</td>
+      <td>750.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>317</th>
+      <td>497</td>
+      <td>127</td>
+      <td>7</td>
+      <td>65</td>
+      <td>48</td>
+      <td>37</td>
+      <td>5</td>
+      <td>2703</td>
+      <td>806</td>
+      <td>32</td>
+      <td>...</td>
+      <td>325</td>
+      <td>9</td>
+      <td>3</td>
+      <td>700.0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>318</th>
+      <td>492</td>
+      <td>136</td>
+      <td>5</td>
+      <td>76</td>
+      <td>50</td>
+      <td>94</td>
+      <td>12</td>
+      <td>5511</td>
+      <td>1511</td>
+      <td>39</td>
+      <td>...</td>
+      <td>313</td>
+      <td>381</td>
+      <td>20</td>
+      <td>875.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>319</th>
+      <td>475</td>
+      <td>126</td>
+      <td>3</td>
+      <td>61</td>
+      <td>43</td>
+      <td>52</td>
+      <td>6</td>
+      <td>1700</td>
+      <td>433</td>
+      <td>7</td>
+      <td>...</td>
+      <td>37</td>
+      <td>113</td>
+      <td>7</td>
+      <td>385.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>320</th>
+      <td>573</td>
+      <td>144</td>
+      <td>9</td>
+      <td>85</td>
+      <td>60</td>
+      <td>78</td>
+      <td>8</td>
+      <td>3198</td>
+      <td>857</td>
+      <td>97</td>
+      <td>...</td>
+      <td>1314</td>
+      <td>131</td>
+      <td>12</td>
+      <td>960.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>321</th>
+      <td>631</td>
+      <td>170</td>
+      <td>9</td>
+      <td>77</td>
+      <td>44</td>
+      <td>31</td>
+      <td>11</td>
+      <td>4908</td>
+      <td>1457</td>
+      <td>30</td>
+      <td>...</td>
+      <td>408</td>
+      <td>4</td>
+      <td>3</td>
+      <td>1000.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>263 rows × 23 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hitters_corr</span> <span class="o">=</span> <span class="n">hitters_df</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">hitters_corr</span><span class="p">),</span> <span class="n">vmin</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">annot</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: &gt;
+</pre></div>
+</div>
+<img alt="../_images/22936e5fac21776030b996578696cef22bb7c5c667e15ea3fb6fae6c46dbe88e.png" src="../_images/22936e5fac21776030b996578696cef22bb7c5c667e15ea3fb6fae6c46dbe88e.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">target</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Salary&#39;</span><span class="p">]</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">hitters_df</span><span class="p">[</span><span class="n">target</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">hitters_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="n">target</span><span class="p">)</span>
+
+<span class="n">features</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="n">features</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;intercept&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span><span class="p">,</span> <span class="n">Ridge</span><span class="p">,</span> <span class="n">Lasso</span><span class="p">,</span> <span class="n">ElasticNet</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_regression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">root_mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">sc</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+
+<span class="n">Z_train</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">Z_test</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">linreg</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">linreg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Z_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="n">y_linreg_train</span> <span class="o">=</span> <span class="n">linreg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Z_train</span><span class="p">)</span>
+<span class="n">y_linreg_test</span> <span class="o">=</span> <span class="n">linreg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Z_test</span><span class="p">)</span>
+
+<span class="n">R2_linreg_train</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_linreg_train</span><span class="p">)</span>
+<span class="n">R2_linreg_test</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_linreg_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+<span class="n">alpha</span>
+
+<span class="n">lasso_metrics</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">ridge_metrics</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">elnet_metrics</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="n">lasso_coeffs</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">lasso_coeffs</span><span class="p">[</span><span class="s1">&#39;feature&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">features</span>
+
+<span class="n">ridge_coeffs</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">ridge_coeffs</span><span class="p">[</span><span class="s1">&#39;feature&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">features</span>
+
+<span class="n">elnet_coeffs</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">elnet_coeffs</span><span class="p">[</span><span class="s1">&#39;feature&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">features</span>
+
+<span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">alpha</span><span class="p">:</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Computing for alpha = </span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">lasso</span> <span class="o">=</span> <span class="n">Lasso</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">a</span><span class="p">)</span>
+    <span class="n">lasso</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Z_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    
+    <span class="n">lasso_coeffs</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lasso</span><span class="o">.</span><span class="n">coef_</span><span class="p">,</span> <span class="n">lasso</span><span class="o">.</span><span class="n">intercept_</span><span class="p">)</span>
+    
+    <span class="n">y_lasso_train</span> <span class="o">=</span> <span class="n">lasso</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Z_train</span><span class="p">)</span>
+    <span class="n">y_lasso_test</span> <span class="o">=</span> <span class="n">lasso</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Z_test</span><span class="p">)</span>
+    
+    <span class="n">lasso_metrics</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;R2_train&#39;</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_lasso_train</span><span class="p">),</span>
+                        <span class="s1">&#39;R2_test&#39;</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_lasso_test</span><span class="p">),</span>
+                        <span class="s1">&#39;RMSE_train&#39;</span><span class="p">:</span> <span class="n">root_mean_squared_error</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_lasso_train</span><span class="p">),</span> 
+                        <span class="s1">&#39;RMSE_test&#39;</span><span class="p">:</span> <span class="n">root_mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_lasso_test</span><span class="p">)}</span>
+    
+    <span class="n">ridge</span> <span class="o">=</span> <span class="n">Ridge</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">a</span><span class="p">)</span>
+    <span class="n">ridge</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Z_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+        
+    <span class="n">ridge_coeffs</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ridge</span><span class="o">.</span><span class="n">coef_</span><span class="p">,</span> <span class="n">ridge</span><span class="o">.</span><span class="n">intercept_</span><span class="p">)</span>
+        
+    <span class="n">y_ridge_train</span> <span class="o">=</span> <span class="n">ridge</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Z_train</span><span class="p">)</span>
+    <span class="n">y_ridge_test</span> <span class="o">=</span> <span class="n">ridge</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Z_test</span><span class="p">)</span>
+        
+    <span class="n">ridge_metrics</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;R2_train&#39;</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_ridge_train</span><span class="p">),</span>
+                        <span class="s1">&#39;R2_test&#39;</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_ridge_test</span><span class="p">),</span>
+                        <span class="s1">&#39;RMSE_train&#39;</span><span class="p">:</span> <span class="n">root_mean_squared_error</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_ridge_train</span><span class="p">),</span> 
+                        <span class="s1">&#39;RMSE_test&#39;</span><span class="p">:</span> <span class="n">root_mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_ridge_test</span><span class="p">)}</span>
+    
+    <span class="n">elnet</span> <span class="o">=</span> <span class="n">ElasticNet</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">a</span><span class="p">,</span> <span class="n">l1_ratio</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">elnet</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Z_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    
+    <span class="n">elnet_coeffs</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elnet</span><span class="o">.</span><span class="n">coef_</span><span class="p">,</span> <span class="n">elnet</span><span class="o">.</span><span class="n">intercept_</span><span class="p">)</span>
+    
+    <span class="n">y_elnet_train</span> <span class="o">=</span> <span class="n">elnet</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Z_train</span><span class="p">)</span>
+    <span class="n">y_elnet_test</span> <span class="o">=</span> <span class="n">elnet</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Z_test</span><span class="p">)</span>
+    
+    <span class="n">elnet_metrics</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;R2_train&#39;</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_elnet_train</span><span class="p">),</span>
+                        <span class="s1">&#39;R2_test&#39;</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_elnet_test</span><span class="p">),</span>
+                        <span class="s1">&#39;RMSE_train&#39;</span><span class="p">:</span> <span class="n">root_mean_squared_error</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_elnet_train</span><span class="p">),</span> 
+                        <span class="s1">&#39;RMSE_test&#39;</span><span class="p">:</span> <span class="n">root_mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_elnet_test</span><span class="p">)}</span>
+    
+    
+    
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing for alpha = 0.010
+Computing for alpha = 0.032
+Computing for alpha = 0.100
+Computing for alpha = 0.316
+Computing for alpha = 1.000
+Computing for alpha = 3.162
+Computing for alpha = 10.000
+Computing for alpha = 31.623
+Computing for alpha = 100.000
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lasso_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">lasso_coeffs</span><span class="p">)</span>
+<span class="n">lasso_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="mf">100.0</span><span class="p">,</span> <span class="n">ascending</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>feature</th>
+      <th>0.01</th>
+      <th>0.03</th>
+      <th>0.1</th>
+      <th>0.32</th>
+      <th>1.0</th>
+      <th>3.16</th>
+      <th>10.0</th>
+      <th>31.62</th>
+      <th>100.0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>22</th>
+      <td>intercept</td>
+      <td>5.37e+02</td>
+      <td>5.37e+02</td>
+      <td>5.37e+02</td>
+      <td>5.37e+02</td>
+      <td>5.37e+02</td>
+      <td>5.37e+02</td>
+      <td>5.37e+02</td>
+      <td>5.37e+02</td>
+      <td>537.48</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>CRuns</td>
+      <td>6.49e+02</td>
+      <td>6.37e+02</td>
+      <td>6.00e+02</td>
+      <td>4.89e+02</td>
+      <td>2.89e+02</td>
+      <td>2.10e+02</td>
+      <td>1.34e+02</td>
+      <td>1.26e+02</td>
+      <td>111.53</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Hits</td>
+      <td>4.14e+02</td>
+      <td>4.11e+02</td>
+      <td>3.99e+02</td>
+      <td>3.71e+02</td>
+      <td>3.11e+02</td>
+      <td>2.37e+02</td>
+      <td>8.17e+01</td>
+      <td>7.27e+01</td>
+      <td>39.15</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Walks</td>
+      <td>1.54e+02</td>
+      <td>1.53e+02</td>
+      <td>1.50e+02</td>
+      <td>1.43e+02</td>
+      <td>1.25e+02</td>
+      <td>9.16e+01</td>
+      <td>4.85e+01</td>
+      <td>4.55e+01</td>
+      <td>23.14</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>CRBI</td>
+      <td>3.74e+02</td>
+      <td>3.65e+02</td>
+      <td>3.37e+02</td>
+      <td>2.45e+02</td>
+      <td>9.80e+01</td>
+      <td>6.14e+01</td>
+      <td>4.95e+01</td>
+      <td>4.29e+01</td>
+      <td>5.84</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>RBI</td>
+      <td>-1.23e+02</td>
+      <td>-1.21e+02</td>
+      <td>-1.16e+02</td>
+      <td>-1.00e+02</td>
+      <td>-6.73e+01</td>
+      <td>-1.88e+01</td>
+      <td>0.00e+00</td>
+      <td>0.00e+00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Years</td>
+      <td>-1.54e+01</td>
+      <td>-1.49e+01</td>
+      <td>-1.35e+01</td>
+      <td>-1.53e+01</td>
+      <td>-1.79e+01</td>
+      <td>-3.62e+00</td>
+      <td>0.00e+00</td>
+      <td>0.00e+00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>NewLeague_N</td>
+      <td>-3.90e-15</td>
+      <td>-1.09e-14</td>
+      <td>-0.00e+00</td>
+      <td>-0.00e+00</td>
+      <td>-0.00e+00</td>
+      <td>0.00e+00</td>
+      <td>0.00e+00</td>
+      <td>0.00e+00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>NewLeague_A</td>
+      <td>1.55e+00</td>
+      <td>1.61e+00</td>
+      <td>1.76e+00</td>
+      <td>1.78e+00</td>
+      <td>0.00e+00</td>
+      <td>-0.00e+00</td>
+      <td>-0.00e+00</td>
+      <td>-0.00e+00</td>
+      <td>-0.00</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Division_W</td>
+      <td>-1.14e-11</td>
+      <td>-9.44e-12</td>
+      <td>-9.51e-12</td>
+      <td>-9.98e-12</td>
+      <td>-3.42e-12</td>
+      <td>-2.89e-12</td>
+      <td>-8.97e-13</td>
+      <td>-5.37e-13</td>
+      <td>-0.00</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Division_E</td>
+      <td>4.76e+01</td>
+      <td>4.76e+01</td>
+      <td>4.77e+01</td>
+      <td>4.80e+01</td>
+      <td>4.83e+01</td>
+      <td>4.59e+01</td>
+      <td>4.52e+01</td>
+      <td>2.66e+01</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>League_N</td>
+      <td>1.69e-14</td>
+      <td>0.00e+00</td>
+      <td>0.00e+00</td>
+      <td>0.00e+00</td>
+      <td>4.33e-15</td>
+      <td>0.00e+00</td>
+      <td>0.00e+00</td>
+      <td>0.00e+00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>League_A</td>
+      <td>-3.04e+01</td>
+      <td>-3.05e+01</td>
+      <td>-3.07e+01</td>
+      <td>-3.06e+01</td>
+      <td>-2.84e+01</td>
+      <td>-2.60e+01</td>
+      <td>-1.61e+01</td>
+      <td>-0.00e+00</td>
+      <td>-0.00</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Errors</td>
+      <td>-4.09e+01</td>
+      <td>-4.09e+01</td>
+      <td>-4.09e+01</td>
+      <td>-4.09e+01</td>
+      <td>-4.03e+01</td>
+      <td>-3.49e+01</td>
+      <td>-1.61e+01</td>
+      <td>-0.00e+00</td>
+      <td>-0.00</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Assists</td>
+      <td>7.51e+01</td>
+      <td>7.51e+01</td>
+      <td>7.49e+01</td>
+      <td>7.33e+01</td>
+      <td>6.77e+01</td>
+      <td>4.89e+01</td>
+      <td>5.64e+00</td>
+      <td>0.00e+00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>PutOuts</td>
+      <td>5.92e+01</td>
+      <td>5.91e+01</td>
+      <td>5.90e+01</td>
+      <td>5.91e+01</td>
+      <td>5.81e+01</td>
+      <td>5.31e+01</td>
+      <td>4.25e+01</td>
+      <td>2.59e+01</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>CWalks</td>
+      <td>-2.64e+02</td>
+      <td>-2.61e+02</td>
+      <td>-2.51e+02</td>
+      <td>-2.29e+02</td>
+      <td>-1.78e+02</td>
+      <td>-9.00e+01</td>
+      <td>0.00e+00</td>
+      <td>0.00e+00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>HmRun</td>
+      <td>1.35e+02</td>
+      <td>1.33e+02</td>
+      <td>1.28e+02</td>
+      <td>1.11e+02</td>
+      <td>7.94e+01</td>
+      <td>4.34e+01</td>
+      <td>4.00e+00</td>
+      <td>0.00e+00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Runs</td>
+      <td>-7.61e+01</td>
+      <td>-7.36e+01</td>
+      <td>-6.57e+01</td>
+      <td>-4.22e+01</td>
+      <td>-0.00e+00</td>
+      <td>7.47e+00</td>
+      <td>5.29e+00</td>
+      <td>1.06e+00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>CHmRun</td>
+      <td>-1.62e+02</td>
+      <td>-1.56e+02</td>
+      <td>-1.38e+02</td>
+      <td>-8.30e+01</td>
+      <td>0.00e+00</td>
+      <td>0.00e+00</td>
+      <td>0.00e+00</td>
+      <td>0.00e+00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>CHits</td>
+      <td>-4.77e+02</td>
+      <td>-4.55e+02</td>
+      <td>-3.89e+02</td>
+      <td>-2.42e+02</td>
+      <td>-0.00e+00</td>
+      <td>0.00e+00</td>
+      <td>0.00e+00</td>
+      <td>0.00e+00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>CAtBat</td>
+      <td>4.03e+01</td>
+      <td>3.13e+01</td>
+      <td>4.11e+00</td>
+      <td>-6.80e+00</td>
+      <td>-1.94e+01</td>
+      <td>-0.00e+00</td>
+      <td>0.00e+00</td>
+      <td>0.00e+00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>AtBat</td>
+      <td>-3.36e+02</td>
+      <td>-3.34e+02</td>
+      <td>-3.28e+02</td>
+      <td>-3.20e+02</td>
+      <td>-2.92e+02</td>
+      <td>-2.07e+02</td>
+      <td>-0.00e+00</td>
+      <td>0.00e+00</td>
+      <td>0.00</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ridge_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ridge_coeffs</span><span class="p">)</span>
+<span class="n">ridge_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="mf">100.0</span><span class="p">,</span> <span class="n">ascending</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>feature</th>
+      <th>0.01</th>
+      <th>0.03</th>
+      <th>0.1</th>
+      <th>0.32</th>
+      <th>1.0</th>
+      <th>3.16</th>
+      <th>10.0</th>
+      <th>31.62</th>
+      <th>100.0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>22</th>
+      <td>intercept</td>
+      <td>537.48</td>
+      <td>537.48</td>
+      <td>537.48</td>
+      <td>537.48</td>
+      <td>537.48</td>
+      <td>537.48</td>
+      <td>537.48</td>
+      <td>537.48</td>
+      <td>537.48</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Hits</td>
+      <td>425.51</td>
+      <td>416.61</td>
+      <td>395.06</td>
+      <td>356.35</td>
+      <td>300.82</td>
+      <td>220.87</td>
+      <td>130.70</td>
+      <td>70.02</td>
+      <td>41.77</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>CRuns</td>
+      <td>673.04</td>
+      <td>643.61</td>
+      <td>572.66</td>
+      <td>449.71</td>
+      <td>305.04</td>
+      <td>179.32</td>
+      <td>99.14</td>
+      <td>59.26</td>
+      <td>40.07</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>CHits</td>
+      <td>-562.68</td>
+      <td>-505.02</td>
+      <td>-371.95</td>
+      <td>-169.72</td>
+      <td>-1.19</td>
+      <td>70.45</td>
+      <td>72.78</td>
+      <td>52.97</td>
+      <td>37.52</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Walks</td>
+      <td>155.62</td>
+      <td>153.79</td>
+      <td>149.26</td>
+      <td>140.55</td>
+      <td>126.25</td>
+      <td>102.65</td>
+      <td>72.65</td>
+      <td>49.75</td>
+      <td>37.14</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Runs</td>
+      <td>-80.48</td>
+      <td>-75.14</td>
+      <td>-62.05</td>
+      <td>-38.25</td>
+      <td>-6.28</td>
+      <td>27.93</td>
+      <td>49.03</td>
+      <td>47.35</td>
+      <td>36.47</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>PutOuts</td>
+      <td>59.35</td>
+      <td>59.25</td>
+      <td>59.03</td>
+      <td>58.70</td>
+      <td>58.27</td>
+      <td>57.15</td>
+      <td>54.11</td>
+      <td>47.47</td>
+      <td>36.20</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>CRBI</td>
+      <td>394.53</td>
+      <td>373.66</td>
+      <td>323.69</td>
+      <td>239.53</td>
+      <td>151.60</td>
+      <td>95.25</td>
+      <td>64.63</td>
+      <td>43.34</td>
+      <td>31.67</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>CAtBat</td>
+      <td>106.99</td>
+      <td>79.87</td>
+      <td>21.06</td>
+      <td>-50.25</td>
+      <td>-66.01</td>
+      <td>-25.10</td>
+      <td>11.67</td>
+      <td>25.23</td>
+      <td>27.02</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Division_E</td>
+      <td>23.78</td>
+      <td>23.88</td>
+      <td>24.11</td>
+      <td>24.53</td>
+      <td>25.04</td>
+      <td>25.40</td>
+      <td>25.35</td>
+      <td>24.64</td>
+      <td>22.12</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Assists</td>
+      <td>74.27</td>
+      <td>74.46</td>
+      <td>74.76</td>
+      <td>74.50</td>
+      <td>71.88</td>
+      <td>64.97</td>
+      <td>52.24</td>
+      <td>34.73</td>
+      <td>18.57</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>CHmRun</td>
+      <td>-177.29</td>
+      <td>-163.65</td>
+      <td>-131.26</td>
+      <td>-77.98</td>
+      <td>-25.52</td>
+      <td>2.75</td>
+      <td>11.17</td>
+      <td>15.03</td>
+      <td>17.86</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>CWalks</td>
+      <td>-272.74</td>
+      <td>-265.29</td>
+      <td>-247.45</td>
+      <td>-216.66</td>
+      <td>-176.88</td>
+      <td>-124.97</td>
+      <td>-61.67</td>
+      <td>-9.57</td>
+      <td>15.32</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>HmRun</td>
+      <td>137.77</td>
+      <td>134.67</td>
+      <td>127.00</td>
+      <td>112.64</td>
+      <td>92.32</td>
+      <td>67.16</td>
+      <td>40.53</td>
+      <td>21.44</td>
+      <td>14.13</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Years</td>
+      <td>-20.57</td>
+      <td>-19.41</td>
+      <td>-17.13</td>
+      <td>-15.57</td>
+      <td>-18.52</td>
+      <td>-21.97</td>
+      <td>-16.24</td>
+      <td>-2.02</td>
+      <td>10.52</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>League_N</td>
+      <td>14.76</td>
+      <td>15.04</td>
+      <td>15.70</td>
+      <td>16.67</td>
+      <td>17.40</td>
+      <td>17.51</td>
+      <td>16.57</td>
+      <td>13.82</td>
+      <td>9.69</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>RBI</td>
+      <td>-124.85</td>
+      <td>-122.31</td>
+      <td>-115.92</td>
+      <td>-103.49</td>
+      <td>-84.65</td>
+      <td>-59.30</td>
+      <td>-30.09</td>
+      <td>-6.20</td>
+      <td>8.75</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>NewLeague_N</td>
+      <td>-0.42</td>
+      <td>-0.72</td>
+      <td>-1.43</td>
+      <td>-2.52</td>
+      <td>-3.47</td>
+      <td>-3.74</td>
+      <td>-2.85</td>
+      <td>-0.38</td>
+      <td>2.69</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>AtBat</td>
+      <td>-344.20</td>
+      <td>-339.10</td>
+      <td>-326.83</td>
+      <td>-304.83</td>
+      <td>-270.03</td>
+      <td>-206.28</td>
+      <td>-115.02</td>
+      <td>-37.52</td>
+      <td>2.26</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>NewLeague_A</td>
+      <td>0.42</td>
+      <td>0.72</td>
+      <td>1.43</td>
+      <td>2.52</td>
+      <td>3.47</td>
+      <td>3.74</td>
+      <td>2.85</td>
+      <td>0.38</td>
+      <td>-2.69</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>League_A</td>
+      <td>-14.76</td>
+      <td>-15.04</td>
+      <td>-15.70</td>
+      <td>-16.67</td>
+      <td>-17.40</td>
+      <td>-17.51</td>
+      <td>-16.57</td>
+      <td>-13.82</td>
+      <td>-9.69</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Errors</td>
+      <td>-40.90</td>
+      <td>-41.11</td>
+      <td>-41.62</td>
+      <td>-42.65</td>
+      <td>-44.31</td>
+      <td>-46.10</td>
+      <td>-44.73</td>
+      <td>-35.79</td>
+      <td>-21.32</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Division_W</td>
+      <td>-23.78</td>
+      <td>-23.88</td>
+      <td>-24.11</td>
+      <td>-24.53</td>
+      <td>-25.04</td>
+      <td>-25.40</td>
+      <td>-25.35</td>
+      <td>-24.64</td>
+      <td>-22.12</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">elnet_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">elnet_coeffs</span><span class="p">)</span>
+<span class="n">elnet_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="mf">100.0</span><span class="p">,</span> <span class="n">ascending</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>feature</th>
+      <th>0.01</th>
+      <th>0.03</th>
+      <th>0.1</th>
+      <th>0.32</th>
+      <th>1.0</th>
+      <th>3.16</th>
+      <th>10.0</th>
+      <th>31.62</th>
+      <th>100.0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>22</th>
+      <td>intercept</td>
+      <td>537.48</td>
+      <td>537.48</td>
+      <td>537.48</td>
+      <td>537.48</td>
+      <td>537.48</td>
+      <td>537.48</td>
+      <td>537.48</td>
+      <td>537.48</td>
+      <td>537.48</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>CRuns</td>
+      <td>298.70</td>
+      <td>174.50</td>
+      <td>96.51</td>
+      <td>57.75</td>
+      <td>39.50</td>
+      <td>28.81</td>
+      <td>19.14</td>
+      <td>9.55</td>
+      <td>3.24</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>CHits</td>
+      <td>3.69</td>
+      <td>71.06</td>
+      <td>71.86</td>
+      <td>51.71</td>
+      <td>37.01</td>
+      <td>27.50</td>
+      <td>18.45</td>
+      <td>9.22</td>
+      <td>3.12</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>CRBI</td>
+      <td>148.03</td>
+      <td>93.33</td>
+      <td>63.34</td>
+      <td>42.27</td>
+      <td>31.34</td>
+      <td>25.07</td>
+      <td>17.72</td>
+      <td>9.07</td>
+      <td>3.09</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>CAtBat</td>
+      <td>-64.39</td>
+      <td>-22.26</td>
+      <td>12.22</td>
+      <td>24.93</td>
+      <td>26.97</td>
+      <td>23.99</td>
+      <td>17.28</td>
+      <td>8.85</td>
+      <td>3.00</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>CWalks</td>
+      <td>-174.85</td>
+      <td>-122.06</td>
+      <td>-58.12</td>
+      <td>-6.69</td>
+      <td>15.84</td>
+      <td>20.62</td>
+      <td>16.06</td>
+      <td>8.35</td>
+      <td>2.82</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>CHmRun</td>
+      <td>-23.53</td>
+      <td>3.39</td>
+      <td>11.25</td>
+      <td>14.92</td>
+      <td>17.86</td>
+      <td>18.51</td>
+      <td>14.63</td>
+      <td>7.76</td>
+      <td>2.61</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Walks</td>
+      <td>125.37</td>
+      <td>101.28</td>
+      <td>71.10</td>
+      <td>48.61</td>
+      <td>36.67</td>
+      <td>26.90</td>
+      <td>16.79</td>
+      <td>7.83</td>
+      <td>2.46</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Runs</td>
+      <td>-4.64</td>
+      <td>29.30</td>
+      <td>49.34</td>
+      <td>46.69</td>
+      <td>35.90</td>
+      <td>25.72</td>
+      <td>16.01</td>
+      <td>7.46</td>
+      <td>2.32</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Hits</td>
+      <td>297.80</td>
+      <td>216.67</td>
+      <td>126.79</td>
+      <td>67.65</td>
+      <td>40.94</td>
+      <td>26.96</td>
+      <td>16.28</td>
+      <td>7.49</td>
+      <td>2.31</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Years</td>
+      <td>-18.73</td>
+      <td>-21.93</td>
+      <td>-15.35</td>
+      <td>-0.64</td>
+      <td>10.70</td>
+      <td>15.07</td>
+      <td>12.51</td>
+      <td>6.67</td>
+      <td>2.17</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>RBI</td>
+      <td>-83.53</td>
+      <td>-57.80</td>
+      <td>-28.35</td>
+      <td>-4.50</td>
+      <td>9.17</td>
+      <td>15.12</td>
+      <td>12.82</td>
+      <td>6.70</td>
+      <td>2.15</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>AtBat</td>
+      <td>-268.00</td>
+      <td>-202.46</td>
+      <td>-110.40</td>
+      <td>-34.03</td>
+      <td>3.16</td>
+      <td>14.37</td>
+      <td>12.36</td>
+      <td>6.30</td>
+      <td>1.95</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>HmRun</td>
+      <td>91.18</td>
+      <td>65.80</td>
+      <td>39.12</td>
+      <td>20.33</td>
+      <td>13.79</td>
+      <td>13.09</td>
+      <td>10.45</td>
+      <td>5.41</td>
+      <td>1.64</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>PutOuts</td>
+      <td>58.25</td>
+      <td>57.04</td>
+      <td>53.83</td>
+      <td>46.89</td>
+      <td>35.36</td>
+      <td>21.49</td>
+      <td>10.37</td>
+      <td>3.77</td>
+      <td>0.73</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Division_E</td>
+      <td>25.06</td>
+      <td>25.39</td>
+      <td>25.30</td>
+      <td>24.50</td>
+      <td>21.80</td>
+      <td>15.91</td>
+      <td>8.59</td>
+      <td>3.20</td>
+      <td>0.53</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Assists</td>
+      <td>71.64</td>
+      <td>64.44</td>
+      <td>51.30</td>
+      <td>33.45</td>
+      <td>17.41</td>
+      <td>7.86</td>
+      <td>3.11</td>
+      <td>0.64</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Errors</td>
+      <td>-44.37</td>
+      <td>-46.10</td>
+      <td>-44.36</td>
+      <td>-34.88</td>
+      <td>-20.03</td>
+      <td>-7.80</td>
+      <td>-1.91</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>League_A</td>
+      <td>-17.41</td>
+      <td>-17.44</td>
+      <td>-16.35</td>
+      <td>-13.40</td>
+      <td>-9.34</td>
+      <td>-5.14</td>
+      <td>-1.57</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>League_N</td>
+      <td>17.40</td>
+      <td>17.44</td>
+      <td>16.35</td>
+      <td>13.40</td>
+      <td>9.34</td>
+      <td>5.14</td>
+      <td>1.57</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>NewLeague_A</td>
+      <td>3.48</td>
+      <td>3.68</td>
+      <td>2.62</td>
+      <td>0.00</td>
+      <td>-2.68</td>
+      <td>-3.36</td>
+      <td>-1.52</td>
+      <td>-0.00</td>
+      <td>-0.00</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>NewLeague_N</td>
+      <td>-3.48</td>
+      <td>-3.68</td>
+      <td>-2.62</td>
+      <td>-0.00</td>
+      <td>2.68</td>
+      <td>3.36</td>
+      <td>1.52</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Division_W</td>
+      <td>-25.05</td>
+      <td>-25.39</td>
+      <td>-25.30</td>
+      <td>-24.50</td>
+      <td>-21.80</td>
+      <td>-15.91</td>
+      <td>-8.59</td>
+      <td>-3.20</td>
+      <td>-0.53</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./01_Regression"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01_auto_mpg_example.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">2.4. </span>Example: Multiple Linear Regression Estimating Fuel Efficiency</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03_polynomial_regression.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Polynomial Regression</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-when-to-use-regularization">3.1. Why/when to use regularization?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-baseball-salary-prediction-1986">3.2. Example: Baseball Salary Prediction (1986)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Eatai Roth, Gettysburg College
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
