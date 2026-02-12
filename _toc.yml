@@ -19,7 +19,8 @@ parts:
           - file: 01_Regression/01_auto_mpg_example
       - file: 01_Regression/02_regularization_solved
       - file: 01_Regression/03_polynomial_regression
-
+        sections:
+          - file: 01_Regression/03_polynomial_regression_kc_example
 
   - caption: Assignments
     numbered: false
