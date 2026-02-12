@@ -208,7 +208,9 @@
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="02_regularization_solved.html">3. Regularization</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. Polynomial Regression</a></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">4. Polynomial Regression</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Assignments</span></p>
 <ul class="nav bd-sidenav">
@@ -402,12 +404,6 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#displaying-the-model-results">4.2.4. Displaying the model results</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-auto-hp-vs-mpg">4.3. Example: Auto HP vs MPG</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-king-county-housing">4.4. Example: King County Housing</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-cleaning">4.4.1. Data cleaning</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-processing">4.4.2. Pre-processing</a></li>
-</ul>
-</li>
 </ul>
             </nav>
         </div>
@@ -429,8 +425,8 @@ document.write(`
 <p>Examples:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(y = x^2\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(y = 5 x^3 + 4.5 x - 3.6\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(y = x_1^2 + 3.7 \underbrace{x_1 x_2}_{interaction} +2.1 x_2^2\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(y = 5 x^3 + 4.5^x - 3.6\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(y = x_1^2 + 3.7 x_1 x_2 +2.1 x_2^2\)</span></p></li>
 </ul>
 <p>And Taylor’s theorem tells us that any smooth curve can be approximated within some range arbitrarily closely by some polynomial (if you took calculus, this is the foundation of the Taylor Series).</p>
 <div class="cell docutils container">
@@ -521,7 +517,7 @@ v_3 &amp;= x^3
 \[
 y = 5 + 3.1 v_1 + 2.6 v_2 - 4 v_3
 \]</div>
-<p>This equation is linear with respect to our new features (<span class="math notranslate nohighlight">\(v_1, v_2, v_3\)</span>), so we can use linear regression to find the best fit coeffecients!</p>
+<p>This equation is linear with respect to our new features (<span class="math notranslate nohighlight">\(z_1, z_2, z_3\)</span>), so we can use linear regression to find the best fit coeffecients!</p>
 <section id="engineering-polynomial-features">
 <h3><span class="section-number">4.2.1. </span>Engineering Polynomial features<a class="headerlink" href="#engineering-polynomial-features" title="Link to this heading">#</a></h3>
 <p>Scikit-learn provides a function <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.PolynomialFeatures.html">PolynomialFeatures</a> that creates new polynomial features from our existing features. Let’s examine this function.</p>
@@ -538,38 +534,10 @@ y = 5 + 3.1 v_1 + 2.6 v_2 - 4 v_3
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PolynomialFeatures</span>
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;x1&#39;</span><span class="p">:[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;x2&#39;</span><span class="p">:[</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;x3&#39;</span><span class="p">:[</span><span class="mi">5</span><span class="p">]})</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="n">poly</span> <span class="o">=</span> <span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">include_bias</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">poly</span> <span class="o">=</span> <span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">include_bias</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
 <span class="n">V</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-
-<span class="n">feature_names</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
-
-<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">feature_names</span><span class="p">,</span> <span class="n">V</span><span class="o">.</span><span class="n">flatten</span><span class="p">())):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">k</span><span class="si">:</span><span class="s1">&gt;2</span><span class="si">}</span><span class="s1">. </span><span class="si">{</span><span class="n">fname</span><span class="si">:</span><span class="s1">&gt;10</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">val</span><span class="si">:</span><span class="s1">5g</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 0.         x1:     2
- 1.         x2:     3
- 2.         x3:     5
- 3.       x1^2:     4
- 4.      x1 x2:     6
- 5.      x1 x3:    10
- 6.       x2^2:     9
- 7.      x2 x3:    15
- 8.       x3^2:    25
- 9.       x1^3:     8
-10.    x1^2 x2:    12
-11.    x1^2 x3:    20
-12.    x1 x2^2:    18
-13.   x1 x2 x3:    30
-14.    x1 x3^2:    50
-15.       x2^3:    27
-16.    x2^2 x3:    45
-17.    x2 x3^2:    75
-18.       x3^3:   125
 </pre></div>
 </div>
 </div>
@@ -1161,11 +1129,23 @@ True model:
 </div>
 </div>
 <p>Which model is best?</p>
-</section>
-</section>
-<section id="example-auto-hp-vs-mpg">
-<h2><span class="section-number">4.3. </span>Example: Auto HP vs MPG<a class="headerlink" href="#example-auto-hp-vs-mpg" title="Link to this heading">#</a></h2>
-<p>Horsepower and fuel efficiency are known to have a non-linear relationship. Let’s try resolving this relationship with polynomial features.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Example: Auto HP vs MPG</span>
+
+<span class="n">Horsepower</span> <span class="ow">and</span> <span class="n">fuel</span> <span class="n">efficiency</span> <span class="n">are</span> <span class="n">known</span> <span class="n">to</span> <span class="n">have</span> <span class="n">a</span> <span class="n">non</span><span class="o">-</span><span class="n">linear</span> <span class="n">relationship</span><span class="o">.</span> <span class="n">Let</span><span class="s1">&#39;s try resolving this relationship with polynomial features.</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>  <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+    <span class="n">Horsepower</span> <span class="ow">and</span> <span class="n">fuel</span> <span class="n">efficiency</span> <span class="n">are</span> <span class="n">known</span> <span class="n">to</span> <span class="n">have</span> <span class="n">a</span> <span class="n">non</span><span class="o">-</span><span class="n">linear</span> <span class="n">relationship</span><span class="o">.</span> <span class="n">Let</span><span class="s1">&#39;s try resolving this relationship with polynomial features.</span>
+                                                                                   <span class="o">^</span>
+<span class="ne">SyntaxError</span>: unterminated string literal (detected at line 3)
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/shreyamdg/automobile-data-set-analysis/refs/heads/master/cars.csv&#39;</span><span class="p">)</span>
@@ -1238,59 +1218,89 @@ True model:
 </div>
 </div>
 </div>
-</section>
-<section id="example-king-county-housing">
-<h2><span class="section-number">4.4. </span>Example: King County Housing<a class="headerlink" href="#example-king-county-housing" title="Link to this heading">#</a></h2>
-<p>Can we do better fitting the King County Housing dataset with polynomial features?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">PolynomialFeatures</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LassoCV</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">cars_df</span><span class="p">[[</span><span class="s1">&#39;horsepower&#39;</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">cars_df</span><span class="p">[</span><span class="s1">&#39;city-mpg&#39;</span><span class="p">]</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<section id="data-cleaning">
-<h3><span class="section-number">4.4.1. </span>Data cleaning<a class="headerlink" href="#data-cleaning" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">housing_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/GettysburgDataScience/datasets/refs/heads/main/kc_house_data.csv&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fit linear model</span>
+<span class="n">linreg</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">linreg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">y_pred_lin</span> <span class="o">=</span> <span class="n">linreg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fit polynomial model (degree 2)</span>
+<span class="n">poly</span> <span class="o">=</span> <span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">X_poly</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 
-<span class="n">housing_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">housing_df</span><span class="p">[</span><span class="s1">&#39;yr_renovated&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;yr_renovated&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">housing_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">housing_df</span><span class="p">[</span><span class="s1">&#39;yr_renovated&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;yr_built&#39;</span><span class="p">]</span>
-<span class="n">housing_df</span><span class="p">[</span><span class="s1">&#39;yr_sold&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">housing_df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]))</span>
-<span class="n">housing_df</span><span class="p">[</span><span class="s1">&#39;age_built&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">housing_df</span><span class="p">[</span><span class="s1">&#39;yr_sold&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">housing_df</span><span class="p">[</span><span class="s1">&#39;yr_built&#39;</span><span class="p">]</span>
-<span class="n">housing_df</span><span class="p">[</span><span class="s1">&#39;age_reno&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">housing_df</span><span class="p">[</span><span class="s1">&#39;yr_sold&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">housing_df</span><span class="p">[</span><span class="s1">&#39;yr_renovated&#39;</span><span class="p">]</span>
+<span class="n">lin_poly</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">lin_poly</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_poly</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">y_pred_poly</span> <span class="o">=</span> <span class="n">lin_poly</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_poly</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compare</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Linear R²: </span><span class="si">{</span><span class="n">r2_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">y_pred_lin</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Polynomial R²: </span><span class="si">{</span><span class="n">r2_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">y_pred_poly</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-<span class="n">columns_to_drop</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;zipcode&#39;</span><span class="p">,</span> <span class="s1">&#39;yr_built&#39;</span><span class="p">,</span> <span class="s1">&#39;yr_renovated&#39;</span><span class="p">]</span>
-<span class="n">housing_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="n">columns_to_drop</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># Visualize</span>
+<span class="n">X_sorted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">X_sorted_poly</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_sorted</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_sorted</span><span class="p">,</span> <span class="n">linreg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sorted</span><span class="p">),</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Linear&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Horsepower&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;MPG&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Linear Model (just hp)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_sorted</span><span class="p">,</span> <span class="n">poly_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_sorted_poly</span><span class="p">),</span> <span class="s1">&#39;r-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Polynomial (degree 2)&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Horsepower&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;MPG&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Polynomial Model (hp and hp^2)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">23</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Compare</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Linear R²: </span><span class="si">{</span><span class="n">r2_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">y_pred_lin</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Polynomial R²: </span><span class="si">{</span><span class="n">r2_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">y_pred_poly</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># Visualize</span>
+
+<span class="ne">NameError</span>: name &#39;r2_score&#39; is not defined
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="pre-processing">
-<h3><span class="section-number">4.4.2. </span>Pre-processing<a class="headerlink" href="#pre-processing" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p>Train-test split</p></li>
-<li><p>Polynomial feature engineering</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">target</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span>
-
-<span class="n">y</span> <span class="o">=</span> <span class="n">housing_df</span><span class="p">[</span><span class="n">target</span><span class="p">]</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">housing_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="n">target</span><span class="p">)</span>
-
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
 </section>
-</section>
+<div class="toctree-wrapper compound">
+</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1363,12 +1373,6 @@ True model:
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-some-curvy-synthetic-data">4.2.2. Creating some curvy synthetic data</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-the-models">4.2.3. Fitting the models</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#displaying-the-model-results">4.2.4. Displaying the model results</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-auto-hp-vs-mpg">4.3. Example: Auto HP vs MPG</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-king-county-housing">4.4. Example: King County Housing</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-cleaning">4.4.1. Data cleaning</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-processing">4.4.2. Pre-processing</a></li>
 </ul>
 </li>
 </ul>
