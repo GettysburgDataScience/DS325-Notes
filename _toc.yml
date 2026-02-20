@@ -21,6 +21,8 @@ parts:
       - file: 01_Regression/03_polynomial_regression
         sections:
           - file: 01_Regression/03_polynomial_regression_kc_example
+          - file: 01_Regression/04_west_claude_example
+
 
   - caption: Assignments
     numbered: false
