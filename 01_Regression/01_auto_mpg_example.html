@@ -70,6 +70,8 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"loader": {"load": ["ui/lazy"]}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="../_static/mathjax_patch.js?v=c73a562d"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '01_Regression/01_auto_mpg_example';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -211,7 +213,12 @@
 <li class="toctree-l2"><a class="reference internal" href="04_west_claude_example.html">4.4. Example: West Claude University</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="05_exam_review.html">5. Exam 1 Review</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_exam_review.html">5. Chapter 1 - The Machine Learning Landscape</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Classification</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../02_Classification/01_classification_intro.html">7. Classification</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Assignments</span></p>
 <ul class="nav bd-sidenav">
@@ -399,6 +406,7 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploratory-data-analysis">2.4.1. Exploratory Data Analysis</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling">2.4.2. Modeling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation">2.4.3. Model Evaluation</a></li>
 </ul>
             </nav>
         </div>
@@ -619,332 +627,16 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns_to_keep</span> <span class="o">=</span> <span class="n">data_df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
 <span class="n">cars_df</span> <span class="o">=</span> <span class="n">data_df</span><span class="p">[</span><span class="n">columns_to_keep</span><span class="p">]</span>
-
-<span class="n">cars_df</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>make</th>
-      <th>fuel-type</th>
-      <th>aspiration</th>
-      <th>num-of-doors</th>
-      <th>body-style</th>
-      <th>drive-wheels</th>
-      <th>engine-location</th>
-      <th>wheel-base</th>
-      <th>length</th>
-      <th>width</th>
-      <th>...</th>
-      <th>engine-size</th>
-      <th>fuel-system</th>
-      <th>bore</th>
-      <th>stroke</th>
-      <th>compression-ratio</th>
-      <th>horsepower</th>
-      <th>peak-rpm</th>
-      <th>city-mpg</th>
-      <th>highway-mpg</th>
-      <th>price</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>alfa-romero</td>
-      <td>gas</td>
-      <td>std</td>
-      <td>two</td>
-      <td>convertible</td>
-      <td>rwd</td>
-      <td>front</td>
-      <td>88.6</td>
-      <td>168.8</td>
-      <td>64.1</td>
-      <td>...</td>
-      <td>130</td>
-      <td>mpfi</td>
-      <td>3.47</td>
-      <td>2.68</td>
-      <td>9.0</td>
-      <td>111</td>
-      <td>5000</td>
-      <td>21</td>
-      <td>27</td>
-      <td>13495</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>alfa-romero</td>
-      <td>gas</td>
-      <td>std</td>
-      <td>two</td>
-      <td>convertible</td>
-      <td>rwd</td>
-      <td>front</td>
-      <td>88.6</td>
-      <td>168.8</td>
-      <td>64.1</td>
-      <td>...</td>
-      <td>130</td>
-      <td>mpfi</td>
-      <td>3.47</td>
-      <td>2.68</td>
-      <td>9.0</td>
-      <td>111</td>
-      <td>5000</td>
-      <td>21</td>
-      <td>27</td>
-      <td>16500</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>alfa-romero</td>
-      <td>gas</td>
-      <td>std</td>
-      <td>two</td>
-      <td>hatchback</td>
-      <td>rwd</td>
-      <td>front</td>
-      <td>94.5</td>
-      <td>171.2</td>
-      <td>65.5</td>
-      <td>...</td>
-      <td>152</td>
-      <td>mpfi</td>
-      <td>2.68</td>
-      <td>3.47</td>
-      <td>9.0</td>
-      <td>154</td>
-      <td>5000</td>
-      <td>19</td>
-      <td>26</td>
-      <td>16500</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>audi</td>
-      <td>gas</td>
-      <td>std</td>
-      <td>four</td>
-      <td>sedan</td>
-      <td>fwd</td>
-      <td>front</td>
-      <td>99.8</td>
-      <td>176.6</td>
-      <td>66.2</td>
-      <td>...</td>
-      <td>109</td>
-      <td>mpfi</td>
-      <td>3.19</td>
-      <td>3.40</td>
-      <td>10.0</td>
-      <td>102</td>
-      <td>5500</td>
-      <td>24</td>
-      <td>30</td>
-      <td>13950</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>audi</td>
-      <td>gas</td>
-      <td>std</td>
-      <td>four</td>
-      <td>sedan</td>
-      <td>4wd</td>
-      <td>front</td>
-      <td>99.4</td>
-      <td>176.6</td>
-      <td>66.4</td>
-      <td>...</td>
-      <td>136</td>
-      <td>mpfi</td>
-      <td>3.19</td>
-      <td>3.40</td>
-      <td>8.0</td>
-      <td>115</td>
-      <td>5500</td>
-      <td>18</td>
-      <td>22</td>
-      <td>17450</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>200</th>
-      <td>volvo</td>
-      <td>gas</td>
-      <td>std</td>
-      <td>four</td>
-      <td>sedan</td>
-      <td>rwd</td>
-      <td>front</td>
-      <td>109.1</td>
-      <td>188.8</td>
-      <td>68.9</td>
-      <td>...</td>
-      <td>141</td>
-      <td>mpfi</td>
-      <td>3.78</td>
-      <td>3.15</td>
-      <td>9.5</td>
-      <td>114</td>
-      <td>5400</td>
-      <td>23</td>
-      <td>28</td>
-      <td>16845</td>
-    </tr>
-    <tr>
-      <th>201</th>
-      <td>volvo</td>
-      <td>gas</td>
-      <td>turbo</td>
-      <td>four</td>
-      <td>sedan</td>
-      <td>rwd</td>
-      <td>front</td>
-      <td>109.1</td>
-      <td>188.8</td>
-      <td>68.8</td>
-      <td>...</td>
-      <td>141</td>
-      <td>mpfi</td>
-      <td>3.78</td>
-      <td>3.15</td>
-      <td>8.7</td>
-      <td>160</td>
-      <td>5300</td>
-      <td>19</td>
-      <td>25</td>
-      <td>19045</td>
-    </tr>
-    <tr>
-      <th>202</th>
-      <td>volvo</td>
-      <td>gas</td>
-      <td>std</td>
-      <td>four</td>
-      <td>sedan</td>
-      <td>rwd</td>
-      <td>front</td>
-      <td>109.1</td>
-      <td>188.8</td>
-      <td>68.9</td>
-      <td>...</td>
-      <td>173</td>
-      <td>mpfi</td>
-      <td>3.58</td>
-      <td>2.87</td>
-      <td>8.8</td>
-      <td>134</td>
-      <td>5500</td>
-      <td>18</td>
-      <td>23</td>
-      <td>21485</td>
-    </tr>
-    <tr>
-      <th>203</th>
-      <td>volvo</td>
-      <td>diesel</td>
-      <td>turbo</td>
-      <td>four</td>
-      <td>sedan</td>
-      <td>rwd</td>
-      <td>front</td>
-      <td>109.1</td>
-      <td>188.8</td>
-      <td>68.9</td>
-      <td>...</td>
-      <td>145</td>
-      <td>idi</td>
-      <td>3.01</td>
-      <td>3.40</td>
-      <td>23.0</td>
-      <td>106</td>
-      <td>4800</td>
-      <td>26</td>
-      <td>27</td>
-      <td>22470</td>
-    </tr>
-    <tr>
-      <th>204</th>
-      <td>volvo</td>
-      <td>gas</td>
-      <td>turbo</td>
-      <td>four</td>
-      <td>sedan</td>
-      <td>rwd</td>
-      <td>front</td>
-      <td>109.1</td>
-      <td>188.8</td>
-      <td>68.9</td>
-      <td>...</td>
-      <td>141</td>
-      <td>mpfi</td>
-      <td>3.78</td>
-      <td>3.15</td>
-      <td>9.5</td>
-      <td>114</td>
-      <td>5400</td>
-      <td>19</td>
-      <td>25</td>
-      <td>22625</td>
-    </tr>
-  </tbody>
-</table>
-<p>205 rows × 24 columns</p>
-</div></div></div>
 </div>
 <section id="exploratory-data-analysis">
 <h2><span class="section-number">2.4.1. </span>Exploratory Data Analysis<a class="headerlink" href="#exploratory-data-analysis" title="Link to this heading">#</a></h2>
-</section>
-<section id="modeling">
-<h2><span class="section-number">2.4.2. </span>Modeling<a class="headerlink" href="#modeling" title="Link to this heading">#</a></h2>
-<p>Can we estimate fuel economy from other car specifications?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cars_df</span> <span class="o">=</span> <span class="n">cars_df</span><span class="p">[</span><span class="n">cars_df</span><span class="p">[</span><span class="s1">&#39;fuel-type&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;gas&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># cars_df = cars_df[cars_df[&#39;fuel-type&#39;]==&#39;gas&#39;]</span>
+<span class="n">cars_df</span> <span class="o">=</span> <span class="n">cars_df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;`fuel-type`== &quot;gas&quot;&#39;</span><span class="p">)</span>
 <span class="n">cars_df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1009,6 +701,10 @@ memory usage: 36.1+ KB
 <img alt="../_images/fe7d474d0435cae44eea181165884dae20a47f3836fd064d77f5ae78d568306d.png" src="../_images/fe7d474d0435cae44eea181165884dae20a47f3836fd064d77f5ae78d568306d.png" />
 </div>
 </div>
+</section>
+<section id="modeling">
+<h2><span class="section-number">2.4.2. </span>Modeling<a class="headerlink" href="#modeling" title="Link to this heading">#</a></h2>
+<p>Can we estimate fuel economy from other car specifications?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importing packages</span>
@@ -1035,6 +731,35 @@ memory usage: 36.1+ KB
 </div>
 </div>
 </div>
+<p>In this case, we’ve selected the features ourselves, using intuition about correlation and avoiding colinearity between features. Our next steps:</p>
+<ol class="arabic simple">
+<li><p>Split the data into training (80%) and testing sets (20%). Each set includes both a features (X) and corresponding targets (y).</p></li>
+<li><p>Normalize the data with StandardScalar. We do this because linear regression relies on a distance calculation.</p>
+<ul class="simple">
+<li><p>First, create the StandardScalar transformer.</p></li>
+<li><p>Fit the scaler to the feature vector of the <em>training</em> set. This calculates the mean and stdev for every feature.</p></li>
+<li><p>Transform the training features using the scaler (X transformed to Z).</p></li>
+</ul>
+</li>
+<li><p>Create and fit the linear regression model.</p>
+<ul class="simple">
+<li><p>Create the ‘template’ of a LinearRegression model.</p></li>
+<li><p>Fit the model using the scaled features (Z) and targets (y) from the training set.</p></li>
+</ul>
+</li>
+<li><p>Make predictions.</p>
+<ul class="simple">
+<li><p>Use the linear model to calculate the predicted targets (<span class="math notranslate nohighlight">\(\hat y\)</span>).</p></li>
+<li><p>To make predictions using the test set, we must first scale the features.</p></li>
+</ul>
+</li>
+<li><p>Assess the model and visualize results.</p>
+<ul class="simple">
+<li><p>Calculate RMSE and R<sup>2</sup></p></li>
+<li><p>Plot prediction vs actual</p></li>
+</ul>
+</li>
+</ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set aside data for testing</span>
@@ -1071,18 +796,20 @@ memory usage: 36.1+ KB
  &#39;n_jobs&#39;: None,
  &#39;positive&#39;: False,
  &#39;n_features_in_&#39;: 3,
- &#39;coef_&#39;: array([[-5.15319881,  0.7424138 ,  0.85396541]]),
+ &#39;coef_&#39;: array([[-5.35107484,  0.47004621,  0.95372224]]),
  &#39;rank_&#39;: 3,
- &#39;singular_&#39;: array([14.65953322, 12.46138051,  8.59139579]),
- &#39;intercept_&#39;: array([24.64189189])}
+ &#39;singular_&#39;: array([14.79226916, 11.37402941,  9.78878072]),
+ &#39;intercept_&#39;: array([24.63513514])}
 </pre></div>
 </div>
 </div>
 </div>
+</section>
+<section id="model-evaluation">
+<h2><span class="section-number">2.4.3. </span>Model Evaluation<a class="headerlink" href="#model-evaluation" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make predictions with the model</span>
-
 <span class="n">y_pred_train</span> <span class="o">=</span> <span class="n">linreg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Z_train</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1100,18 +827,45 @@ memory usage: 36.1+ KB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;teal&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_pred_train</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;goldenrod&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">R2_train</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_pred_train</span><span class="p">)</span>
+<span class="n">R2_test</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span> <span class="s1">&#39;k--&#39;</span><span class="p">)</span>
+<span class="n">RMSE_train</span> <span class="o">=</span> <span class="n">root_mean_squared_error</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_pred_train</span><span class="p">)</span>
+<span class="n">RMSE_test</span> <span class="o">=</span> <span class="n">root_mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Train: </span><span class="se">\t</span><span class="s1">R2: </span><span class="si">{</span><span class="n">R2_train</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="se">\t</span><span class="s1">RMSE: </span><span class="si">{</span><span class="n">RMSE_train</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Test: </span><span class="se">\t</span><span class="s1">R2: </span><span class="si">{</span><span class="n">R2_test</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="se">\t</span><span class="s1">RMSE: </span><span class="si">{</span><span class="n">RMSE_test</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train: 	R2: 0.761	RMSE: 3.164
+Test: 	R2: 0.711	RMSE: 2.977
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> 
+         <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;teal&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+         <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;test&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_pred_train</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> 
+         <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;goldenrod&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+         <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;train&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span>
+         <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;perfect prediction&#39;</span><span class="p">)</span>
+
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Actual MPG&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Predicted MPG&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c12cbcc8431e7f1f980d8718801ba4b8020298ef732e918aa6e72fe0dffafa4c.png" src="../_images/c12cbcc8431e7f1f980d8718801ba4b8020298ef732e918aa6e72fe0dffafa4c.png" />
+<img alt="../_images/b891a02a756788807c4edba82c5f7545f6cd0d7f2ecc3ea37c297118182f2f68.png" src="../_images/b891a02a756788807c4edba82c5f7545f6cd0d7f2ecc3ea37c297118182f2f68.png" />
 </div>
 </div>
 </section>
@@ -1183,6 +937,7 @@ memory usage: 36.1+ KB
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploratory-data-analysis">2.4.1. Exploratory Data Analysis</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling">2.4.2. Modeling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation">2.4.3. Model Evaluation</a></li>
 </ul>
   </nav></div>
 

@@ -211,7 +211,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../01_Regression/04_west_claude_example.html">4.4. Example: West Claude University</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../01_Regression/05_exam_review.html">5. Exam 1 Review</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_Regression/05_exam_review.html">5. Chapter 1 - The Machine Learning Landscape</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Classification</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../02_Classification/01_classification_intro.html">7. Classification</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Assignments</span></p>
 <ul class="nav bd-sidenav">
@@ -703,6 +708,278 @@ Then, visit <strong><a class="reference external" href="https://matplotlib.org/s
 <ul class="simple">
 <li><p>Think of a particular audience (e.g. home seller, home buyer, real estate agent, etc) and identify a question or want they may have. Create a graphic to address that question/want.</p></li>
 </ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">quantize</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">bin_width</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">bin_width</span> <span class="o">*</span> <span class="p">(</span><span class="n">data</span><span class="o">//</span><span class="n">bin_width</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">housing_df</span><span class="p">[</span><span class="s1">&#39;long_r&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">quantize</span><span class="p">(</span><span class="n">housing_df</span><span class="p">[</span><span class="s1">&#39;long&#39;</span><span class="p">],</span> <span class="mf">0.05</span><span class="p">)</span>
+<span class="n">housing_df</span><span class="p">[</span><span class="s1">&#39;lat_r&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">quantize</span><span class="p">(</span><span class="n">housing_df</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">],</span> <span class="mf">0.05</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">housing_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;long_r&#39;</span><span class="p">,</span> <span class="s1">&#39;lat_r&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span><span class="s1">&#39;price_per_sqft&#39;</span><span class="p">:</span><span class="s1">&#39;median&#39;</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">housing_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;long_r&#39;</span><span class="p">,</span> <span class="s1">&#39;lat_r&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span><span class="s1">&#39;price_per_sqft&#39;</span><span class="p">:</span><span class="s1">&#39;median&#39;</span><span class="p">})</span>
+
+<span class="nn">File ~/.pyenv/versions/3.13.1/envs/datascience/lib/python3.13/site-packages/pandas/core/groupby/generic.py:1432,</span> in <span class="ni">DataFrameGroupBy.aggregate</span><span class="nt">(self, func, engine, engine_kwargs, *args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1429</span>     <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;engine_kwargs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">engine_kwargs</span>
+<span class="g g-Whitespace">   </span><span class="mi">1431</span> <span class="n">op</span> <span class="o">=</span> <span class="n">GroupByApply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1432</span> <span class="n">result</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">agg</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1433</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">is_dict_like</span><span class="p">(</span><span class="n">func</span><span class="p">)</span> <span class="ow">and</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1434</span>     <span class="c1"># GH #52849</span>
+<span class="g g-Whitespace">   </span><span class="mi">1435</span>     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">as_index</span> <span class="ow">and</span> <span class="n">is_list_like</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+
+<span class="nn">File ~/.pyenv/versions/3.13.1/envs/datascience/lib/python3.13/site-packages/pandas/core/apply.py:190,</span> in <span class="ni">Apply.agg</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">187</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_str</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">189</span> <span class="k">if</span> <span class="n">is_dict_like</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">190</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">agg_dict_like</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">191</span> <span class="k">elif</span> <span class="n">is_list_like</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">192</span>     <span class="c1"># we require a list, but not a &#39;str&#39;</span>
+<span class="g g-Whitespace">    </span><span class="mi">193</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">agg_list_like</span><span class="p">()</span>
+
+<span class="nn">File ~/.pyenv/versions/3.13.1/envs/datascience/lib/python3.13/site-packages/pandas/core/apply.py:423,</span> in <span class="ni">Apply.agg_dict_like</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">415</span> <span class="k">def</span><span class="w"> </span><span class="nf">agg_dict_like</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span> <span class="o">|</span> <span class="n">Series</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">416</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">417</span><span class="sd">     Compute aggregation in the case of a dict-like argument.</span>
+<span class="g g-Whitespace">    </span><span class="mi">418</span><span class="sd"> </span>
+<span class="sd">   (...)    421     Result of aggregation.</span>
+<span class="g g-Whitespace">    </span><span class="mi">422</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">423</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">agg_or_apply_dict_like</span><span class="p">(</span><span class="n">op_name</span><span class="o">=</span><span class="s2">&quot;agg&quot;</span><span class="p">)</span>
+
+<span class="nn">File ~/.pyenv/versions/3.13.1/envs/datascience/lib/python3.13/site-packages/pandas/core/apply.py:1603,</span> in <span class="ni">GroupByApply.agg_or_apply_dict_like</span><span class="nt">(self, op_name)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1598</span>     <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;engine&quot;</span><span class="p">:</span> <span class="n">engine</span><span class="p">,</span> <span class="s2">&quot;engine_kwargs&quot;</span><span class="p">:</span> <span class="n">engine_kwargs</span><span class="p">})</span>
+<span class="g g-Whitespace">   </span><span class="mi">1600</span> <span class="k">with</span> <span class="n">com</span><span class="o">.</span><span class="n">temp_setattr</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1601</span>     <span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;as_index&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;as_index&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1602</span> <span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">1603</span>     <span class="n">result_index</span><span class="p">,</span> <span class="n">result_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_dict_like</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1604</span>         <span class="n">op_name</span><span class="p">,</span> <span class="n">selected_obj</span><span class="p">,</span> <span class="n">selection</span><span class="p">,</span> <span class="n">kwargs</span>
+<span class="g g-Whitespace">   </span><span class="mi">1605</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1606</span> <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrap_results_dict_like</span><span class="p">(</span><span class="n">selected_obj</span><span class="p">,</span> <span class="n">result_index</span><span class="p">,</span> <span class="n">result_data</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1607</span> <span class="k">return</span> <span class="n">result</span>
+
+<span class="nn">File ~/.pyenv/versions/3.13.1/envs/datascience/lib/python3.13/site-packages/pandas/core/apply.py:462,</span> in <span class="ni">Apply.compute_dict_like</span><span class="nt">(self, op_name, selected_obj, selection, kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">460</span> <span class="n">is_groupby</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="p">(</span><span class="n">DataFrameGroupBy</span><span class="p">,</span> <span class="n">SeriesGroupBy</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">461</span> <span class="n">func</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">AggFuncTypeDict</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">462</span> <span class="n">func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalize_dictlike_arg</span><span class="p">(</span><span class="n">op_name</span><span class="p">,</span> <span class="n">selected_obj</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">464</span> <span class="n">is_non_unique_col</span> <span class="o">=</span> <span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">465</span>     <span class="n">selected_obj</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span>
+<span class="g g-Whitespace">    </span><span class="mi">466</span>     <span class="ow">and</span> <span class="n">selected_obj</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">selected_obj</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">467</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">469</span> <span class="k">if</span> <span class="n">selected_obj</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">470</span>     <span class="c1"># key only used for output</span>
+
+<span class="nn">File ~/.pyenv/versions/3.13.1/envs/datascience/lib/python3.13/site-packages/pandas/core/apply.py:663,</span> in <span class="ni">Apply.normalize_dictlike_arg</span><span class="nt">(self, how, obj, func)</span>
+<span class="g g-Whitespace">    </span><span class="mi">661</span>     <span class="n">cols</span> <span class="o">=</span> <span class="n">Index</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">662</span>     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">663</span>         <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Column(s) </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span><span class="si">}</span><span class="s2"> do not exist&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">665</span> <span class="n">aggregator_types</span> <span class="o">=</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">667</span> <span class="c1"># if we have a dict of any non-scalars</span>
+<span class="g g-Whitespace">    </span><span class="mi">668</span> <span class="c1"># eg. {&#39;A&#39; : [&#39;mean&#39;]}, normalize all to</span>
+<span class="g g-Whitespace">    </span><span class="mi">669</span> <span class="c1"># be list-likes</span>
+<span class="g g-Whitespace">    </span><span class="mi">670</span> <span class="c1"># Cannot use func.values() because arg may be a Series</span>
+
+<span class="ne">KeyError</span>: &quot;Column(s) [&#39;price_per_sqft&#39;] do not exist&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">housing_df</span><span class="p">[</span><span class="s1">&#39;price_per_sqft&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">housing_df</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">housing_df</span><span class="p">[</span><span class="s1">&#39;sqft_living&#39;</span><span class="p">]</span>
+<span class="n">zip_price</span> <span class="o">=</span> <span class="n">housing_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;zipcode&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span><span class="s1">&#39;price_per_sqft&#39;</span><span class="p">:</span><span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">:</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;long&#39;</span><span class="p">:</span><span class="s1">&#39;mean&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;price_per_sqft&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">zip_price</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>price_per_sqft</th>
+      <th>lat</th>
+      <th>long</th>
+    </tr>
+    <tr>
+      <th>zipcode</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>98039</th>
+      <td>565.165614</td>
+      <td>47.625840</td>
+      <td>-122.233540</td>
+    </tr>
+    <tr>
+      <th>98004</th>
+      <td>456.944444</td>
+      <td>47.616183</td>
+      <td>-122.205189</td>
+    </tr>
+    <tr>
+      <th>98109</th>
+      <td>427.696078</td>
+      <td>47.635602</td>
+      <td>-122.350092</td>
+    </tr>
+    <tr>
+      <th>98112</th>
+      <td>423.828125</td>
+      <td>47.629619</td>
+      <td>-122.297866</td>
+    </tr>
+    <tr>
+      <th>98119</th>
+      <td>416.652778</td>
+      <td>47.640034</td>
+      <td>-122.366918</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">zip_price</span><span class="p">[</span><span class="s1">&#39;long&#39;</span><span class="p">],</span> <span class="n">zip_price</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">],</span> <span class="n">c</span> <span class="o">=</span> <span class="n">zip_price</span><span class="p">[</span><span class="s1">&#39;price_per_sqft&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">housing_df</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">],</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">housing_df</span><span class="p">[</span><span class="s1">&#39;long&#39;</span><span class="p">],</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/2f466cff406dfcb3074ae8a668ada97369df5d137965795e53413d840ea7d063.png" src="../_images/2f466cff406dfcb3074ae8a668ada97369df5d137965795e53413d840ea7d063.png" />
+<img alt="../_images/71ab4b6d6f4f0c8bed47d6ec852b3dc8fe1f5d378ec68f3e0562bd78379e4ec4.png" src="../_images/71ab4b6d6f4f0c8bed47d6ec852b3dc8fe1f5d378ec68f3e0562bd78379e4ec4.png" />
+<img alt="../_images/de1de1c90082b9774592c3e64fbe841e5b4c22b84bd95af02fefe4fb35e605d8.png" src="../_images/de1de1c90082b9774592c3e64fbe841e5b4c22b84bd95af02fefe4fb35e605d8.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">jointplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;long&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="s1">&#39;price_per_sqft&#39;</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">housing_df</span><span class="p">,</span> <span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;hist&#39;</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">ax_joint</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">ax_marg_y</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Sales by firm&#39;s age&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">s</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">jointplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;long&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="s1">&#39;price_per_sqft&#39;</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">housing_df</span><span class="p">,</span> <span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;hist&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">s</span><span class="o">.</span><span class="n">ax_joint</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">s</span><span class="o">.</span><span class="n">ax_marg_y</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nn">File ~/.pyenv/versions/3.13.1/envs/datascience/lib/python3.13/site-packages/seaborn/axisgrid.py:2275,</span> in <span class="ni">jointplot</span><span class="nt">(data, x, y, hue, kind, height, ratio, space, dropna, xlim, ylim, color, palette, hue_order, hue_norm, marginal_ticks, joint_kws, marginal_kws, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2269</span> <span class="k">elif</span> <span class="n">kind</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;hist&quot;</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">2270</span> 
+<span class="g g-Whitespace">   </span><span class="mi">2271</span>     <span class="c1"># TODO process pair parameters for bins, etc. and pass</span>
+<span class="g g-Whitespace">   </span><span class="mi">2272</span>     <span class="c1"># to both joint and marginal plots</span>
+<span class="g g-Whitespace">   </span><span class="mi">2274</span>     <span class="n">joint_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">2275</span>     <span class="n">grid</span><span class="o">.</span><span class="n">plot_joint</span><span class="p">(</span><span class="n">histplot</span><span class="p">,</span> <span class="o">**</span><span class="n">joint_kws</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2277</span>     <span class="n">marginal_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;kde&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2278</span>     <span class="n">marginal_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+
+<span class="nn">File ~/.pyenv/versions/3.13.1/envs/datascience/lib/python3.13/site-packages/seaborn/axisgrid.py:1832,</span> in <span class="ni">JointGrid.plot_joint</span><span class="nt">(self, func, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1829</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_inject_kwargs</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hue_params</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1831</span> <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="vm">__module__</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;seaborn&quot;</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">1832</span>     <span class="n">func</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1833</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1834</span>     <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/.pyenv/versions/3.13.1/envs/datascience/lib/python3.13/site-packages/seaborn/distributions.py:1434,</span> in <span class="ni">histplot</span><span class="nt">(data, x, y, hue, weights, stat, bins, binwidth, binrange, discrete, cumulative, common_bins, common_norm, multiple, element, fill, shrink, kde, kde_kws, line_kws, thresh, pthresh, pmax, cbar, cbar_ax, cbar_kws, palette, hue_order, hue_norm, color, log_scale, legend, ax, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1416</span>     <span class="n">p</span><span class="o">.</span><span class="n">plot_univariate_histogram</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1417</span>         <span class="n">multiple</span><span class="o">=</span><span class="n">multiple</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1418</span>         <span class="n">element</span><span class="o">=</span><span class="n">element</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>   <span class="mi">1429</span>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1430</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1432</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1434</span>     <span class="n">p</span><span class="o">.</span><span class="n">plot_bivariate_histogram</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1435</span>         <span class="n">common_bins</span><span class="o">=</span><span class="n">common_bins</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1436</span>         <span class="n">common_norm</span><span class="o">=</span><span class="n">common_norm</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1437</span>         <span class="n">thresh</span><span class="o">=</span><span class="n">thresh</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1438</span>         <span class="n">pthresh</span><span class="o">=</span><span class="n">pthresh</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1439</span>         <span class="n">pmax</span><span class="o">=</span><span class="n">pmax</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1440</span>         <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1441</span>         <span class="n">legend</span><span class="o">=</span><span class="n">legend</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1442</span>         <span class="n">cbar</span><span class="o">=</span><span class="n">cbar</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1443</span>         <span class="n">cbar_ax</span><span class="o">=</span><span class="n">cbar_ax</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1444</span>         <span class="n">cbar_kws</span><span class="o">=</span><span class="n">cbar_kws</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1445</span>         <span class="n">estimate_kws</span><span class="o">=</span><span class="n">estimate_kws</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1446</span>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1447</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1449</span> <span class="k">return</span> <span class="n">ax</span>
+
+<span class="nn">File ~/.pyenv/versions/3.13.1/envs/datascience/lib/python3.13/site-packages/seaborn/distributions.py:826,</span> in <span class="ni">_DistributionPlotter.plot_bivariate_histogram</span><span class="nt">(self, common_bins, common_norm, thresh, pthresh, pmax, color, legend, cbar, cbar_ax, cbar_kws, estimate_kws, **plot_kws)</span>
+<span class="g g-Whitespace">    </span><span class="mi">824</span> <span class="k">if</span> <span class="s2">&quot;hue&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">825</span>     <span class="n">color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hue_map</span><span class="p">(</span><span class="n">sub_vars</span><span class="p">[</span><span class="s2">&quot;hue&quot;</span><span class="p">])</span>
+<span class="ne">--&gt; </span><span class="mi">826</span>     <span class="n">cmap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cmap_from_color</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">827</span>     <span class="n">artist_kws</span><span class="p">[</span><span class="s2">&quot;cmap&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmap</span>
+<span class="g g-Whitespace">    </span><span class="mi">828</span> <span class="k">else</span><span class="p">:</span>
+
+<span class="nn">File ~/.pyenv/versions/3.13.1/envs/datascience/lib/python3.13/site-packages/seaborn/distributions.py:214,</span> in <span class="ni">_DistributionPlotter._cmap_from_color</span><span class="nt">(self, color)</span>
+<span class="g g-Whitespace">    </span><span class="mi">212</span> <span class="n">ramp</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">213</span> <span class="n">ramp</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">214</span> <span class="n">colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">([</span><span class="n">husl</span><span class="o">.</span><span class="n">husl_to_rgb</span><span class="p">(</span><span class="o">*</span><span class="n">hsl</span><span class="p">)</span> <span class="k">for</span> <span class="n">hsl</span> <span class="ow">in</span> <span class="n">ramp</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">215</span> <span class="k">return</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">ListedColormap</span><span class="p">(</span><span class="n">colors</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="nn">File ~/.pyenv/versions/3.13.1/envs/datascience/lib/python3.13/site-packages/seaborn/external/husl.py:32,</span> in <span class="ni">husl_to_rgb</span><span class="nt">(h, s, l)</span>
+<span class="g g-Whitespace">     </span><span class="mi">31</span> <span class="k">def</span><span class="w"> </span><span class="nf">husl_to_rgb</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">l</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">32</span>     <span class="k">return</span> <span class="n">lch_to_rgb</span><span class="p">(</span><span class="o">*</span><span class="n">husl_to_lch</span><span class="p">([</span><span class="n">h</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">l</span><span class="p">]))</span>
+
+<span class="nn">File ~/.pyenv/versions/3.13.1/envs/datascience/lib/python3.13/site-packages/seaborn/external/husl.py:64,</span> in <span class="ni">lch_to_rgb</span><span class="nt">(l, c, h)</span>
+<span class="g g-Whitespace">     </span><span class="mi">63</span> <span class="k">def</span><span class="w"> </span><span class="nf">lch_to_rgb</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">h</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">64</span>     <span class="k">return</span> <span class="n">xyz_to_rgb</span><span class="p">(</span><span class="n">luv_to_xyz</span><span class="p">(</span><span class="n">lch_to_luv</span><span class="p">([</span><span class="n">l</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">h</span><span class="p">])))</span>
+
+<span class="nn">File ~/.pyenv/versions/3.13.1/envs/datascience/lib/python3.13/site-packages/seaborn/external/husl.py:194,</span> in <span class="ni">xyz_to_rgb</span><span class="nt">(triple)</span>
+<span class="g g-Whitespace">    </span><span class="mi">192</span> <span class="k">def</span><span class="w"> </span><span class="nf">xyz_to_rgb</span><span class="p">(</span><span class="n">triple</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">193</span>     <span class="n">xyz</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">dot_product</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">triple</span><span class="p">),</span> <span class="n">m</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">194</span>     <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">from_linear</span><span class="p">,</span> <span class="n">xyz</span><span class="p">))</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 

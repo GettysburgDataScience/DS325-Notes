@@ -1,5 +1,3 @@
-# Exam 1 Review
-
 The topics below are organized according to the HOML, but the level of understanding I expect is better reflected in the notes covered in class than the textbook (which is much more in depth).
 
 ## Chapter 1 - The Machine Learning Landscape
