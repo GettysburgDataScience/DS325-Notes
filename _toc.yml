@@ -22,6 +22,11 @@ parts:
         sections:
           - file: 01_Regression/03_polynomial_regression_kc_example
           - file: 01_Regression/04_west_claude_example
+      - file: 01_Regression/05_exam_review
+  - caption: Classification
+    numbered: true
+    chapters:
+      - file: 02_Classification/01_classification_intro
 
 
   - caption: Assignments
