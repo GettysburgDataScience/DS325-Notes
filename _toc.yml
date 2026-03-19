@@ -34,6 +34,8 @@ parts:
     chapters:
      - file: 00_Assignments/ps01
      - file: 00_Assignments/ps02
+     - file: 00_Assignments/ps03
+
 
   # # - caption: Classification
   #   numbered: True
