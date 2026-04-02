@@ -217,12 +217,16 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Classification</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../02_Classification/01_classification_intro.html">7. Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_Classification/02_encoding.html">8. Encoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_Classification/03_decision_trees.html">9. Trees and Ensemble methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_Classification/04_trees_gridcv.html">10. Tree Methods (continued)</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Assignments</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../00_Assignments/ps01.html">PS01 - Simple Linear Regression</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="../00_Assignments/ps02.html">PS02 - Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00_Assignments/ps03.html">PS03 - Classification</a></li>
 </ul>
 
     </div>
@@ -1864,7 +1868,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>r2_linreg_train=1.00
-r2_linreg_test=-1.26
+r2_linreg_test=-1.67
 </pre></div>
 </div>
 </div>
@@ -1900,7 +1904,7 @@ r2_linreg_test=-1.26
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.01778279410038923)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.03162277660168379)
 </pre></div>
 </div>
 </div>
@@ -1918,7 +1922,7 @@ r2_linreg_test=-1.26
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.03162277660168379)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.05623413251903491)
 </pre></div>
 </div>
 </div>
@@ -1966,13 +1970,13 @@ r2_linreg_test=-1.26
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>r2_ridge_train=0.87
-r2_ridge_test=0.69
+r2_ridge_test=0.58
 
-r2_lasso_train=0.87
-r2_lasso_test=0.68
+r2_lasso_train=0.84
+r2_lasso_test=0.64
 
-r2_elastic_train=0.87
-r2_elastic_test=0.67
+r2_elastic_train=0.85
+r2_elastic_test=0.63
 </pre></div>
 </div>
 </div>
@@ -1999,7 +2003,7 @@ r2_elastic_test=0.67
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/ae1adb55ca97eff41830008aca5702932eb4595083ed24b03eb547a931f6ae9c.png" src="../_images/ae1adb55ca97eff41830008aca5702932eb4595083ed24b03eb547a931f6ae9c.png" />
+<img alt="../_images/2a09b17bf6e128fe8eaa710bf0a70d4170f529c20cca031b24546a215b114e47.png" src="../_images/2a09b17bf6e128fe8eaa710bf0a70d4170f529c20cca031b24546a215b114e47.png" />
 </div>
 </div>
 </section>

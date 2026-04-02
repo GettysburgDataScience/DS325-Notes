@@ -73,7 +73,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '02_Classification/01_classification_intro';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="PS01 - Simple Linear Regression" href="../00_Assignments/ps01.html" />
+    <link rel="next" title="8. Encoding" href="02_encoding.html" />
     <link rel="prev" title="5. Chapter 1 - The Machine Learning Landscape" href="../01_Regression/05_exam_review.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -217,6 +217,9 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Classification</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">7. Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_encoding.html">8. Encoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_decision_trees.html">9. Trees and Ensemble methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_trees_gridcv.html">10. Tree Methods (continued)</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Assignments</span></p>
 <ul class="nav bd-sidenav">
@@ -438,7 +441,7 @@ document.write(`
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_breast_cancer</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w">  </span><span class="kn">import</span> <span class="n">StandardScaler</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegressionCV</span>
 </pre></div>
 </div>
 </div>
@@ -725,692 +728,17 @@ Name: target, dtype: float64
 <p>Now we create and fit the model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">logreg</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Cs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+
+<span class="n">logreg</span> <span class="o">=</span> <span class="n">LogisticRegressionCV</span><span class="p">(</span><span class="n">Cs</span> <span class="o">=</span> <span class="n">Cs</span><span class="p">,</span> <span class="n">penalty</span> <span class="o">=</span> <span class="s1">&#39;l1&#39;</span><span class="p">,</span> 
+                              <span class="n">solver</span> <span class="o">=</span> <span class="s1">&#39;liblinear&#39;</span><span class="p">,</span>
+                              <span class="n">max_iter</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">)</span>
 <span class="n">logreg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Z_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><style>#sk-container-id-1 {
-  /* Definition of color scheme common for light and dark mode */
-  --sklearn-color-text: #000;
-  --sklearn-color-text-muted: #666;
-  --sklearn-color-line: gray;
-  /* Definition of color scheme for unfitted estimators */
-  --sklearn-color-unfitted-level-0: #fff5e6;
-  --sklearn-color-unfitted-level-1: #f6e4d2;
-  --sklearn-color-unfitted-level-2: #ffe0b3;
-  --sklearn-color-unfitted-level-3: chocolate;
-  /* Definition of color scheme for fitted estimators */
-  --sklearn-color-fitted-level-0: #f0f8ff;
-  --sklearn-color-fitted-level-1: #d4ebff;
-  --sklearn-color-fitted-level-2: #b3dbfd;
-  --sklearn-color-fitted-level-3: cornflowerblue;
-
-  /* Specific color for light theme */
-  --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
-  --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, white)));
-  --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
-  --sklearn-color-icon: #696969;
-
-  @media (prefers-color-scheme: dark) {
-    /* Redefinition of color scheme for dark theme */
-    --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
-    --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, #111)));
-    --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
-    --sklearn-color-icon: #878787;
-  }
-}
-
-#sk-container-id-1 {
-  color: var(--sklearn-color-text);
-}
-
-#sk-container-id-1 pre {
-  padding: 0;
-}
-
-#sk-container-id-1 input.sk-hidden--visually {
-  border: 0;
-  clip: rect(1px 1px 1px 1px);
-  clip: rect(1px, 1px, 1px, 1px);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-}
-
-#sk-container-id-1 div.sk-dashed-wrapped {
-  border: 1px dashed var(--sklearn-color-line);
-  margin: 0 0.4em 0.5em 0.4em;
-  box-sizing: border-box;
-  padding-bottom: 0.4em;
-  background-color: var(--sklearn-color-background);
-}
-
-#sk-container-id-1 div.sk-container {
-  /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
-     but bootstrap.min.css set `[hidden] { display: none !important; }`
-     so we also need the `!important` here to be able to override the
-     default hidden behavior on the sphinx rendered scikit-learn.org.
-     See: https://github.com/scikit-learn/scikit-learn/issues/21755 */
-  display: inline-block !important;
-  position: relative;
-}
-
-#sk-container-id-1 div.sk-text-repr-fallback {
-  display: none;
-}
-
-div.sk-parallel-item,
-div.sk-serial,
-div.sk-item {
-  /* draw centered vertical line to link estimators */
-  background-image: linear-gradient(var(--sklearn-color-text-on-default-background), var(--sklearn-color-text-on-default-background));
-  background-size: 2px 100%;
-  background-repeat: no-repeat;
-  background-position: center center;
-}
-
-/* Parallel-specific style estimator block */
-
-#sk-container-id-1 div.sk-parallel-item::after {
-  content: "";
-  width: 100%;
-  border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
-  flex-grow: 1;
-}
-
-#sk-container-id-1 div.sk-parallel {
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  background-color: var(--sklearn-color-background);
-  position: relative;
-}
-
-#sk-container-id-1 div.sk-parallel-item {
-  display: flex;
-  flex-direction: column;
-}
-
-#sk-container-id-1 div.sk-parallel-item:first-child::after {
-  align-self: flex-end;
-  width: 50%;
-}
-
-#sk-container-id-1 div.sk-parallel-item:last-child::after {
-  align-self: flex-start;
-  width: 50%;
-}
-
-#sk-container-id-1 div.sk-parallel-item:only-child::after {
-  width: 0;
-}
-
-/* Serial-specific style estimator block */
-
-#sk-container-id-1 div.sk-serial {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: var(--sklearn-color-background);
-  padding-right: 1em;
-  padding-left: 1em;
-}
-
-
-/* Toggleable style: style used for estimator/Pipeline/ColumnTransformer box that is
-clickable and can be expanded/collapsed.
-- Pipeline and ColumnTransformer use this feature and define the default style
-- Estimators will overwrite some part of the style using the `sk-estimator` class
-*/
-
-/* Pipeline and ColumnTransformer style (default) */
-
-#sk-container-id-1 div.sk-toggleable {
-  /* Default theme specific background. It is overwritten whether we have a
-  specific estimator or a Pipeline/ColumnTransformer */
-  background-color: var(--sklearn-color-background);
-}
-
-/* Toggleable label */
-#sk-container-id-1 label.sk-toggleable__label {
-  cursor: pointer;
-  display: flex;
-  width: 100%;
-  margin-bottom: 0;
-  padding: 0.5em;
-  box-sizing: border-box;
-  text-align: center;
-  align-items: start;
-  justify-content: space-between;
-  gap: 0.5em;
-}
-
-#sk-container-id-1 label.sk-toggleable__label .caption {
-  font-size: 0.6rem;
-  font-weight: lighter;
-  color: var(--sklearn-color-text-muted);
-}
-
-#sk-container-id-1 label.sk-toggleable__label-arrow:before {
-  /* Arrow on the left of the label */
-  content: "▸";
-  float: left;
-  margin-right: 0.25em;
-  color: var(--sklearn-color-icon);
-}
-
-#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {
-  color: var(--sklearn-color-text);
-}
-
-/* Toggleable content - dropdown */
-
-#sk-container-id-1 div.sk-toggleable__content {
-  display: none;
-  text-align: left;
-  /* unfitted */
-  background-color: var(--sklearn-color-unfitted-level-0);
-}
-
-#sk-container-id-1 div.sk-toggleable__content.fitted {
-  /* fitted */
-  background-color: var(--sklearn-color-fitted-level-0);
-}
-
-#sk-container-id-1 div.sk-toggleable__content pre {
-  margin: 0.2em;
-  border-radius: 0.25em;
-  color: var(--sklearn-color-text);
-  /* unfitted */
-  background-color: var(--sklearn-color-unfitted-level-0);
-}
-
-#sk-container-id-1 div.sk-toggleable__content.fitted pre {
-  /* unfitted */
-  background-color: var(--sklearn-color-fitted-level-0);
-}
-
-#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {
-  /* Expand drop-down */
-  display: block;
-  width: 100%;
-  overflow: visible;
-}
-
-#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
-  content: "▾";
-}
-
-/* Pipeline/ColumnTransformer-specific style */
-
-#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
-  color: var(--sklearn-color-text);
-  background-color: var(--sklearn-color-unfitted-level-2);
-}
-
-#sk-container-id-1 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
-  background-color: var(--sklearn-color-fitted-level-2);
-}
-
-/* Estimator-specific style */
-
-/* Colorize estimator box */
-#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
-  /* unfitted */
-  background-color: var(--sklearn-color-unfitted-level-2);
-}
-
-#sk-container-id-1 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
-  /* fitted */
-  background-color: var(--sklearn-color-fitted-level-2);
-}
-
-#sk-container-id-1 div.sk-label label.sk-toggleable__label,
-#sk-container-id-1 div.sk-label label {
-  /* The background is the default theme color */
-  color: var(--sklearn-color-text-on-default-background);
-}
-
-/* On hover, darken the color of the background */
-#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {
-  color: var(--sklearn-color-text);
-  background-color: var(--sklearn-color-unfitted-level-2);
-}
-
-/* Label box, darken color on hover, fitted */
-#sk-container-id-1 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
-  color: var(--sklearn-color-text);
-  background-color: var(--sklearn-color-fitted-level-2);
-}
-
-/* Estimator label */
-
-#sk-container-id-1 div.sk-label label {
-  font-family: monospace;
-  font-weight: bold;
-  display: inline-block;
-  line-height: 1.2em;
-}
-
-#sk-container-id-1 div.sk-label-container {
-  text-align: center;
-}
-
-/* Estimator-specific */
-#sk-container-id-1 div.sk-estimator {
-  font-family: monospace;
-  border: 1px dotted var(--sklearn-color-border-box);
-  border-radius: 0.25em;
-  box-sizing: border-box;
-  margin-bottom: 0.5em;
-  /* unfitted */
-  background-color: var(--sklearn-color-unfitted-level-0);
-}
-
-#sk-container-id-1 div.sk-estimator.fitted {
-  /* fitted */
-  background-color: var(--sklearn-color-fitted-level-0);
-}
-
-/* on hover */
-#sk-container-id-1 div.sk-estimator:hover {
-  /* unfitted */
-  background-color: var(--sklearn-color-unfitted-level-2);
-}
-
-#sk-container-id-1 div.sk-estimator.fitted:hover {
-  /* fitted */
-  background-color: var(--sklearn-color-fitted-level-2);
-}
-
-/* Specification for estimator info (e.g. "i" and "?") */
-
-/* Common style for "i" and "?" */
-
-.sk-estimator-doc-link,
-a:link.sk-estimator-doc-link,
-a:visited.sk-estimator-doc-link {
-  float: right;
-  font-size: smaller;
-  line-height: 1em;
-  font-family: monospace;
-  background-color: var(--sklearn-color-background);
-  border-radius: 1em;
-  height: 1em;
-  width: 1em;
-  text-decoration: none !important;
-  margin-left: 0.5em;
-  text-align: center;
-  /* unfitted */
-  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
-  color: var(--sklearn-color-unfitted-level-1);
-}
-
-.sk-estimator-doc-link.fitted,
-a:link.sk-estimator-doc-link.fitted,
-a:visited.sk-estimator-doc-link.fitted {
-  /* fitted */
-  border: var(--sklearn-color-fitted-level-1) 1pt solid;
-  color: var(--sklearn-color-fitted-level-1);
-}
-
-/* On hover */
-div.sk-estimator:hover .sk-estimator-doc-link:hover,
-.sk-estimator-doc-link:hover,
-div.sk-label-container:hover .sk-estimator-doc-link:hover,
-.sk-estimator-doc-link:hover {
-  /* unfitted */
-  background-color: var(--sklearn-color-unfitted-level-3);
-  color: var(--sklearn-color-background);
-  text-decoration: none;
-}
-
-div.sk-estimator.fitted:hover .sk-estimator-doc-link.fitted:hover,
-.sk-estimator-doc-link.fitted:hover,
-div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
-.sk-estimator-doc-link.fitted:hover {
-  /* fitted */
-  background-color: var(--sklearn-color-fitted-level-3);
-  color: var(--sklearn-color-background);
-  text-decoration: none;
-}
-
-/* Span, style for the box shown on hovering the info icon */
-.sk-estimator-doc-link span {
-  display: none;
-  z-index: 9999;
-  position: relative;
-  font-weight: normal;
-  right: .2ex;
-  padding: .5ex;
-  margin: .5ex;
-  width: min-content;
-  min-width: 20ex;
-  max-width: 50ex;
-  color: var(--sklearn-color-text);
-  box-shadow: 2pt 2pt 4pt #999;
-  /* unfitted */
-  background: var(--sklearn-color-unfitted-level-0);
-  border: .5pt solid var(--sklearn-color-unfitted-level-3);
-}
-
-.sk-estimator-doc-link.fitted span {
-  /* fitted */
-  background: var(--sklearn-color-fitted-level-0);
-  border: var(--sklearn-color-fitted-level-3);
-}
-
-.sk-estimator-doc-link:hover span {
-  display: block;
-}
-
-/* "?"-specific style due to the `<a>` HTML tag */
-
-#sk-container-id-1 a.estimator_doc_link {
-  float: right;
-  font-size: 1rem;
-  line-height: 1em;
-  font-family: monospace;
-  background-color: var(--sklearn-color-background);
-  border-radius: 1rem;
-  height: 1rem;
-  width: 1rem;
-  text-decoration: none;
-  /* unfitted */
-  color: var(--sklearn-color-unfitted-level-1);
-  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
-}
-
-#sk-container-id-1 a.estimator_doc_link.fitted {
-  /* fitted */
-  border: var(--sklearn-color-fitted-level-1) 1pt solid;
-  color: var(--sklearn-color-fitted-level-1);
-}
-
-/* On hover */
-#sk-container-id-1 a.estimator_doc_link:hover {
-  /* unfitted */
-  background-color: var(--sklearn-color-unfitted-level-3);
-  color: var(--sklearn-color-background);
-  text-decoration: none;
-}
-
-#sk-container-id-1 a.estimator_doc_link.fitted:hover {
-  /* fitted */
-  background-color: var(--sklearn-color-fitted-level-3);
-}
-
-.estimator-table summary {
-    padding: .5rem;
-    font-family: monospace;
-    cursor: pointer;
-}
-
-.estimator-table details[open] {
-    padding-left: 0.1rem;
-    padding-right: 0.1rem;
-    padding-bottom: 0.3rem;
-}
-
-.estimator-table .parameters-table {
-    margin-left: auto !important;
-    margin-right: auto !important;
-}
-
-.estimator-table .parameters-table tr:nth-child(odd) {
-    background-color: #fff;
-}
-
-.estimator-table .parameters-table tr:nth-child(even) {
-    background-color: #f6f6f6;
-}
-
-.estimator-table .parameters-table tr:hover {
-    background-color: #e0e0e0;
-}
-
-.estimator-table table td {
-    border: 1px solid rgba(106, 105, 104, 0.232);
-}
-
-.user-set td {
-    color:rgb(255, 94, 0);
-    text-align: left;
-}
-
-.user-set td.value pre {
-    color:rgb(255, 94, 0) !important;
-    background-color: transparent !important;
-}
-
-.default td {
-    color: black;
-    text-align: left;
-}
-
-.user-set td i,
-.default td i {
-    color: black;
-}
-
-.copy-paste-icon {
-    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NDggNTEyIj48IS0tIUZvbnQgQXdlc29tZSBGcmVlIDYuNy4yIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlL2ZyZWUgQ29weXJpZ2h0IDIwMjUgRm9udGljb25zLCBJbmMuLS0+PHBhdGggZD0iTTIwOCAwTDMzMi4xIDBjMTIuNyAwIDI0LjkgNS4xIDMzLjkgMTQuMWw2Ny45IDY3LjljOSA5IDE0LjEgMjEuMiAxNC4xIDMzLjlMNDQ4IDMzNmMwIDI2LjUtMjEuNSA0OC00OCA0OGwtMTkyIDBjLTI2LjUgMC00OC0yMS41LTQ4LTQ4bDAtMjg4YzAtMjYuNSAyMS41LTQ4IDQ4LTQ4ek00OCAxMjhsODAgMCAwIDY0LTY0IDAgMCAyNTYgMTkyIDAgMC0zMiA2NCAwIDAgNDhjMCAyNi41LTIxLjUgNDgtNDggNDhMNDggNTEyYy0yNi41IDAtNDgtMjEuNS00OC00OEwwIDE3NmMwLTI2LjUgMjEuNS00OCA0OC00OHoiLz48L3N2Zz4=);
-    background-repeat: no-repeat;
-    background-size: 14px 14px;
-    background-position: 0;
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    cursor: pointer;
-}
-</style><body><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LogisticRegression()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LogisticRegression</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
-        <div class="estimator-table">
-            <details>
-                <summary>Parameters</summary>
-                <table class="parameters-table">
-                  <tbody>
-                    
-        <tr class="default">
-            <td><i class="copy-paste-icon"
-                 onclick="copyToClipboard('penalty',
-                          this.parentElement.nextElementSibling)"
-            ></i></td>
-            <td class="param">penalty&nbsp;</td>
-            <td class="value">&#x27;l2&#x27;</td>
-        </tr>
-    
-
-        <tr class="default">
-            <td><i class="copy-paste-icon"
-                 onclick="copyToClipboard('dual',
-                          this.parentElement.nextElementSibling)"
-            ></i></td>
-            <td class="param">dual&nbsp;</td>
-            <td class="value">False</td>
-        </tr>
-    
-
-        <tr class="default">
-            <td><i class="copy-paste-icon"
-                 onclick="copyToClipboard('tol',
-                          this.parentElement.nextElementSibling)"
-            ></i></td>
-            <td class="param">tol&nbsp;</td>
-            <td class="value">0.0001</td>
-        </tr>
-    
-
-        <tr class="default">
-            <td><i class="copy-paste-icon"
-                 onclick="copyToClipboard('C',
-                          this.parentElement.nextElementSibling)"
-            ></i></td>
-            <td class="param">C&nbsp;</td>
-            <td class="value">1.0</td>
-        </tr>
-    
-
-        <tr class="default">
-            <td><i class="copy-paste-icon"
-                 onclick="copyToClipboard('fit_intercept',
-                          this.parentElement.nextElementSibling)"
-            ></i></td>
-            <td class="param">fit_intercept&nbsp;</td>
-            <td class="value">True</td>
-        </tr>
-    
-
-        <tr class="default">
-            <td><i class="copy-paste-icon"
-                 onclick="copyToClipboard('intercept_scaling',
-                          this.parentElement.nextElementSibling)"
-            ></i></td>
-            <td class="param">intercept_scaling&nbsp;</td>
-            <td class="value">1</td>
-        </tr>
-    
-
-        <tr class="default">
-            <td><i class="copy-paste-icon"
-                 onclick="copyToClipboard('class_weight',
-                          this.parentElement.nextElementSibling)"
-            ></i></td>
-            <td class="param">class_weight&nbsp;</td>
-            <td class="value">None</td>
-        </tr>
-    
-
-        <tr class="default">
-            <td><i class="copy-paste-icon"
-                 onclick="copyToClipboard('random_state',
-                          this.parentElement.nextElementSibling)"
-            ></i></td>
-            <td class="param">random_state&nbsp;</td>
-            <td class="value">None</td>
-        </tr>
-    
-
-        <tr class="default">
-            <td><i class="copy-paste-icon"
-                 onclick="copyToClipboard('solver',
-                          this.parentElement.nextElementSibling)"
-            ></i></td>
-            <td class="param">solver&nbsp;</td>
-            <td class="value">&#x27;lbfgs&#x27;</td>
-        </tr>
-    
-
-        <tr class="default">
-            <td><i class="copy-paste-icon"
-                 onclick="copyToClipboard('max_iter',
-                          this.parentElement.nextElementSibling)"
-            ></i></td>
-            <td class="param">max_iter&nbsp;</td>
-            <td class="value">100</td>
-        </tr>
-    
-
-        <tr class="default">
-            <td><i class="copy-paste-icon"
-                 onclick="copyToClipboard('multi_class',
-                          this.parentElement.nextElementSibling)"
-            ></i></td>
-            <td class="param">multi_class&nbsp;</td>
-            <td class="value">&#x27;deprecated&#x27;</td>
-        </tr>
-    
-
-        <tr class="default">
-            <td><i class="copy-paste-icon"
-                 onclick="copyToClipboard('verbose',
-                          this.parentElement.nextElementSibling)"
-            ></i></td>
-            <td class="param">verbose&nbsp;</td>
-            <td class="value">0</td>
-        </tr>
-    
-
-        <tr class="default">
-            <td><i class="copy-paste-icon"
-                 onclick="copyToClipboard('warm_start',
-                          this.parentElement.nextElementSibling)"
-            ></i></td>
-            <td class="param">warm_start&nbsp;</td>
-            <td class="value">False</td>
-        </tr>
-    
-
-        <tr class="default">
-            <td><i class="copy-paste-icon"
-                 onclick="copyToClipboard('n_jobs',
-                          this.parentElement.nextElementSibling)"
-            ></i></td>
-            <td class="param">n_jobs&nbsp;</td>
-            <td class="value">None</td>
-        </tr>
-    
-
-        <tr class="default">
-            <td><i class="copy-paste-icon"
-                 onclick="copyToClipboard('l1_ratio',
-                          this.parentElement.nextElementSibling)"
-            ></i></td>
-            <td class="param">l1_ratio&nbsp;</td>
-            <td class="value">None</td>
-        </tr>
-    
-                  </tbody>
-                </table>
-            </details>
-        </div>
-    </div></div></div></div></div><script>function copyToClipboard(text, element) {
-    // Get the parameter prefix from the closest toggleable content
-    const toggleableContent = element.closest('.sk-toggleable__content');
-    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
-    const fullParamName = paramPrefix ? `${paramPrefix}${text}` : text;
-
-    const originalStyle = element.style;
-    const computedStyle = window.getComputedStyle(element);
-    const originalWidth = computedStyle.width;
-    const originalHTML = element.innerHTML.replace('Copied!', '');
-
-    navigator.clipboard.writeText(fullParamName)
-        .then(() => {
-            element.style.width = originalWidth;
-            element.style.color = 'green';
-            element.innerHTML = "Copied!";
-
-            setTimeout(() => {
-                element.innerHTML = originalHTML;
-                element.style = originalStyle;
-            }, 2000);
-        })
-        .catch(err => {
-            console.error('Failed to copy:', err);
-            element.style.color = 'red';
-            element.innerHTML = "Failed!";
-            setTimeout(() => {
-                element.innerHTML = originalHTML;
-                element.style = originalStyle;
-            }, 2000);
-        });
-    return false;
-}
-
-document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
-    const toggleableContent = element.closest('.sk-toggleable__content');
-    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
-    const paramName = element.parentElement.nextElementSibling.textContent.trim();
-    const fullParamName = paramPrefix ? `${paramPrefix}${paramName}` : paramName;
-
-    element.setAttribute('title', fullParamName);
-});
-</script></body></div></div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1419,31 +747,157 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;penalty&#39;: &#39;l2&#39;,
- &#39;dual&#39;: False,
- &#39;tol&#39;: 0.0001,
- &#39;C&#39;: 1.0,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Cs&#39;: array([1.00000000e-03, 1.77827941e-03, 3.16227766e-03, 5.62341325e-03,
+        1.00000000e-02, 1.77827941e-02, 3.16227766e-02, 5.62341325e-02,
+        1.00000000e-01, 1.77827941e-01, 3.16227766e-01, 5.62341325e-01,
+        1.00000000e+00, 1.77827941e+00, 3.16227766e+00, 5.62341325e+00,
+        1.00000000e+01, 1.77827941e+01, 3.16227766e+01, 5.62341325e+01,
+        1.00000000e+02, 1.77827941e+02, 3.16227766e+02, 5.62341325e+02,
+        1.00000000e+03]),
  &#39;fit_intercept&#39;: True,
- &#39;intercept_scaling&#39;: 1,
- &#39;class_weight&#39;: None,
- &#39;random_state&#39;: None,
- &#39;solver&#39;: &#39;lbfgs&#39;,
+ &#39;cv&#39;: None,
+ &#39;dual&#39;: False,
+ &#39;penalty&#39;: &#39;l1&#39;,
+ &#39;scoring&#39;: None,
+ &#39;tol&#39;: 0.0001,
  &#39;max_iter&#39;: 100,
- &#39;multi_class&#39;: &#39;deprecated&#39;,
- &#39;verbose&#39;: 0,
- &#39;warm_start&#39;: False,
+ &#39;class_weight&#39;: None,
  &#39;n_jobs&#39;: None,
- &#39;l1_ratio&#39;: None,
+ &#39;verbose&#39;: 0,
+ &#39;solver&#39;: &#39;liblinear&#39;,
+ &#39;refit&#39;: True,
+ &#39;intercept_scaling&#39;: 1.0,
+ &#39;multi_class&#39;: &#39;deprecated&#39;,
+ &#39;random_state&#39;: None,
+ &#39;l1_ratios&#39;: None,
  &#39;n_features_in_&#39;: 30,
  &#39;classes_&#39;: array([0, 1]),
- &#39;n_iter_&#39;: array([18], dtype=int32),
- &#39;coef_&#39;: array([[ 0.3586244 ,  0.56680148,  0.35424667,  0.44227353,  0.16450863,
-         -0.50739517,  0.68361485,  0.87488553, -0.10390868, -0.36685108,
-          1.20568743, -0.04313842,  0.64911967,  0.91788808,  0.17850261,
-         -0.6847738 , -0.13663197,  0.48047132, -0.16677737, -0.72381244,
-          0.96165501,  1.03972915,  0.76176408,  0.95474403,  0.66664999,
-         -0.10209481,  0.71893218,  0.99458705,  0.75844439,  0.59918472]]),
- &#39;intercept_&#39;: array([-0.19383581])}
+ &#39;Cs_&#39;: array([1.00000000e-03, 1.77827941e-03, 3.16227766e-03, 5.62341325e-03,
+        1.00000000e-02, 1.77827941e-02, 3.16227766e-02, 5.62341325e-02,
+        1.00000000e-01, 1.77827941e-01, 3.16227766e-01, 5.62341325e-01,
+        1.00000000e+00, 1.77827941e+00, 3.16227766e+00, 5.62341325e+00,
+        1.00000000e+01, 1.77827941e+01, 3.16227766e+01, 5.62341325e+01,
+        1.00000000e+02, 1.77827941e+02, 3.16227766e+02, 5.62341325e+02,
+        1.00000000e+03]),
+ &#39;n_iter_&#39;: array([[[  0,   0,   0,   0,  12,  12,  10,  13,   9,  12,  12,  13,
+           16,  13,  16,  17,  18,  21,  22,  19,  20,  20,  23,  21,
+           22],
+         [  0,   0,   0,   0,  14,  19,  13,  17,  16,  16,  19,  15,
+           16,  15,  15,  22,  17,  26,  26,  25, 100, 100, 100, 100,
+          100],
+         [  0,   0,   0,   0,  16,  11,  11,  10,  11,   9,  12,  12,
+           13,  12,  16,  17,  19,  26,  22,  28,  27,  23,  22,  23,
+           26],
+         [  0,   0,   0,   0,  15,  13,  22,  13,  11,  13,  14,  12,
+           15,  16,  16,  18,  23,  22,  27,  26,  27,  35,  41, 100,
+          100],
+         [  0,   0,   0,   0,  12,  11,  11,  11,  11,  11,  15,  16,
+           13,  14,  15,  20,  16,  23,  24,  24,  27,  33,  29,  26,
+           28]]], dtype=int32),
+ &#39;scores_&#39;: {np.int64(1): array([[0.62637363, 0.62637363, 0.62637363, 0.62637363, 0.9010989 ,
+          0.92307692, 0.94505495, 0.94505495, 0.96703297, 0.96703297,
+          0.96703297, 0.96703297, 0.96703297, 0.96703297, 0.96703297,
+          0.96703297, 0.96703297, 0.96703297, 0.96703297, 0.96703297,
+          0.96703297, 0.96703297, 0.96703297, 0.96703297, 0.96703297],
+         [0.62637363, 0.62637363, 0.62637363, 0.62637363, 0.96703297,
+          0.96703297, 0.97802198, 1.        , 0.98901099, 0.98901099,
+          0.98901099, 0.98901099, 0.98901099, 0.98901099, 0.97802198,
+          0.97802198, 0.97802198, 0.96703297, 0.97802198, 0.95604396,
+          0.94505495, 0.95604396, 0.95604396, 0.96703297, 0.96703297],
+         [0.62637363, 0.62637363, 0.62637363, 0.62637363, 0.9010989 ,
+          0.91208791, 0.9010989 , 0.92307692, 0.94505495, 0.95604396,
+          0.96703297, 0.95604396, 0.96703297, 0.95604396, 0.96703297,
+          0.95604396, 0.94505495, 0.93406593, 0.93406593, 0.93406593,
+          0.92307692, 0.93406593, 0.92307692, 0.92307692, 0.92307692],
+         [0.62637363, 0.62637363, 0.62637363, 0.62637363, 0.96703297,
+          0.96703297, 0.96703297, 0.97802198, 0.97802198, 0.97802198,
+          0.98901099, 0.98901099, 0.98901099, 0.98901099, 0.97802198,
+          0.97802198, 0.96703297, 0.97802198, 0.97802198, 0.95604396,
+          0.95604396, 0.95604396, 0.95604396, 0.95604396, 0.95604396],
+         [0.62637363, 0.62637363, 0.62637363, 0.62637363, 0.93406593,
+          0.93406593, 0.94505495, 0.96703297, 0.95604396, 0.95604396,
+          0.95604396, 0.95604396, 0.96703297, 0.95604396, 0.95604396,
+          0.95604396, 0.93406593, 0.95604396, 0.96703297, 0.95604396,
+          0.96703297, 0.96703297, 0.97802198, 0.97802198, 0.97802198]])},
+ &#39;coefs_paths_&#39;: {np.int64(1): array([[[  0.        ,   0.        ,   0.        , ...,   0.        ,
+             0.        ,   0.        ],
+          [  0.        ,   0.        ,   0.        , ...,   0.        ,
+             0.        ,   0.        ],
+          [  0.        ,   0.        ,   0.        , ...,   0.        ,
+             0.        ,   0.        ],
+          ...,
+          [ -1.14857049,   3.83120594,   0.        , ...,   9.76809018,
+            -0.28689357,  -1.00545341],
+          [ -2.71363667,   4.40517808,  -0.07595347, ...,  10.36424032,
+            -0.4002168 ,  -0.54436056],
+          [ -2.6459192 ,   5.1477778 ,  -1.4951332 , ...,  10.91882494,
+            -1.07438368,  -0.47341217]],
+  
+         [[  0.        ,   0.        ,   0.        , ...,   0.        ,
+             0.        ,   0.        ],
+          [  0.        ,   0.        ,   0.        , ...,   0.        ,
+             0.        ,   0.        ],
+          [  0.        ,   0.        ,   0.        , ...,   0.        ,
+             0.        ,   0.        ],
+          ...,
+          [-43.16540158,   2.73608832, -36.35835437, ...,   5.56801048,
+             3.89531076,  17.51912651],
+          [-44.13424176,   2.97352453, -39.15102785, ...,   5.74709695,
+             4.02861448,  17.61693136],
+          [-43.9750447 ,   2.89349297, -38.79564665, ...,   5.76972823,
+             4.10640014,  17.56315212]],
+  
+         [[  0.        ,   0.        ,   0.        , ...,   0.        ,
+             0.        ,   0.        ],
+          [  0.        ,   0.        ,   0.        , ...,   0.        ,
+             0.        ,   0.        ],
+          [  0.        ,   0.        ,   0.        , ...,   0.        ,
+             0.        ,   0.        ],
+          ...,
+          [ -9.85330242,  -0.76425182, -12.45139769, ...,  -5.26258531,
+             1.60077565,   2.87880221],
+          [-11.465269  ,  -0.89957846, -14.32972009, ...,  -5.24022482,
+             1.76647321,   3.56770505],
+          [-11.67946503,  -0.4566176 , -18.15892257, ...,  -5.72809287,
+             1.23956402,   4.1776063 ]],
+  
+         [[  0.        ,   0.        ,   0.        , ...,   0.        ,
+             0.        ,   0.        ],
+          [  0.        ,   0.        ,   0.        , ...,   0.        ,
+             0.        ,   0.        ],
+          [  0.        ,   0.        ,   0.        , ...,   0.        ,
+             0.        ,   0.        ],
+          ...,
+          [-59.42547459,  11.58660886, -23.09323354, ...,  13.94869584,
+             6.74152853,  16.10501785],
+          [-59.98965358,  11.51363247, -27.35867631, ...,  13.39087486,
+             6.83343857,  16.0980135 ],
+          [-60.57940202,  11.40606095, -27.98041637, ...,  12.99203943,
+             6.79415217,  16.08657479]],
+  
+         [[  0.        ,   0.        ,   0.        , ...,   0.        ,
+             0.        ,   0.        ],
+          [  0.        ,   0.        ,   0.        , ...,   0.        ,
+             0.        ,   0.        ],
+          [  0.        ,   0.        ,   0.        , ...,   0.        ,
+             0.        ,   0.        ],
+          ...,
+          [-19.98489704,   7.4147169 , -24.77117771, ...,   8.79920966,
+             0.99784942,  15.71900624],
+          [-24.58669633,   8.56293765, -29.01991048, ...,   9.62456367,
+             1.25135001,  17.56674534],
+          [-27.11234491,   9.17753778, -28.86205061, ...,  10.05004278,
+             1.13595835,  18.64727845]]], shape=(5, 25, 31))},
+ &#39;C_&#39;: array([1.]),
+ &#39;l1_ratio_&#39;: array([None], dtype=object),
+ &#39;coef_&#39;: array([[ 0.        ,  0.19461109,  0.        ,  0.        ,  0.        ,
+          0.        ,  0.        ,  0.80499683,  0.        ,  0.        ,
+          2.65272302, -0.27826624,  0.        ,  0.        ,  0.10632319,
+         -0.52555664,  0.        ,  0.        ,  0.        , -0.26137001,
+          3.69834011,  1.51964862,  0.        ,  0.56692857,  0.73998605,
+          0.        ,  0.92302547,  1.28019036,  0.4045418 ,  0.        ]]),
+ &#39;intercept_&#39;: array([0.]),
+ &#39;l1_ratios_&#39;: array([None], dtype=object)}
 </pre></div>
 </div>
 </div>
@@ -1466,36 +920,36 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>radius error                  	+1.21
-worst texture                 	+1.04
-worst concave points          	+0.99
-worst radius                  	+0.96
-worst area                    	+0.95
-area error                    	+0.92
-mean concave points           	+0.87
-worst perimeter               	+0.76
-worst symmetry                	+0.76
-fractal dimension error       	-0.72
-worst concavity               	+0.72
-compactness error             	-0.68
-mean concavity                	+0.68
-worst smoothness              	+0.67
-perimeter error               	+0.65
-worst fractal dimension       	+0.60
-mean texture                  	+0.57
-mean compactness              	-0.51
-concave points error          	+0.48
-mean area                     	+0.44
-mean fractal dimension        	-0.37
-mean radius                   	+0.36
-mean perimeter                	+0.35
-smoothness error              	+0.18
-symmetry error                	-0.17
-mean smoothness               	+0.16
-concavity error               	-0.14
-mean symmetry                 	-0.10
-worst compactness             	-0.10
-texture error                 	-0.04
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>worst radius                  	+3.70
+radius error                  	+2.65
+worst texture                 	+1.52
+worst concave points          	+1.28
+worst concavity               	+0.92
+mean concave points           	+0.80
+worst smoothness              	+0.74
+worst area                    	+0.57
+compactness error             	-0.53
+worst symmetry                	+0.40
+texture error                 	-0.28
+fractal dimension error       	-0.26
+mean texture                  	+0.19
+smoothness error              	+0.11
+mean smoothness               	+0.00
+mean compactness              	+0.00
+mean area                     	+0.00
+mean symmetry                 	+0.00
+mean concavity                	+0.00
+mean perimeter                	+0.00
+worst fractal dimension       	+0.00
+mean fractal dimension        	+0.00
+perimeter error               	+0.00
+area error                    	+0.00
+concavity error               	+0.00
+concave points error          	+0.00
+symmetry error                	+0.00
+worst perimeter               	+0.00
+worst compactness             	+0.00
+mean radius                   	+0.00
 </pre></div>
 </div>
 </div>
@@ -1544,7 +998,7 @@ texture error                 	-0.04
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3b941f320b89b275ea37f4d23669bc809398462560d3c1f1e7c93f5c5787415a.png" src="../_images/3b941f320b89b275ea37f4d23669bc809398462560d3c1f1e7c93f5c5787415a.png" />
+<img alt="../_images/1e209023e32ce5aa61b4db68f0bd30d2edc0847a6cd0a04ccc0bd519684c157a.png" src="../_images/1e209023e32ce5aa61b4db68f0bd30d2edc0847a6cd0a04ccc0bd519684c157a.png" />
 </div>
 </div>
 <p>In the figure above:</p>
@@ -1582,7 +1036,7 @@ texture error                 	-0.04
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9b064a926c6bcd0734dce3581fdad3530f7979c888367a6bd78830b68e3a9cd1.png" src="../_images/9b064a926c6bcd0734dce3581fdad3530f7979c888367a6bd78830b68e3a9cd1.png" />
+<img alt="../_images/c68412d679c40e901bc86ad410aeb363c97cdce61ab23885eedb8bff9eb976ed.png" src="../_images/c68412d679c40e901bc86ad410aeb363c97cdce61ab23885eedb8bff9eb976ed.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1595,12 +1049,12 @@ texture error                 	-0.04
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>              precision    recall  f1-score   support
 
-      Benign       0.99      1.00      0.99        73
-   Malignant       1.00      0.98      0.99        41
+      Benign       0.99      0.99      0.99        72
+   Malignant       0.98      0.98      0.98        42
 
-    accuracy                           0.99       114
-   macro avg       0.99      0.99      0.99       114
-weighted avg       0.99      0.99      0.99       114
+    accuracy                           0.98       114
+   macro avg       0.98      0.98      0.98       114
+weighted avg       0.98      0.98      0.98       114
 </pre></div>
 </div>
 </div>
@@ -1623,7 +1077,7 @@ weighted avg       0.99      0.99      0.99       114
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/80bf59ed95e925e65140491b80e1984f524ebed5eed06619f4298910d5deefb4.png" src="../_images/80bf59ed95e925e65140491b80e1984f524ebed5eed06619f4298910d5deefb4.png" />
+<img alt="../_images/e8d08cd0b9255dc18a1c54ecc910c0882eb53f0b7d07e4517749140039716425.png" src="../_images/e8d08cd0b9255dc18a1c54ecc910c0882eb53f0b7d07e4517749140039716425.png" />
 </div>
 </div>
 </section>
@@ -1669,11 +1123,11 @@ weighted avg       0.99      0.99      0.99       114
       </div>
     </a>
     <a class="right-next"
-       href="../00_Assignments/ps01.html"
+       href="02_encoding.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">PS01 - Simple Linear Regression</p>
+        <p class="prev-next-title"><span class="section-number">8. </span>Encoding</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
