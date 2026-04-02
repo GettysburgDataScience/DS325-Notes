@@ -27,6 +27,10 @@ parts:
     numbered: true
     chapters:
       - file: 02_Classification/01_classification_intro
+      - file: 02_Classification/02_encoding
+      - file: 02_Classification/03_decision_trees
+      - file: 02_Classification/04_trees_gridcv
+      - file: 02_Classification/05_forest_boosted
 
 
   - caption: Assignments
