@@ -73,7 +73,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '02_Classification/04_trees_gridcv';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="PS01 - Simple Linear Regression" href="../00_Assignments/ps01.html" />
+    <link rel="next" title="11. Forests and Trees" href="05_forests_boosted.html" />
     <link rel="prev" title="9. Trees and Ensemble methods" href="03_decision_trees.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -220,6 +220,7 @@
 <li class="toctree-l1"><a class="reference internal" href="02_encoding.html">8. Encoding</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03_decision_trees.html">9. Trees and Ensemble methods</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">10. Tree Methods (continued)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_forests_boosted.html">11. Forests and Trees</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Assignments</span></p>
 <ul class="nav bd-sidenav">
@@ -622,112 +623,112 @@ document.write(`
   </thead>
   <tbody>
     <tr>
-      <th>50</th>
-      <td>Adelie</td>
-      <td>Dream</td>
-      <td>42.3</td>
-      <td>21.2</td>
-      <td>191.0</td>
-      <td>4150.0</td>
-      <td>male</td>
-      <td>2007</td>
-    </tr>
-    <tr>
-      <th>119</th>
-      <td>Adelie</td>
-      <td>Torgersen</td>
-      <td>35.7</td>
-      <td>17.0</td>
-      <td>189.0</td>
-      <td>3350.0</td>
-      <td>female</td>
-      <td>2009</td>
-    </tr>
-    <tr>
-      <th>169</th>
-      <td>Gentoo</td>
-      <td>Biscoe</td>
-      <td>42.0</td>
-      <td>13.5</td>
-      <td>210.0</td>
-      <td>4150.0</td>
-      <td>female</td>
-      <td>2007</td>
-    </tr>
-    <tr>
-      <th>244</th>
-      <td>Gentoo</td>
-      <td>Biscoe</td>
-      <td>52.2</td>
-      <td>17.1</td>
-      <td>228.0</td>
-      <td>5400.0</td>
-      <td>male</td>
-      <td>2009</td>
-    </tr>
-    <tr>
-      <th>225</th>
-      <td>Gentoo</td>
-      <td>Biscoe</td>
-      <td>48.2</td>
-      <td>15.6</td>
-      <td>221.0</td>
-      <td>5100.0</td>
-      <td>male</td>
-      <td>2008</td>
-    </tr>
-    <tr>
-      <th>65</th>
-      <td>Adelie</td>
-      <td>Biscoe</td>
-      <td>36.4</td>
-      <td>17.1</td>
-      <td>184.0</td>
-      <td>2850.0</td>
-      <td>female</td>
-      <td>2008</td>
-    </tr>
-    <tr>
-      <th>243</th>
-      <td>Gentoo</td>
-      <td>Biscoe</td>
-      <td>47.5</td>
-      <td>15.0</td>
-      <td>218.0</td>
-      <td>4950.0</td>
-      <td>female</td>
-      <td>2009</td>
-    </tr>
-    <tr>
-      <th>164</th>
-      <td>Gentoo</td>
-      <td>Biscoe</td>
-      <td>49.0</td>
-      <td>16.1</td>
-      <td>216.0</td>
-      <td>5550.0</td>
-      <td>male</td>
-      <td>2007</td>
-    </tr>
-    <tr>
-      <th>317</th>
+      <th>334</th>
       <td>Chinstrap</td>
       <td>Dream</td>
-      <td>49.0</td>
-      <td>19.5</td>
-      <td>210.0</td>
-      <td>3950.0</td>
+      <td>49.3</td>
+      <td>19.9</td>
+      <td>203.0</td>
+      <td>4050.0</td>
+      <td>male</td>
+      <td>2009</td>
+    </tr>
+    <tr>
+      <th>319</th>
+      <td>Chinstrap</td>
+      <td>Dream</td>
+      <td>50.9</td>
+      <td>19.1</td>
+      <td>196.0</td>
+      <td>3550.0</td>
       <td>male</td>
       <td>2008</td>
     </tr>
     <tr>
-      <th>136</th>
+      <th>95</th>
+      <td>Adelie</td>
+      <td>Dream</td>
+      <td>36.2</td>
+      <td>17.3</td>
+      <td>187.0</td>
+      <td>3300.0</td>
+      <td>female</td>
+      <td>2008</td>
+    </tr>
+    <tr>
+      <th>138</th>
+      <td>Adelie</td>
+      <td>Dream</td>
+      <td>40.2</td>
+      <td>20.1</td>
+      <td>200.0</td>
+      <td>3975.0</td>
+      <td>male</td>
+      <td>2009</td>
+    </tr>
+    <tr>
+      <th>47</th>
       <td>Adelie</td>
       <td>Dream</td>
       <td>41.1</td>
-      <td>17.5</td>
-      <td>190.0</td>
-      <td>3900.0</td>
+      <td>19.0</td>
+      <td>182.0</td>
+      <td>3425.0</td>
+      <td>male</td>
+      <td>2007</td>
+    </tr>
+    <tr>
+      <th>294</th>
+      <td>Chinstrap</td>
+      <td>Dream</td>
+      <td>58.0</td>
+      <td>17.8</td>
+      <td>181.0</td>
+      <td>3700.0</td>
+      <td>female</td>
+      <td>2007</td>
+    </tr>
+    <tr>
+      <th>199</th>
+      <td>Gentoo</td>
+      <td>Biscoe</td>
+      <td>45.5</td>
+      <td>13.9</td>
+      <td>210.0</td>
+      <td>4200.0</td>
+      <td>female</td>
+      <td>2008</td>
+    </tr>
+    <tr>
+      <th>287</th>
+      <td>Chinstrap</td>
+      <td>Dream</td>
+      <td>46.6</td>
+      <td>17.8</td>
+      <td>193.0</td>
+      <td>3800.0</td>
+      <td>female</td>
+      <td>2007</td>
+    </tr>
+    <tr>
+      <th>330</th>
+      <td>Chinstrap</td>
+      <td>Dream</td>
+      <td>50.7</td>
+      <td>19.7</td>
+      <td>203.0</td>
+      <td>4050.0</td>
+      <td>male</td>
+      <td>2009</td>
+    </tr>
+    <tr>
+      <th>249</th>
+      <td>Gentoo</td>
+      <td>Biscoe</td>
+      <td>49.4</td>
+      <td>15.8</td>
+      <td>216.0</td>
+      <td>4925.0</td>
       <td>male</td>
       <td>2009</td>
     </tr>
@@ -820,7 +821,7 @@ memory usage: 24.2+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d590cafb0ab00019ffd2d08b6b6af3f1faed80495c49c2286a4daa33ae95b856.png" src="../_images/d590cafb0ab00019ffd2d08b6b6af3f1faed80495c49c2286a4daa33ae95b856.png" />
+<img alt="../_images/187b7c29418dc79e151101f40939f2b824996544c4e095f72f5ce2fe27b7691d.png" src="../_images/187b7c29418dc79e151101f40939f2b824996544c4e095f72f5ce2fe27b7691d.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -838,7 +839,7 @@ memory usage: 24.2+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/b0a0a3a93e1b4c345c821ad42d0a0fd274fb414ca19d2b84937458a2222c8753.png" src="../_images/b0a0a3a93e1b4c345c821ad42d0a0fd274fb414ca19d2b84937458a2222c8753.png" />
+<img alt="../_images/0941adcaee507219b4ca75a20b0f9910ff055e92c2b0ab918a079e9d4b191c34.png" src="../_images/0941adcaee507219b4ca75a20b0f9910ff055e92c2b0ab918a079e9d4b191c34.png" />
 </div>
 </div>
 <p>Now let’s find the best-fit tree for these data using GridsearchCV. Our modeling pipeline:</p>
@@ -1098,11 +1099,11 @@ memory usage: 24.2+ KB
       </div>
     </a>
     <a class="right-next"
-       href="../00_Assignments/ps01.html"
+       href="05_forests_boosted.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">PS01 - Simple Linear Regression</p>
+        <p class="prev-next-title"><span class="section-number">11. </span>Forests and Trees</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
