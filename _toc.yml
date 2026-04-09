@@ -30,7 +30,7 @@ parts:
       - file: 02_Classification/02_encoding
       - file: 02_Classification/03_decision_trees
       - file: 02_Classification/04_trees_gridcv
-      - file: 02_Classification/05_forest_boosted
+      - file: 02_Classification/05_forests_boosted
 
 
   - caption: Assignments
@@ -39,6 +39,8 @@ parts:
      - file: 00_Assignments/ps01
      - file: 00_Assignments/ps02
      - file: 00_Assignments/ps03
+     - file: 00_Assignments/ps04
+
 
 
   # # - caption: Classification
