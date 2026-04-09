@@ -230,6 +230,7 @@
 
 <li class="toctree-l1"><a class="reference internal" href="../00_Assignments/ps02.html">PS02 - Regularization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../00_Assignments/ps03.html">PS03 - Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00_Assignments/ps04.html">PSO4 - Comparing Tree Methods</a></li>
 </ul>
 
     </div>
@@ -992,7 +993,7 @@ IG(p) = H_{\text{parent}}(p) - \sum H_{\text{children}}(p)
 <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_df</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">42</span><span class="p">)</span>
 
 <span class="n">tree_clf</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span>
-    <span class="n">max_depth</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="n">max_depth</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
     <span class="n">min_samples_split</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="p">)</span>
 
@@ -1478,7 +1479,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
     height: 14px;
     cursor: pointer;
 }
-</style><body><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>DecisionTreeClassifier(max_depth=3, min_samples_split=10)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>DecisionTreeClassifier</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.tree.DecisionTreeClassifier.html">?<span>Documentation for DecisionTreeClassifier</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
+</style><body><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>DecisionTreeClassifier(max_depth=4, min_samples_split=10)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>DecisionTreeClassifier</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.tree.DecisionTreeClassifier.html">?<span>Documentation for DecisionTreeClassifier</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
         <div class="estimator-table">
             <details>
                 <summary>Parameters</summary>
@@ -1511,7 +1512,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                           this.parentElement.nextElementSibling)"
             ></i></td>
             <td class="param">max_depth&nbsp;</td>
-            <td class="value">3</td>
+            <td class="value">4</td>
         </tr>
     
 
@@ -1666,11 +1667,11 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-<span class="n">label_names</span> <span class="o">=</span> <span class="n">drugs_df</span><span class="p">[</span><span class="s1">&#39;Drug&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+<span class="n">label_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;drugA&#39;</span><span class="p">,</span> <span class="s1">&#39;drugB&#39;</span><span class="p">,</span> <span class="s1">&#39;drugC&#39;</span><span class="p">,</span> <span class="s1">&#39;drugX&#39;</span><span class="p">,</span> <span class="s1">&#39;drugY&#39;</span><span class="p">]</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="n">plot_tree</span><span class="p">(</span><span class="n">tree_clf</span><span class="p">,</span>
-          <span class="n">filled</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">14</span><span class="p">,</span>
+          <span class="n">filled</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">,</span>
           <span class="n">feature_names</span> <span class="o">=</span> <span class="n">feature_names</span><span class="p">,</span> 
           <span class="n">class_names</span> <span class="o">=</span> <span class="n">label_names</span><span class="p">)</span>
 
@@ -1679,7 +1680,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/160fd662eefa09d210b3d127b92aabca0801db5ccce323c388c9023985672397.png" src="../_images/160fd662eefa09d210b3d127b92aabca0801db5ccce323c388c9023985672397.png" />
+<img alt="../_images/cf39b0a97671a11b412c74313460e24c7aeb7ef4bdce181f93233ce93be86194.png" src="../_images/cf39b0a97671a11b412c74313460e24c7aeb7ef4bdce181f93233ce93be86194.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1699,7 +1700,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a3256690a4c16f46854a8c2225ac6e2d1356daba32f52310e879e7f996127aed.png" src="../_images/a3256690a4c16f46854a8c2225ac6e2d1356daba32f52310e879e7f996127aed.png" />
+<img alt="../_images/b1e3b77ea061392767af3e3c91e1cdffde030c29f44ab453858c27ec80c93a6f.png" src="../_images/b1e3b77ea061392767af3e3c91e1cdffde030c29f44ab453858c27ec80c93a6f.png" />
 </div>
 </div>
 </section>

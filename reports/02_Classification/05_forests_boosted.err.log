@@ -49,8 +49,10 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-['# Split data', 'X_train, X_test, y_train, y_test = train_test_split(Xt_df, y, test_size=0.5, random_state=42)', '', '# Decision Tree', "dt_params = {'max_depth': [3, 6, 9, 12], 'min_samples_split': [10, 30, 100]}"]
-...
-['print("Best Gradient Boosted params:", gb_grid.best_params_)', '', 'tree = dt_grid.best_estimator_', 'forest = rf_grid.best_estimator_', 'boosted = gb_grid.best_estimator_']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2)
+
+grid_tree.fit(X_train, y_train)
+grid_forest.fit(X_train, y_train)
+
 -------------------
 
