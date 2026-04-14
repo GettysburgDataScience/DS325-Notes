@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>PS04 - Comparing Tree Methods &#8212; DS325 Applied Data Science</title>
+    <title>12. PS04 - Comparing Tree Methods &#8212; DS325 Applied Data Science</title>
   
   
   
@@ -70,10 +70,11 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '00_Assignments/ps04';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '02_Classification/06_comparing_tree_methods';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="PS03 - Classification" href="ps03.html" />
+    <link rel="next" title="13. Principle Component Analysis (PCA)" href="../03_Unsupervised/01a_pca.html" />
+    <link rel="prev" title="11. Forests and Trees" href="05_forests_boosted.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -214,20 +215,26 @@
 
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Classification</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_classification_intro.html">7. Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_encoding.html">8. Encoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_decision_trees.html">9. Trees and Ensemble methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_trees_gridcv.html">10. Tree Methods (continued)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_forests_boosted.html">11. Forests and Trees</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">12. PS04 - Comparing Tree Methods</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Unsupervised Learning</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../02_Classification/01_classification_intro.html">7. Classification</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../02_Classification/02_encoding.html">8. Encoding</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../02_Classification/03_decision_trees.html">9. Trees and Ensemble methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../02_Classification/04_trees_gridcv.html">10. Tree Methods (continued)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../02_Classification/05_forests_boosted.html">11. Forests and Trees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_Unsupervised/01a_pca.html">13. Principle Component Analysis (PCA)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_Unsupervised/01b_pca.html">14. PCA: Examples and Observations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_Unsupervised/02_kmeans.html">15. K-Means Clustering</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Assignments</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="ps01.html">PS01 - Simple Linear Regression</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../00_Assignments/ps01.html">PS01 - Simple Linear Regression</a></li>
 
-<li class="toctree-l1"><a class="reference internal" href="ps02.html">PS02 - Regularization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ps03.html">PS03 - Classification</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">PS04 - Comparing Tree Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00_Assignments/ps02.html">PS02 - Regularization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00_Assignments/ps03.html">PS03 - Classification</a></li>
 </ul>
 
     </div>
@@ -282,7 +289,7 @@
       
       
       
-      <li><a href="https://colab.research.google.com/github/GettysburgDataScience/DS325-Notes/blob/main/00_Assignments/ps04.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/GettysburgDataScience/DS325-Notes/blob/main/02_Classification/06_comparing_tree_methods.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -313,7 +320,7 @@
       
       
       
-      <li><a href="../_sources/00_Assignments/ps04.ipynb" target="_blank"
+      <li><a href="../_sources/02_Classification/06_comparing_tree_methods.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -407,13 +414,13 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-explore">0. Load &amp; Explore</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-the-data">Inspect the data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-processing">2. Pre-processing</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling-and-model-comparison">3. Modeling and Model Comparison</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization">4. Visualization</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-explore">12.1. 0. Load &amp; Explore</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-the-data">12.2. Inspect the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-processing">12.3. 2. Pre-processing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling-and-model-comparison">12.4. 3. Modeling and Model Comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization">12.5. 4. Visualization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">12.6. Summary</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">12.6.1. Key Takeaways</a></li>
 </ul>
 </li>
 </ul>
@@ -428,7 +435,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="ps04-comparing-tree-methods">
-<h1>PS04 - Comparing Tree Methods<a class="headerlink" href="#ps04-comparing-tree-methods" title="Link to this heading">#</a></h1>
+<h1><span class="section-number">12. </span>PS04 - Comparing Tree Methods<a class="headerlink" href="#ps04-comparing-tree-methods" title="Link to this heading">#</a></h1>
 <p><strong>Decision Trees vs. Random Forests vs. Gradient Boosting</strong></p>
 <p>This assignment works through the entire modeling process, comparing the different tree models in terms of performance, bias and variance.</p>
 <p>We’ll be using US Census data to predict, based on other attributes, whether an individual has a yearly income above or below $50 K (a binary classification).</p>
@@ -465,7 +472,7 @@ document.write(`
 </div>
 </div>
 <section id="load-explore">
-<h2>0. Load &amp; Explore<a class="headerlink" href="#load-explore" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">12.1. </span>0. Load &amp; Explore<a class="headerlink" href="#load-explore" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## fetching the data</span>
@@ -640,7 +647,7 @@ Name: count, dtype: int64
 </div>
 </section>
 <section id="inspect-the-data">
-<h2>Inspect the data<a class="headerlink" href="#inspect-the-data" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">12.2. </span>Inspect the data<a class="headerlink" href="#inspect-the-data" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Do we have missing values? How should we deal with them?</p></li>
 <li><p>What is the split of over- and under-50K in our data?</p></li>
@@ -680,7 +687,7 @@ memory usage: 2.6 MB
 </div>
 </section>
 <section id="pre-processing">
-<h2>2. Pre-processing<a class="headerlink" href="#pre-processing" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">12.3. </span>2. Pre-processing<a class="headerlink" href="#pre-processing" title="Link to this heading">#</a></h2>
 <p><strong>Imputation</strong>
 In the past, when we’ve had missing data, we’ve discarded the entire row (sample). In this example, we’ll introduce <em>imputation</em>, inferring a value for missing data. And we’ll start with the simplest form of imputation, replacing data with a constant value.</p>
 <p>The transformer we use is called <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.impute.SimpleImputer.html"><code class="docutils literal notranslate"><span class="pre">SimpleImputer</span></code></a> and it permits several options for filling in missing data, selectable through the <code class="docutils literal notranslate"><span class="pre">strategy</span></code> hyperparameter:</p>
@@ -1353,7 +1360,7 @@ Some columns will require encoding and we’ll apply <code class="docutils liter
 </div>
 </section>
 <section id="modeling-and-model-comparison">
-<h2>3. Modeling and Model Comparison<a class="headerlink" href="#modeling-and-model-comparison" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">12.4. </span>3. Modeling and Model Comparison<a class="headerlink" href="#modeling-and-model-comparison" title="Link to this heading">#</a></h2>
 <p>Let’s try two comparisons, sweeping max_depth while keeping forest size at 100 and sweeping forest size while keeping max depth at 2.</p>
 <ul class="simple">
 <li><p><strong>Decision Tree</strong> → rapidly overfits: high variance at deep depths, high bias at shallow depths.</p></li>
@@ -1576,7 +1583,7 @@ Some columns will require encoding and we’ll apply <code class="docutils liter
 </div>
 </section>
 <section id="visualization">
-<h2>4. Visualization<a class="headerlink" href="#visualization" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">12.5. </span>4. Visualization<a class="headerlink" href="#visualization" title="Link to this heading">#</a></h2>
 <p>Create two sets of subplots, one for each hyper-parameter sweep. Each subplot corresponds to one of the model types.</p>
 <p>For each of these sweeps and for each model, plot a line graph showing how accuracy changes as the hyperparameter is changed, comparing trends between the training and testing set.</p>
 <div class="cell docutils container">
@@ -1628,7 +1635,7 @@ Some columns will require encoding and we’ll apply <code class="docutils liter
 </div>
 </section>
 <section id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">12.6. </span>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Property</p></th>
@@ -1672,7 +1679,7 @@ Some columns will require encoding and we’ll apply <code class="docutils liter
 </table>
 </div>
 <section id="key-takeaways">
-<h3>Key Takeaways<a class="headerlink" href="#key-takeaways" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">12.6.1. </span>Key Takeaways<a class="headerlink" href="#key-takeaways" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p><strong>Decision Trees</strong> are powerful building blocks but suffer from <strong>high variance</strong>. A tiny change to training data can completely alter the tree structure.</p></li>
 <li><p><strong>Random Forests</strong> lessens variance by <strong>averaging many independently-grown trees</strong> (each trained on a random bootstrap + random feature subset). Even with deep, unconstrained trees, the ensemble generalises well. A commonly accepted belief in machine learning circles states that <em>you can’t overfit a random forest</em>.</p></li>
@@ -1699,7 +1706,7 @@ Some columns will require encoding and we’ll apply <code class="docutils liter
         },
         kernelOptions: {
             name: "python3",
-            path: "./00_Assignments"
+            path: "./02_Classification"
         },
         predefinedOutput: true
     }
@@ -1717,13 +1724,22 @@ Some columns will require encoding and we’ll apply <code class="docutils liter
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="ps03.html"
+       href="05_forests_boosted.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">PS03 - Classification</p>
+        <p class="prev-next-title"><span class="section-number">11. </span>Forests and Trees</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="../03_Unsupervised/01a_pca.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">13. </span>Principle Component Analysis (PCA)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -1741,13 +1757,13 @@ Some columns will require encoding and we’ll apply <code class="docutils liter
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-explore">0. Load &amp; Explore</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-the-data">Inspect the data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-processing">2. Pre-processing</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling-and-model-comparison">3. Modeling and Model Comparison</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization">4. Visualization</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-explore">12.1. 0. Load &amp; Explore</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-the-data">12.2. Inspect the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-processing">12.3. 2. Pre-processing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling-and-model-comparison">12.4. 3. Modeling and Model Comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization">12.5. 4. Visualization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">12.6. Summary</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">12.6.1. Key Takeaways</a></li>
 </ul>
 </li>
 </ul>
