@@ -31,7 +31,13 @@ parts:
       - file: 02_Classification/03_decision_trees
       - file: 02_Classification/04_trees_gridcv
       - file: 02_Classification/05_forests_boosted
-
+      - file: 02_Classification/06_comparing_tree_methods
+  - caption: Unsupervised Learning
+    numbered: true
+    chapters:
+      - file: 03_Unsupervised/01a_pca
+      - file: 03_Unsupervised/01b_pca
+      - file: 03_Unsupervised/02_kmeans
 
   - caption: Assignments
     numbered: false
@@ -39,8 +45,6 @@ parts:
      - file: 00_Assignments/ps01
      - file: 00_Assignments/ps02
      - file: 00_Assignments/ps03
-     - file: 00_Assignments/ps04
-
 
 
   # # - caption: Classification
