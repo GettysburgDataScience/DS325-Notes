@@ -228,6 +228,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../03_Unsupervised/01a_pca.html">13. Principle Component Analysis (PCA)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../03_Unsupervised/01b_pca.html">14. PCA: Examples and Observations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../03_Unsupervised/02_kmeans.html">15. K-Means Clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_Unsupervised/03_kmeans_animation.html">16. K-Means Clustering: An Animated Walkthrough</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Assignments</span></p>
 <ul class="nav bd-sidenav">
@@ -1021,18 +1022,18 @@ Then, visit <strong><a class="reference external" href="https://matplotlib.org/s
 <span class="ne">--&gt; </span><span class="mi">898</span> <span class="bp">self</span><span class="o">.</span><span class="n">autoscale_view</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="sa">f</span><span class="s2">&quot;scale</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">scale</span>
 <span class="nn">    899                        for name, scale</span> in <span class="ni">need_scale.items</span><span class="nt">()})</span>
 
-<span class="nn">File ~/.pyenv/versions/3.13.1/envs/datascience/lib/python3.13/site-packages/matplotlib/axes/_base.py:3008,</span> in <span class="ni">_AxesBase.autoscale_view</span><span class="nt">(self, tight, scalex, scaley)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3005</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_sticky_edges</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">3006</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_xmargin</span> <span class="ow">and</span> <span class="n">scalex</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_autoscalex_on</span><span class="p">():</span>
+<span class="nn">File ~/.pyenv/versions/3.13.1/envs/datascience/lib/python3.13/site-packages/matplotlib/axes/_base.py:3012,</span> in <span class="ni">_AxesBase.autoscale_view</span><span class="nt">(self, tight, scalex, scaley)</span>
 <span class="g g-Whitespace">   </span><span class="mi">3007</span>         <span class="n">x_stickies</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span>
-<span class="ne">-&gt; </span><span class="mi">3008</span>             <span class="n">artist</span><span class="o">.</span><span class="n">sticky_edges</span><span class="o">.</span><span class="n">x</span>
+<span class="g g-Whitespace">   </span><span class="mi">3008</span>             <span class="n">artist</span><span class="o">.</span><span class="n">sticky_edges</span><span class="o">.</span><span class="n">x</span>
 <span class="nn">   3009             for ax</span> in <span class="ni">self._shared_axes[&quot;x&quot;].get_siblings</span><span class="nt">(self)</span>
 <span class="nn">   3010             for artist</span> in <span class="ni">ax.get_children</span><span class="nt">()]))</span>
 <span class="g g-Whitespace">   </span><span class="mi">3011</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ymargin</span> <span class="ow">and</span> <span class="n">scaley</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_autoscaley_on</span><span class="p">():</span>
-<span class="g g-Whitespace">   </span><span class="mi">3012</span>         <span class="n">y_stickies</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span>
+<span class="ne">-&gt; </span><span class="mi">3012</span>         <span class="n">y_stickies</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span>
 <span class="g g-Whitespace">   </span><span class="mi">3013</span>             <span class="n">artist</span><span class="o">.</span><span class="n">sticky_edges</span><span class="o">.</span><span class="n">y</span>
 <span class="nn">   3014             for ax</span> in <span class="ni">self._shared_axes[&quot;y&quot;].get_siblings</span><span class="nt">(self)</span>
 <span class="nn">   3015             for artist</span> in <span class="ni">ax.get_children</span><span class="nt">()]))</span>
+<span class="g g-Whitespace">   </span><span class="mi">3016</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_xscale</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;log&#39;</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">3017</span>     <span class="n">x_stickies</span> <span class="o">=</span> <span class="n">x_stickies</span><span class="p">[</span><span class="n">x_stickies</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
 
 <span class="ne">KeyboardInterrupt</span>: 
 </pre></div>

@@ -73,7 +73,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '03_Unsupervised/02_kmeans';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="PS01 - Simple Linear Regression" href="../00_Assignments/ps01.html" />
+    <link rel="next" title="16. K-Means Clustering: An Animated Walkthrough" href="03_kmeans_animation.html" />
     <link rel="prev" title="14. PCA: Examples and Observations" href="01b_pca.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -228,6 +228,7 @@
 <li class="toctree-l1"><a class="reference internal" href="01a_pca.html">13. Principle Component Analysis (PCA)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="01b_pca.html">14. PCA: Examples and Observations</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">15. K-Means Clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_kmeans_animation.html">16. K-Means Clustering: An Animated Walkthrough</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Assignments</span></p>
 <ul class="nav bd-sidenav">
@@ -433,12 +434,13 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="k-means-clustering">
 <h1><span class="section-number">15. </span>K-Means Clustering<a class="headerlink" href="#k-means-clustering" title="Link to this heading">#</a></h1>
-<p><strong>What is clustering and what are some clustering algorithms?</strong></p>
-<p><strong>What is K-Means?</strong></p>
-<p><strong>Why/when do we use K-Means?</strong></p>
-<p><strong>How does it work?</strong></p>
-<p><strong>How do we decide K?</strong></p>
-<p><strong>Some example use cases</strong></p>
+<p>Clustering refers to an <em>unsupervised</em> learning algorithms that partition data into groups by similarity. Clustering can be used to identify categories from and assign classes/labels to unlabeled data (perhaps for classification).</p>
+<p>We’ll only introduce K-means clustering, but alternative clustering methods include:</p>
+<ul class="simple">
+<li><p>DBScan (Density-Based Spacial Clustering of Applications with Noise)</p></li>
+<li><p>Agglomerative Clustering (Hierarchical Clustering)</p></li>
+</ul>
+<p><strong>Unsupervised learning</strong> - learning algorithms that find inherent groupings or trends in UNLABELED data (ie. no target values/classes are provided)</p>
 <section id="an-example-with-synthetic-data">
 <h2><span class="section-number">15.1. </span>An Example with Synthetic Data<a class="headerlink" href="#an-example-with-synthetic-data" title="Link to this heading">#</a></h2>
 <p>To demonstrate K-Means, we’ll first create a synthetic dataset of 5 clusters using the sklearn make_blobs function. Remember, because we create this dataset, we know it should have 5 clusters. BUT that does not mean that the best partitioning will be into 5 groupings.</p>
@@ -534,7 +536,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/ebb12abd4db82e36f57a69856f899bcce5e03bdd06994f6e9fe808c866d6a955.png" src="../_images/ebb12abd4db82e36f57a69856f899bcce5e03bdd06994f6e9fe808c866d6a955.png" />
+<img alt="../_images/b166312a88f890d7abd8d9cead462361326099c04ca789419553fccaaa974f40.png" src="../_images/b166312a88f890d7abd8d9cead462361326099c04ca789419553fccaaa974f40.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -768,7 +770,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5137ca9035a17d5a4e5de66bc8bef9f3cac11374b2d37fb4b22ba169fb7c44cc.png" src="../_images/5137ca9035a17d5a4e5de66bc8bef9f3cac11374b2d37fb4b22ba169fb7c44cc.png" />
+<img alt="../_images/bbdd695c3b48b8b06317e4825e2d40fab87d78803f63a95e4e0373eef633faea.png" src="../_images/bbdd695c3b48b8b06317e4825e2d40fab87d78803f63a95e4e0373eef633faea.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -780,16 +782,16 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 66.89505048,  36.629206  ,  64.37737517],
-       [233.07260173,  80.22417376,  43.88596903],
-       [249.66581123, 234.27373824, 217.13401768],
-       [181.58489914,  34.32288184,  32.11729107],
-       [ 88.95256966,  86.2326935 ,  21.21349845],
-       [123.97055989,  15.20914746,  21.60413563],
-       [249.09824047, 160.92443041,   7.82359576],
-       [122.50067307,  81.31795746, 133.43228933],
-       [146.06086898, 132.80349759,  30.44980682],
-       [222.91792562, 178.07481116, 125.60589773]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 53.81093067,  28.13311159,  29.06730581],
+       [249.33982495, 159.15273523,   8.06608315],
+       [159.68643032,  24.79016766,  28.62569857],
+       [224.07302965, 177.03644252, 125.50426609],
+       [150.30213701, 135.48795089,  31.15989694],
+       [ 69.97889577,  38.2536675 ,  68.30373185],
+       [249.58479864, 234.18746455, 216.84798639],
+       [227.28499576,  73.60446454,  41.73687482],
+       [123.53626967,  82.31613744, 134.77912282],
+       [ 97.24927722,  93.46585288,  22.70035336]])
 </pre></div>
 </div>
 </div>
@@ -830,72 +832,72 @@ document.write(`
     <tr>
       <th>0</th>
       <td>0</td>
-      <td>0.262334</td>
-      <td>0.143644</td>
-      <td>0.252460</td>
+      <td>0.211023</td>
+      <td>0.110326</td>
+      <td>0.113989</td>
     </tr>
     <tr>
       <th>1</th>
       <td>1</td>
-      <td>0.914010</td>
-      <td>0.314605</td>
-      <td>0.172102</td>
+      <td>0.977803</td>
+      <td>0.624128</td>
+      <td>0.031632</td>
     </tr>
     <tr>
       <th>2</th>
       <td>2</td>
-      <td>0.979082</td>
-      <td>0.918721</td>
-      <td>0.851506</td>
+      <td>0.626221</td>
+      <td>0.097216</td>
+      <td>0.112258</td>
     </tr>
     <tr>
       <th>3</th>
       <td>3</td>
-      <td>0.712098</td>
-      <td>0.134600</td>
-      <td>0.125950</td>
+      <td>0.878718</td>
+      <td>0.694261</td>
+      <td>0.492174</td>
     </tr>
     <tr>
       <th>4</th>
       <td>4</td>
-      <td>0.348834</td>
-      <td>0.338167</td>
-      <td>0.083190</td>
+      <td>0.589420</td>
+      <td>0.531325</td>
+      <td>0.122196</td>
     </tr>
     <tr>
       <th>5</th>
       <td>5</td>
-      <td>0.486159</td>
-      <td>0.059644</td>
-      <td>0.084722</td>
+      <td>0.274427</td>
+      <td>0.150014</td>
+      <td>0.267858</td>
     </tr>
     <tr>
       <th>6</th>
       <td>6</td>
-      <td>0.976856</td>
-      <td>0.631076</td>
-      <td>0.030681</td>
+      <td>0.978764</td>
+      <td>0.918382</td>
+      <td>0.850384</td>
     </tr>
     <tr>
       <th>7</th>
       <td>7</td>
-      <td>0.480395</td>
-      <td>0.318894</td>
-      <td>0.523264</td>
+      <td>0.891314</td>
+      <td>0.288645</td>
+      <td>0.163674</td>
     </tr>
     <tr>
       <th>8</th>
       <td>8</td>
-      <td>0.572788</td>
-      <td>0.520798</td>
-      <td>0.119411</td>
+      <td>0.484456</td>
+      <td>0.322808</td>
+      <td>0.528546</td>
     </tr>
     <tr>
       <th>9</th>
       <td>9</td>
-      <td>0.874188</td>
-      <td>0.698333</td>
-      <td>0.492572</td>
+      <td>0.381370</td>
+      <td>0.366533</td>
+      <td>0.089021</td>
     </tr>
   </tbody>
 </table>
@@ -949,10 +951,10 @@ document.write(`
       <td>0</td>
       <td>0</td>
       <td>[0.24313725490196078, 0.11372549019607843, 0.2...</td>
-      <td>0</td>
-      <td>0.262334</td>
-      <td>0.143644</td>
-      <td>0.25246</td>
+      <td>5</td>
+      <td>0.274427</td>
+      <td>0.150014</td>
+      <td>0.267858</td>
     </tr>
     <tr>
       <th>1</th>
@@ -962,10 +964,10 @@ document.write(`
       <td>1</td>
       <td>0</td>
       <td>[0.24705882352941178, 0.12156862745098039, 0.2...</td>
-      <td>0</td>
-      <td>0.262334</td>
-      <td>0.143644</td>
-      <td>0.25246</td>
+      <td>5</td>
+      <td>0.274427</td>
+      <td>0.150014</td>
+      <td>0.267858</td>
     </tr>
     <tr>
       <th>2</th>
@@ -975,10 +977,10 @@ document.write(`
       <td>2</td>
       <td>0</td>
       <td>[0.24705882352941178, 0.13333333333333333, 0.2...</td>
-      <td>0</td>
-      <td>0.262334</td>
-      <td>0.143644</td>
-      <td>0.25246</td>
+      <td>5</td>
+      <td>0.274427</td>
+      <td>0.150014</td>
+      <td>0.267858</td>
     </tr>
     <tr>
       <th>3</th>
@@ -988,10 +990,10 @@ document.write(`
       <td>3</td>
       <td>0</td>
       <td>[0.2549019607843137, 0.11764705882352941, 0.23...</td>
-      <td>0</td>
-      <td>0.262334</td>
-      <td>0.143644</td>
-      <td>0.25246</td>
+      <td>5</td>
+      <td>0.274427</td>
+      <td>0.150014</td>
+      <td>0.267858</td>
     </tr>
     <tr>
       <th>4</th>
@@ -1001,10 +1003,10 @@ document.write(`
       <td>4</td>
       <td>0</td>
       <td>[0.25882352941176473, 0.10588235294117647, 0.2...</td>
-      <td>0</td>
-      <td>0.262334</td>
-      <td>0.143644</td>
-      <td>0.25246</td>
+      <td>5</td>
+      <td>0.274427</td>
+      <td>0.150014</td>
+      <td>0.267858</td>
     </tr>
     <tr>
       <th>...</th>
@@ -1028,9 +1030,9 @@ document.write(`
       <td>383</td>
       <td>[0.16862745098039217, 0.0784313725490196, 0.17...</td>
       <td>0</td>
-      <td>0.262334</td>
-      <td>0.143644</td>
-      <td>0.25246</td>
+      <td>0.211023</td>
+      <td>0.110326</td>
+      <td>0.113989</td>
     </tr>
     <tr>
       <th>196604</th>
@@ -1041,9 +1043,9 @@ document.write(`
       <td>383</td>
       <td>[0.1607843137254902, 0.07450980392156863, 0.15...</td>
       <td>0</td>
-      <td>0.262334</td>
-      <td>0.143644</td>
-      <td>0.25246</td>
+      <td>0.211023</td>
+      <td>0.110326</td>
+      <td>0.113989</td>
     </tr>
     <tr>
       <th>196605</th>
@@ -1054,9 +1056,9 @@ document.write(`
       <td>383</td>
       <td>[0.1568627450980392, 0.0784313725490196, 0.160...</td>
       <td>0</td>
-      <td>0.262334</td>
-      <td>0.143644</td>
-      <td>0.25246</td>
+      <td>0.211023</td>
+      <td>0.110326</td>
+      <td>0.113989</td>
     </tr>
     <tr>
       <th>196606</th>
@@ -1067,9 +1069,9 @@ document.write(`
       <td>383</td>
       <td>[0.16470588235294117, 0.08235294117647059, 0.1...</td>
       <td>0</td>
-      <td>0.262334</td>
-      <td>0.143644</td>
-      <td>0.25246</td>
+      <td>0.211023</td>
+      <td>0.110326</td>
+      <td>0.113989</td>
     </tr>
     <tr>
       <th>196607</th>
@@ -1080,9 +1082,9 @@ document.write(`
       <td>383</td>
       <td>[0.1803921568627451, 0.09019607843137255, 0.19...</td>
       <td>0</td>
-      <td>0.262334</td>
-      <td>0.143644</td>
-      <td>0.25246</td>
+      <td>0.211023</td>
+      <td>0.110326</td>
+      <td>0.113989</td>
     </tr>
   </tbody>
 </table>
@@ -1100,7 +1102,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d0003bafd13eca35750d434e1873b00b157eb5b1e99f0c518d04c2eee3f1592d.png" src="../_images/d0003bafd13eca35750d434e1873b00b157eb5b1e99f0c518d04c2eee3f1592d.png" />
+<img alt="../_images/372ebe347710a001aad1b4c5c781f69f2fe5141fe363cf88a2e8b3001d153ad6.png" src="../_images/372ebe347710a001aad1b4c5c781f69f2fe5141fe363cf88a2e8b3001d153ad6.png" />
 </div>
 </div>
 </section>
@@ -1320,11 +1322,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="../00_Assignments/ps01.html"
+       href="03_kmeans_animation.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">PS01 - Simple Linear Regression</p>
+        <p class="prev-next-title"><span class="section-number">16. </span>K-Means Clustering: An Animated Walkthrough</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

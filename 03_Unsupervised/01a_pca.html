@@ -228,6 +228,7 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">13. Principle Component Analysis (PCA)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="01b_pca.html">14. PCA: Examples and Observations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02_kmeans.html">15. K-Means Clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_kmeans_animation.html">16. K-Means Clustering: An Animated Walkthrough</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Assignments</span></p>
 <ul class="nav bd-sidenav">
@@ -391,7 +392,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -407,6 +410,15 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">13.1. Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-when-to-use-pca">13.2. Why/when to use PCA</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -418,12 +430,423 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="principle-component-analysis-pca">
 <h1><span class="section-number">13. </span>Principle Component Analysis (PCA)<a class="headerlink" href="#principle-component-analysis-pca" title="Link to this heading">#</a></h1>
-<p><strong>What is PCA?</strong></p>
-<p><strong>What does it do?</strong></p>
-<p><strong>What are Principle Components and what do they represent?</strong></p>
-<p><strong>What happens as you increase the number of components used? How do you pick the best number?</strong></p>
-<p><strong>What problems does PCA resolve?</strong></p>
-<p><strong>Why/when would we use PCA?</strong></p>
+<p>Principle Component Analysis (PCA) is an algorithm for dimensionality reduction. When we have a feature vector describing a data point, we can think of each feature being an orthogonal (perpendicular) axis on a plot.</p>
+<p>PCA computes new axes as a linear combination of the existing axes and re-orients (or projects) the data onto these new axes.</p>
+<ul class="simple">
+<li><p>These new axes are called Principle Components (PC)</p></li>
+<li><p>They are also a set of orthogonal axes.</p></li>
+<li><p>The first PC is in the direction in which the data varies most.</p></li>
+<li><p>The second PC is perpendicular to the first and points in the direction the data varies second-most.</p></li>
+<li><p>The third PC is perpendicular to the first 2 and points in the direction the data varies third-most.</p></li>
+<li><p>The PCs are ordered by importance. Their importance is quantified by a Singular Value.</p></li>
+</ul>
+<p>Because the PCs are ordered by their explanatory power, we can keep just a few and discard the less informative features.</p>
+<p>Let’s look at an example.</p>
+<section id="example">
+<h2><span class="section-number">13.1. </span>Example<a class="headerlink" href="#example" title="Link to this heading">#</a></h2>
+<p>Lets revisit the Palmer’s Penguins dataset. Suppose we only had measurements of the bill to work with (length and depth).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecisionTreeClassifier</span><span class="p">,</span> <span class="n">plot_tree</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.inspection</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecisionBoundaryDisplay</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">LabelEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.decomposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">PCA</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_blobs</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ncenters</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">label_names</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Class </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ncenters</span><span class="p">)]</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="n">ncenters</span><span class="p">,</span> <span class="n">cluster_std</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> 
+                  <span class="n">n_features</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">col_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">)]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">col_names</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x0</th>
+      <th>x1</th>
+      <th>x2</th>
+      <th>x3</th>
+      <th>x4</th>
+      <th>x5</th>
+      <th>x6</th>
+      <th>x7</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-1.592932</td>
+      <td>5.841527</td>
+      <td>-8.720367</td>
+      <td>3.802959</td>
+      <td>3.844542</td>
+      <td>-3.247339</td>
+      <td>-0.484072</td>
+      <td>-7.723541</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-4.051692</td>
+      <td>-0.777580</td>
+      <td>-3.070598</td>
+      <td>-3.186891</td>
+      <td>-2.314463</td>
+      <td>-4.958385</td>
+      <td>-5.405690</td>
+      <td>-6.062971</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-0.940691</td>
+      <td>7.293186</td>
+      <td>4.566815</td>
+      <td>8.399981</td>
+      <td>-1.696998</td>
+      <td>-5.571139</td>
+      <td>-8.724317</td>
+      <td>7.683617</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># X, y = load_iris(return_X_y=True, as_frame = True)</span>
+
+<span class="c1"># X.head(3)</span>
+
+<span class="c1"># data = X.copy()</span>
+<span class="c1"># data[&#39;species&#39;] = y</span>
+
+<span class="c1"># data.head()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">palette</span> <span class="o">=</span> <span class="s1">&#39;tab10&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/ae11580a5b7e0ea50f84f4a6da5a47069a7a8f28cd5a9c329e8cf4ccad616e31.png" src="../_images/ae11580a5b7e0ea50f84f4a6da5a47069a7a8f28cd5a9c329e8cf4ccad616e31.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">target</span> <span class="o">=</span> <span class="s1">&#39;y&#39;</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">target</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">target</span><span class="p">)</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">)</span>
+
+<span class="c1"># This isn&#39;t doing much in this case because synthetic data is drawn from a normal distribution</span>
+<span class="c1"># BUT generally you should scale data before PCA</span>
+<span class="n">ss</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">Xs_train</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">Xs_test</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># We&#39;ll need this later when plotting the pca</span>
+<span class="n">Xs</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now let’s apply PCA to our feature data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">svd_solver</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">)</span>
+<span class="n">P_train</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">Xs_train</span><span class="p">)</span>
+<span class="n">P_test</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">Xs_test</span><span class="p">)</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">Xs</span><span class="p">)</span>
+
+<span class="n">pca_cols</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
+<span class="n">data_PCA</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">P</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">pca_cols</span><span class="p">)</span>
+<span class="n">data_PCA</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x0</th>
+      <th>x1</th>
+      <th>x2</th>
+      <th>x3</th>
+      <th>x4</th>
+      <th>x5</th>
+      <th>x6</th>
+      <th>x7</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-1.592932</td>
+      <td>5.841527</td>
+      <td>-8.720367</td>
+      <td>3.802959</td>
+      <td>3.844542</td>
+      <td>-3.247339</td>
+      <td>-0.484072</td>
+      <td>-7.723541</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-4.051692</td>
+      <td>-0.777580</td>
+      <td>-3.070598</td>
+      <td>-3.186891</td>
+      <td>-2.314463</td>
+      <td>-4.958385</td>
+      <td>-5.405690</td>
+      <td>-6.062971</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-0.940691</td>
+      <td>7.293186</td>
+      <td>4.566815</td>
+      <td>8.399981</td>
+      <td>-1.696998</td>
+      <td>-5.571139</td>
+      <td>-8.724317</td>
+      <td>7.683617</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_PCA</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>pca0</th>
+      <th>pca1</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-1.343219</td>
+      <td>0.228789</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.103413</td>
+      <td>-1.207038</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.760187</td>
+      <td>1.538092</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">features_to_use</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x3&#39;</span><span class="p">,</span> <span class="s1">&#39;x7&#39;</span><span class="p">]</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">jointplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">features_to_use</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span> <span class="o">=</span> <span class="n">features_to_use</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> 
+              <span class="n">hue</span> <span class="o">=</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">palette</span> <span class="o">=</span> <span class="s1">&#39;tab10&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Original Data&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">pad</span> <span class="o">=</span> <span class="o">-</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">jointplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">data_PCA</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;pca0&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;pca1&#39;</span><span class="p">,</span> 
+              <span class="n">hue</span> <span class="o">=</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">palette</span> <span class="o">=</span> <span class="s1">&#39;tab10&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;PCA Transformed Data&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">pad</span> <span class="o">=</span> <span class="o">-</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/fa308095619e3e62f4608ae19ea28fca650f79f78c96766d12d604cab8778750.png" src="../_images/fa308095619e3e62f4608ae19ea28fca650f79f78c96766d12d604cab8778750.png" />
+<img alt="../_images/dc763ed577d9dd7c5f4f6817cadc4969e1fa896683bf9a67453fad94e42da729.png" src="../_images/dc763ed577d9dd7c5f4f6817cadc4969e1fa896683bf9a67453fad94e42da729.png" />
+</div>
+</div>
+<p>Notice that in the original data, the distributions (density plots) for both features overlap significantly for at least two groups. After we’ve applied PCA, the distribution for the first principle component shows more separated peaks. The distribution for the second component overlaps MORE, but we would be discarding that feature if we were using PCA for dimensionality reduction.</p>
+<p>Now let’s apply a decision tree to model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span> <span class="s1">&#39;min_samples_split&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]}</span>
+
+<span class="n">tree_grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span> <span class="n">tree_params</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">tree_grid</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="n">tree_clf</span> <span class="o">=</span> <span class="n">tree_grid</span><span class="o">.</span><span class="n">best_estimator_</span>
+
+<span class="c1"># Fitting the model on PCA-transformed data</span>
+<span class="n">tree_grid2</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span> <span class="n">tree_params</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">tree_grid2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">P_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="n">tree_clf2</span> <span class="o">=</span> <span class="n">tree_grid2</span><span class="o">.</span><span class="n">best_estimator_</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plot_tree</span><span class="p">(</span><span class="n">tree_clf</span><span class="p">,</span>
+          <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
+          <span class="n">feature_names</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span>
+          <span class="n">class_names</span> <span class="o">=</span> <span class="n">label_names</span><span class="p">,</span>
+          <span class="n">filled</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plot_tree</span><span class="p">(</span><span class="n">tree_clf2</span><span class="p">,</span>
+          <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
+          <span class="n">feature_names</span><span class="o">=</span><span class="n">pca_cols</span><span class="p">,</span>
+          <span class="n">class_names</span> <span class="o">=</span> <span class="n">label_names</span><span class="p">,</span>
+          <span class="n">filled</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/e79326c5b8281ebd2d2d0c78517c1794de417fb0a4317442ed7e725e948bc06d.png" src="../_images/e79326c5b8281ebd2d2d0c78517c1794de417fb0a4317442ed7e725e948bc06d.png" />
+<img alt="../_images/839ee17a17684b3a499c9ff57b05337ac2cfdaf86694526dad99dd66f6b23675.png" src="../_images/839ee17a17684b3a499c9ff57b05337ac2cfdaf86694526dad99dd66f6b23675.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">tree_boundaries2</span> <span class="o">=</span> <span class="n">DecisionBoundaryDisplay</span><span class="o">.</span><span class="n">from_estimator</span><span class="p">(</span><span class="n">tree_clf2</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">P</span><span class="p">,</span>
+                                                         <span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;pca0&#39;</span><span class="p">,</span>
+                                                         <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;pca1&#39;</span><span class="p">,</span>
+                                                         <span class="n">response_method</span> <span class="o">=</span> <span class="s1">&#39;predict&#39;</span><span class="p">,</span>
+                                                         <span class="n">cmap</span> <span class="o">=</span> <span class="s1">&#39;tab10&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+                                                         <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">P_train</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">P_train</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> 
+            <span class="n">c</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;tab10&#39;</span><span class="p">,</span>
+            <span class="n">marker</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">label_names</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">P_test</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">P_test</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> 
+            <span class="n">c</span> <span class="o">=</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s1">&#39;tab10&#39;</span><span class="p">,</span>
+            <span class="n">marker</span> <span class="o">=</span> <span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/785f677c2f4a46229d725f2c57dd3b2aea6cdcec0505ddba283605c9481a0cd8.png" src="../_images/785f677c2f4a46229d725f2c57dd3b2aea6cdcec0505ddba283605c9481a0cd8.png" />
+</div>
+</div>
+<p>Decision trees dissect the feature space with horizontal and vertical lines. In the original data, the boundaries between groups are oriented on a diagonal; as a result, the decision tree creates a stair-step partition of the space.</p>
+<p>The PCA-transformed data is oriented more vertically, allowing for more continuous and straight boundaries.</p>
+</section>
+<section id="why-when-to-use-pca">
+<h2><span class="section-number">13.2. </span>Why/when to use PCA<a class="headerlink" href="#why-when-to-use-pca" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><em>High-dimensional data</em>. Data with many features often require large models. PCA reduces the dimensionality of the data to allow simpler models. PCA can also be used to reduce the size of data, making it easier to store and handle.</p></li>
+<li><p><em>Informative features</em>. The new axes of the data are the most informative features.</p></li>
+<li><p><em>Colinearity</em>. If you have highly correlated features, they will be incorporated into a single principle component.</p></li>
+<li><p><em>Noisy data</em>. Noise in the data is often relegated to the later (less explanatory) principle components.</p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -480,6 +903,22 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">13.1. Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-when-to-use-pca">13.2. Why/when to use PCA</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

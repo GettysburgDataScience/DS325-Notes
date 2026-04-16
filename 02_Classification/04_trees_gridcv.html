@@ -228,6 +228,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../03_Unsupervised/01a_pca.html">13. Principle Component Analysis (PCA)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../03_Unsupervised/01b_pca.html">14. PCA: Examples and Observations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../03_Unsupervised/02_kmeans.html">15. K-Means Clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_Unsupervised/03_kmeans_animation.html">16. K-Means Clustering: An Animated Walkthrough</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Assignments</span></p>
 <ul class="nav bd-sidenav">
@@ -630,46 +631,13 @@ document.write(`
   </thead>
   <tbody>
     <tr>
-      <th>112</th>
-      <td>Adelie</td>
-      <td>Biscoe</td>
-      <td>45.6</td>
-      <td>20.3</td>
-      <td>191.0</td>
-      <td>4600.0</td>
-      <td>male</td>
-      <td>2009</td>
-    </tr>
-    <tr>
-      <th>114</th>
-      <td>Adelie</td>
-      <td>Biscoe</td>
-      <td>42.2</td>
-      <td>19.5</td>
-      <td>197.0</td>
-      <td>4275.0</td>
-      <td>male</td>
-      <td>2009</td>
-    </tr>
-    <tr>
-      <th>2</th>
+      <th>76</th>
       <td>Adelie</td>
       <td>Torgersen</td>
-      <td>39.5</td>
-      <td>17.4</td>
-      <td>186.0</td>
-      <td>3800.0</td>
-      <td>female</td>
-      <td>2007</td>
-    </tr>
-    <tr>
-      <th>96</th>
-      <td>Adelie</td>
-      <td>Dream</td>
-      <td>40.8</td>
-      <td>18.9</td>
-      <td>208.0</td>
-      <td>4300.0</td>
+      <td>42.8</td>
+      <td>18.5</td>
+      <td>195.0</td>
+      <td>4250.0</td>
       <td>male</td>
       <td>2008</td>
     </tr>
@@ -685,57 +653,90 @@ document.write(`
       <td>2009</td>
     </tr>
     <tr>
-      <th>109</th>
+      <th>276</th>
+      <td>Gentoo</td>
+      <td>Biscoe</td>
+      <td>49.9</td>
+      <td>16.1</td>
+      <td>213.0</td>
+      <td>5400.0</td>
+      <td>male</td>
+      <td>2009</td>
+    </tr>
+    <tr>
+      <th>324</th>
+      <td>Chinstrap</td>
+      <td>Dream</td>
+      <td>49.0</td>
+      <td>19.6</td>
+      <td>212.0</td>
+      <td>4300.0</td>
+      <td>male</td>
+      <td>2009</td>
+    </tr>
+    <tr>
+      <th>88</th>
+      <td>Adelie</td>
+      <td>Dream</td>
+      <td>36.9</td>
+      <td>18.6</td>
+      <td>189.0</td>
+      <td>3500.0</td>
+      <td>female</td>
+      <td>2008</td>
+    </tr>
+    <tr>
+      <th>115</th>
       <td>Adelie</td>
       <td>Biscoe</td>
-      <td>38.1</td>
-      <td>17.0</td>
-      <td>181.0</td>
-      <td>3175.0</td>
+      <td>39.6</td>
+      <td>20.7</td>
+      <td>191.0</td>
+      <td>3900.0</td>
       <td>female</td>
       <td>2009</td>
     </tr>
     <tr>
-      <th>65</th>
-      <td>Adelie</td>
-      <td>Biscoe</td>
-      <td>36.4</td>
-      <td>17.1</td>
-      <td>184.0</td>
-      <td>2850.0</td>
-      <td>female</td>
-      <td>2008</td>
-    </tr>
-    <tr>
-      <th>9</th>
+      <th>17</th>
       <td>Adelie</td>
       <td>Torgersen</td>
-      <td>34.1</td>
-      <td>18.1</td>
-      <td>193.0</td>
-      <td>3475.0</td>
-      <td>NaN</td>
+      <td>38.7</td>
+      <td>19.0</td>
+      <td>195.0</td>
+      <td>3450.0</td>
+      <td>female</td>
       <td>2007</td>
     </tr>
     <tr>
-      <th>55</th>
+      <th>98</th>
       <td>Adelie</td>
-      <td>Biscoe</td>
-      <td>34.5</td>
-      <td>18.1</td>
-      <td>187.0</td>
-      <td>2900.0</td>
-      <td>female</td>
+      <td>Dream</td>
+      <td>40.3</td>
+      <td>18.5</td>
+      <td>196.0</td>
+      <td>4350.0</td>
+      <td>male</td>
       <td>2008</td>
     </tr>
     <tr>
-      <th>57</th>
-      <td>Adelie</td>
+      <th>186</th>
+      <td>Gentoo</td>
       <td>Biscoe</td>
-      <td>39.0</td>
-      <td>17.5</td>
-      <td>186.0</td>
-      <td>3550.0</td>
+      <td>59.6</td>
+      <td>17.0</td>
+      <td>230.0</td>
+      <td>6050.0</td>
+      <td>male</td>
+      <td>2007</td>
+    </tr>
+    <tr>
+      <th>217</th>
+      <td>Gentoo</td>
+      <td>Biscoe</td>
+      <td>45.8</td>
+      <td>14.2</td>
+      <td>219.0</td>
+      <td>4700.0</td>
       <td>female</td>
       <td>2008</td>
     </tr>
@@ -828,7 +829,7 @@ memory usage: 24.2+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/19c8b17ebba78a5a4402473c2a1559b79365df8897ea997244fce9949641442a.png" src="../_images/19c8b17ebba78a5a4402473c2a1559b79365df8897ea997244fce9949641442a.png" />
+<img alt="../_images/e529a0e14465aa64599cffa051122fc8fdbcd1b47be04c5b2429afb2997ec675.png" src="../_images/e529a0e14465aa64599cffa051122fc8fdbcd1b47be04c5b2429afb2997ec675.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -846,7 +847,7 @@ memory usage: 24.2+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a1e8f3b7ef152337ed6a88a8f31c96c8dc1ca1d7fcbe34986f284da9a3a4e03f.png" src="../_images/a1e8f3b7ef152337ed6a88a8f31c96c8dc1ca1d7fcbe34986f284da9a3a4e03f.png" />
+<img alt="../_images/06d54785adfee541b1fccb1df7ad2f610336b52d5d48f0df1ed9749f03d95aa3.png" src="../_images/06d54785adfee541b1fccb1df7ad2f610336b52d5d48f0df1ed9749f03d95aa3.png" />
 </div>
 </div>
 <p>Now let’s find the best-fit tree for these data using GridsearchCV. Our modeling pipeline:</p>
@@ -1765,7 +1766,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
             </details>
         </div>
     </div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>best_estimator_: DecisionTreeClassifier</div></div></label><div class="sk-toggleable__content fitted" data-param-prefix="best_estimator___"><pre>DecisionTreeClassifier(max_depth=4, min_impurity_decrease=0.01,
-                       min_samples_split=5)</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>DecisionTreeClassifier</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.tree.DecisionTreeClassifier.html">?<span>Documentation for DecisionTreeClassifier</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="best_estimator___">
+                       min_samples_split=10)</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>DecisionTreeClassifier</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.tree.DecisionTreeClassifier.html">?<span>Documentation for DecisionTreeClassifier</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="best_estimator___">
         <div class="estimator-table">
             <details>
                 <summary>Parameters</summary>
@@ -1808,7 +1809,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                           this.parentElement.nextElementSibling)"
             ></i></td>
             <td class="param">min_samples_split&nbsp;</td>
-            <td class="value">5</td>
+            <td class="value">10</td>
         </tr>
     
 
@@ -1969,52 +1970,52 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
   &#39;min_samples_split&#39;: [5, 10, 20],
   &#39;min_impurity_decrease&#39;: [0.01, 0.03, 0.1, 0.3]},
  &#39;multimetric_&#39;: False,
- &#39;best_index_&#39;: np.int64(12),
+ &#39;best_index_&#39;: np.int64(13),
  &#39;best_score_&#39;: np.float64(0.9586303284416491),
  &#39;best_params_&#39;: {&#39;max_depth&#39;: 4,
   &#39;min_impurity_decrease&#39;: 0.01,
-  &#39;min_samples_split&#39;: 5},
+  &#39;min_samples_split&#39;: 10},
  &#39;best_estimator_&#39;: DecisionTreeClassifier(max_depth=4, min_impurity_decrease=0.01,
-                        min_samples_split=5),
- &#39;refit_time_&#39;: 0.0005328655242919922,
+                        min_samples_split=10),
+ &#39;refit_time_&#39;: 0.0005388259887695312,
  &#39;feature_names_in_&#39;: array([&#39;island_Biscoe&#39;, &#39;island_Dream&#39;, &#39;island_Torgersen&#39;, &#39;sex_male&#39;,
         &#39;bill_length_mm&#39;, &#39;bill_depth_mm&#39;, &#39;flipper_length_mm&#39;,
         &#39;body_mass_g&#39;, &#39;year&#39;], dtype=object),
  &#39;scorer_&#39;: &lt;class &#39;sklearn.tree._classes.DecisionTreeClassifier&#39;&gt;.score,
- &#39;cv_results_&#39;: {&#39;mean_fit_time&#39;: array([0.00067692, 0.00058537, 0.00053806, 0.00053492, 0.00057774,
-         0.00057116, 0.00054936, 0.00054722, 0.00052924, 0.00054216,
-         0.000527  , 0.0005259 , 0.00063319, 0.00055156, 0.00058799,
-         0.00056176, 0.00059438, 0.0005393 , 0.00058794, 0.0005445 ,
-         0.00054507, 0.00052371, 0.00051775, 0.00054436, 0.00057039,
-         0.00055146, 0.00054688, 0.00054793, 0.00054598, 0.00053887,
-         0.00057521, 0.00056024, 0.0005466 , 0.00051417, 0.00051913,
-         0.00051618]),
-  &#39;std_fit_time&#39;: array([1.76652845e-04, 3.46284909e-05, 9.42812095e-06, 1.17833785e-05,
-         3.55240163e-05, 8.61420019e-05, 2.03774115e-05, 2.30295070e-05,
-         5.22871024e-06, 1.44395866e-05, 8.25024748e-06, 6.25983859e-06,
-         1.18039052e-04, 5.09256727e-06, 3.13628381e-05, 2.51259250e-05,
-         8.12961907e-05, 9.82215101e-06, 3.25404242e-05, 7.38312704e-06,
-         4.03033192e-06, 5.25516951e-06, 4.94303299e-06, 3.32668341e-05,
-         7.71622127e-06, 5.72998767e-06, 1.02674014e-05, 4.45632324e-06,
-         6.99668152e-06, 6.41057861e-06, 2.74260551e-05, 6.49514524e-06,
-         1.86580476e-05, 4.78645710e-06, 4.07577241e-06, 5.70812121e-06]),
-  &#39;mean_score_time&#39;: array([0.0004437 , 0.0003931 , 0.00037184, 0.00037847, 0.00042486,
-         0.00039759, 0.00036774, 0.0003716 , 0.00036054, 0.0003644 ,
-         0.00036197, 0.00036139, 0.00038109, 0.00035744, 0.00040359,
-         0.00038061, 0.00038509, 0.000351  , 0.00040102, 0.00036159,
-         0.0003561 , 0.00035911, 0.00035353, 0.00038919, 0.00036259,
-         0.00036054, 0.00035291, 0.00035324, 0.00035644, 0.000348  ,
-         0.00038953, 0.00036416, 0.00035558, 0.00035405, 0.00035949,
-         0.0003552 ]),
-  &#39;std_score_time&#39;: array([6.26791516e-05, 1.61572526e-05, 3.74734549e-06, 4.57690650e-05,
-         9.18674771e-05, 4.08659738e-05, 7.69113356e-06, 7.89104269e-06,
-         3.45632940e-06, 1.06320787e-05, 2.56075317e-06, 9.09747316e-07,
-         2.89085255e-05, 5.46680857e-06, 7.07815574e-05, 4.95076854e-05,
-         3.37105323e-05, 7.82274575e-06, 7.62939453e-05, 8.77250786e-06,
-         5.61899533e-06, 3.30843902e-06, 3.67628770e-06, 4.41301391e-05,
-         5.18504227e-06, 7.83726513e-06, 6.84788630e-06, 3.17231128e-06,
-         3.43521379e-06, 2.85943305e-06, 4.33500840e-05, 6.42333458e-06,
-         6.16320097e-06, 1.97182399e-06, 5.23305699e-06, 1.40969710e-06]),
+ &#39;cv_results_&#39;: {&#39;mean_fit_time&#39;: array([0.00069599, 0.00058508, 0.00053301, 0.00061517, 0.0006206 ,
+         0.00061412, 0.00062509, 0.00062008, 0.00054741, 0.00062771,
+         0.00056887, 0.00058684, 0.00061417, 0.00055718, 0.00056195,
+         0.00054965, 0.00061855, 0.00054836, 0.00061703, 0.0005826 ,
+         0.00061593, 0.00059791, 0.00052962, 0.00051947, 0.0005558 ,
+         0.00054812, 0.00057416, 0.00055761, 0.00067716, 0.0006042 ,
+         0.00059004, 0.00061092, 0.00058112, 0.00057569, 0.00052319,
+         0.00051708]),
+  &#39;std_fit_time&#39;: array([1.44370464e-04, 1.05063036e-04, 5.86063712e-06, 1.36101254e-04,
+         1.50566345e-04, 3.88033544e-05, 1.30833064e-04, 6.95205683e-05,
+         1.66087249e-05, 1.19374104e-04, 1.07258899e-04, 5.42444133e-05,
+         1.15201627e-04, 6.02590873e-06, 1.36678532e-05, 8.33524446e-06,
+         1.01982816e-04, 1.55977509e-06, 1.03448610e-04, 5.04408525e-05,
+         7.90650938e-05, 6.83714319e-05, 1.69345009e-05, 8.20437096e-06,
+         5.47304376e-06, 7.22844870e-06, 2.15946698e-05, 6.11654024e-06,
+         1.05355376e-04, 1.09496743e-04, 3.64312327e-05, 5.87742371e-05,
+         6.98128684e-05, 8.92340068e-05, 5.94155172e-06, 8.10679265e-06]),
+  &#39;mean_score_time&#39;: array([0.00044875, 0.00036669, 0.00036221, 0.00039735, 0.00038676,
+         0.00040507, 0.00038714, 0.00048995, 0.00043421, 0.00037503,
+         0.00039773, 0.00038528, 0.00036783, 0.00035729, 0.00036221,
+         0.00035491, 0.00037999, 0.00035672, 0.00042777, 0.0003655 ,
+         0.00041585, 0.00042176, 0.00036054, 0.0003551 , 0.0003562 ,
+         0.00035596, 0.00037742, 0.00035753, 0.00040898, 0.00038366,
+         0.00037489, 0.00037956, 0.00037117, 0.00037074, 0.00035777,
+         0.00035443]),
+  &#39;std_score_time&#39;: array([8.12994630e-05, 1.17431739e-05, 4.89867510e-06, 6.25318075e-05,
+         4.10759717e-05, 4.27361562e-05, 2.29731611e-05, 1.17726450e-04,
+         1.40134677e-04, 2.75193296e-05, 6.04776160e-05, 2.50935979e-05,
+         2.28893757e-05, 3.49297458e-06, 4.46651612e-06, 1.00701867e-06,
+         4.80760645e-05, 8.03580262e-07, 8.46589964e-05, 1.37267828e-05,
+         5.49895591e-05, 6.91524036e-05, 1.28192063e-05, 5.13259331e-06,
+         5.63394756e-06, 3.70585618e-06, 3.78165238e-05, 4.74590732e-06,
+         4.98771667e-05, 5.83211807e-05, 1.36125108e-05, 2.26720901e-05,
+         2.30057993e-05, 2.90091832e-05, 6.52169608e-06, 3.84615800e-06]),
   &#39;param_max_depth&#39;: masked_array(data=[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 4, 4, 4,
                      4, 4, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
                mask=[False, False, False, False, False, False, False, False,
@@ -2114,30 +2115,30 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
          0.79245283]),
   &#39;split4_test_score&#39;: array([1.        , 1.        , 1.        , 1.        , 1.        ,
          1.        , 0.98113208, 0.98113208, 0.98113208, 0.81132075,
-         0.81132075, 0.81132075, 1.        , 1.        , 1.        ,
+         0.81132075, 0.81132075, 0.98113208, 1.        , 1.        ,
          1.        , 1.        , 1.        , 0.98113208, 0.98113208,
-         0.98113208, 0.81132075, 0.81132075, 0.81132075, 1.        ,
+         0.98113208, 0.81132075, 0.81132075, 0.81132075, 0.98113208,
          1.        , 1.        , 1.        , 1.        , 1.        ,
          0.98113208, 0.98113208, 0.98113208, 0.81132075, 0.81132075,
          0.81132075]),
   &#39;mean_test_score&#39;: array([0.95485674, 0.95485674, 0.95485674, 0.95485674, 0.95485674,
          0.95485674, 0.93983229, 0.93983229, 0.93983229, 0.80069881,
-         0.80069881, 0.80069881, 0.95863033, 0.95863033, 0.95863033,
+         0.80069881, 0.80069881, 0.95485674, 0.95863033, 0.95863033,
          0.95485674, 0.95485674, 0.95485674, 0.93983229, 0.93983229,
-         0.93983229, 0.80069881, 0.80069881, 0.80069881, 0.95863033,
+         0.93983229, 0.80069881, 0.80069881, 0.80069881, 0.95485674,
          0.95863033, 0.95863033, 0.95485674, 0.95485674, 0.95485674,
          0.93983229, 0.93983229, 0.93983229, 0.80069881, 0.80069881,
          0.80069881]),
   &#39;std_test_score&#39;: array([0.03069241, 0.03069241, 0.03069241, 0.03069241, 0.03069241,
          0.03069241, 0.03021778, 0.03021778, 0.03021778, 0.0156721 ,
-         0.0156721 , 0.0156721 , 0.03247905, 0.03247905, 0.03247905,
+         0.0156721 , 0.0156721 , 0.02827763, 0.03247905, 0.03247905,
          0.03069241, 0.03069241, 0.03069241, 0.03021778, 0.03021778,
-         0.03021778, 0.0156721 , 0.0156721 , 0.0156721 , 0.03247905,
+         0.03021778, 0.0156721 , 0.0156721 , 0.0156721 , 0.02827763,
          0.03247905, 0.03247905, 0.03069241, 0.03069241, 0.03069241,
          0.03021778, 0.03021778, 0.03021778, 0.0156721 , 0.0156721 ,
          0.0156721 ]),
-  &#39;rank_test_score&#39;: array([ 7,  7,  7,  7,  7,  7, 19, 19, 19, 28, 28, 28,  1,  1,  1,  7,  7,
-          7, 19, 19, 19, 28, 28, 28,  1,  1,  1,  7,  7,  7, 19, 19, 19, 28,
+  &#39;rank_test_score&#39;: array([ 5,  5,  5,  5,  5,  5, 19, 19, 19, 28, 28, 28,  5,  1,  1,  5,  5,
+          5, 19, 19, 19, 28, 28, 28,  5,  1,  1,  5,  5,  5, 19, 19, 19, 28,
          28, 28], dtype=int32)},
  &#39;n_splits_&#39;: 5}
 </pre></div>
@@ -2181,7 +2182,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/0b468098280de2a75a93f456ad63c138755c25243737bd87251e202207e659be.png" src="../_images/0b468098280de2a75a93f456ad63c138755c25243737bd87251e202207e659be.png" />
+<img alt="../_images/eacf9df6f7c0f02e624849201d27157f50629b501e8ebb529d7e49e269d50b52.png" src="../_images/eacf9df6f7c0f02e624849201d27157f50629b501e8ebb529d7e49e269d50b52.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2199,9 +2200,9 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>flipper_length_mm_____________0.566
-bill_length_mm________________0.343
-island_Biscoe_________________0.055
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>flipper_length_mm_____________0.575
+bill_length_mm________________0.332
+island_Biscoe_________________0.056
 island_Dream__________________0.036
 year__________________________0.000
 body_mass_g___________________0.000
