@@ -38,6 +38,8 @@ parts:
       - file: 03_Unsupervised/01a_pca
       - file: 03_Unsupervised/01b_pca
       - file: 03_Unsupervised/02_kmeans
+      - file: 03_Unsupervised/03_kmeans_animation
+
 
   - caption: Assignments
     numbered: false
